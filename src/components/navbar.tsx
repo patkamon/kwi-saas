@@ -23,7 +23,7 @@ export default function Navbar() {
                     </Link>
                     <Link href='/profile' className="flex items-center gap-1 hover:text-black text-blue-700">
                         <BookOpen className="w-4 h-4" />
-                        Your Fiction
+                        Your Novel
                     </Link>
                     <Link href='/credit' className="flex items-center gap-1 hover:text-black text-blue-700">
                         <CreditCard className="w-4 h-4" />

@@ -17,14 +17,14 @@ export default function StoryVersePage() {
     {
       name: 'Lisa Thompson',
       title: 'Beyond the Stars',
-      desc: 'A science fiction epic about interstellar exploration...',
+      desc: 'A science novel epic about interstellar exploration...',
       time: '5 hours ago',
       tags: ['Sci-Fi', 'Adventure'],
     },
     {
       name: 'Lisa Thompson',
       title: 'Beyond the Stars',
-      desc: 'A science fiction epic about interstellar exploration...',
+      desc: 'A science novel epic about interstellar exploration...',
       time: '5 hours ago',
       tags: ['Sci-Fi', 'Adventure'],
     },
@@ -50,7 +50,7 @@ export default function StoryVersePage() {
     {
       name: 'Emma Wilson',
       title: 'Echoes of Time',
-      desc: 'A historical fiction set in ancient Rome...',
+      desc: 'A historical novel set in ancient Rome...',
       date: 'May 14, 2025',
       likes: 312,
       comments: 42,
@@ -58,7 +58,7 @@ export default function StoryVersePage() {
     {
       name: 'Emma Wilson',
       title: 'Echoes of Time',
-      desc: 'A historical fiction set in ancient Rome...',
+      desc: 'A historical novel set in ancient Rome...',
       date: 'May 14, 2025',
       likes: 312,
       comments: 42,
@@ -66,7 +66,7 @@ export default function StoryVersePage() {
     {
       name: 'Emma Wilson',
       title: 'Echoes of Time',
-      desc: 'A historical fiction set in ancient Rome...',
+      desc: 'A historical novel set in ancient Rome...',
       date: 'May 14, 2025',
       likes: 312,
       comments: 42,

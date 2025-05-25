@@ -1,21 +1,22 @@
 'use client';
 import { useState } from 'react';
+import { Plan } from '@/interface/plan';
 
 export default function BuyCreditsPage() {
-  const [plans , setPlans] = useState([
+  const [plans, setPlans] = useState([
     { packageName: 'Elementary Student', amount: '100 Credits', price: '฿99', desc: 'Perfect for casual readers', selected: false },
     { packageName: 'High school Student', amount: '500 Credits', price: '฿499', desc: 'Most popular choice', selected: false },
     { packageName: 'College Student', amount: '1000 Credits', price: '฿999', desc: 'Best value for money', selected: false },
     { packageName: 'Newbie Author', amount: '1600 Credits', price: '฿1500', desc: 'Best value for money', selected: false },
     { packageName: 'Intermidiate Author', amount: '2700 Credits', price: '฿2500', desc: 'Best value for money', selected: false },
     { packageName: 'Professional Author', amount: '3800 Credits', price: '฿3500', desc: 'Best value for money', selected: false },
-  ])
+  ] as Plan[])
 
-  function onSelectPlan(selectedPlan) {
+  function onSelectPlan(selectedPlan: Plan) {
     const updatedPlans = plans.map(plan =>
       plan.packageName === selectedPlan.packageName
         ? { ...plan, selected: true }
-        : { ...plan, selected: false } 
+        : { ...plan, selected: false }
     );
     setPlans(updatedPlans);
   }
@@ -23,7 +24,7 @@ export default function BuyCreditsPage() {
   return (
     <div >
       {/* Buy Credits Section */}
-      <main className="px-6 py-10 max-w-4xl mx-auto">
+      <div className="px-6 py-10 max-w-4xl mx-auto">
         <h2 className="text-2xl font-bold mb-6 text-blue-900">Buy Credits</h2>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-10">
           {plans.map((plan, idx) => (
@@ -39,7 +40,38 @@ export default function BuyCreditsPage() {
             </div>
           ))}
         </div>
-      </main>
+
+        {/* Credit History */}
+        <section className="mb-10">
+          <h3 className="text-2xl font-bold mb-4 text-blue-900">Credit History</h3>
+          <div className="space-y-3 bg-gray-50 rounded-xl p-4">
+            <div className="flex justify-between text-sm border-b pb-2">
+              <div>
+                <div>{'Story Purchase: "The Lost Kingdom"'}</div>
+                <div className="text-gray-500 text-xs">May 15, 2025</div>
+              </div>
+              <div className="text-red-600 font-semibold">-200 Credits</div>
+            </div>
+            <div className="flex justify-between text-sm border-b pb-2">
+              <div>
+                <div>Credit Top-up</div>
+                <div className="text-gray-500 text-xs">May 10, 2025</div>
+              </div>
+              <div className="text-green-600 font-semibold">+1000 Credits</div>
+            </div>
+            <div className="flex justify-between text-sm">
+              <div>
+                <div>{'Story Earnings: "The Magic Portal"'}</div>
+                <div className="text-gray-500 text-xs">May 5, 2025</div>
+              </div>
+              <div className="text-green-600 font-semibold">+350 Credits</div>
+            </div>
+          </div>
+        </section>
+      </div>
+
+
+
     </div>
   );
 }
