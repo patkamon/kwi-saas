@@ -2,7 +2,7 @@ import { useState } from "react";
 import ImageDialog from "../dialog/imageDialog";
 import ButtonStpper from "../stepper/buttonStepper";
 
-export default function CreateNovelForm({ steps, completed, activeStep, setActiveStep }:
+export default function CreateMainCharacterForm({ steps, completed, activeStep, setActiveStep }:
     { steps: string[], completed: Record<number, boolean>, activeStep: number, setActiveStep: (step: number) => void }) {
 
     const [characters, setCharacters] = useState<{ id: number, name: string, details: string }[]>(
@@ -19,8 +19,6 @@ export default function CreateNovelForm({ steps, completed, activeStep, setActiv
             },
         ]
     );
-
-
 
     const handleNext = () => {
         const totalSteps = () => {
@@ -75,7 +73,7 @@ export default function CreateNovelForm({ steps, completed, activeStep, setActiv
                 <div className="flex flex-col justify-around items-center mx-4">
                     {/* Cover Image Upload */}
                     <ImageDialog />
-                    <button onClick={(e) => addCharacter(e)}  className="px-2 rounded-md border border-pink-400 bg-pink-200 w-16 hover:border-2 flex justify-center">Add</button>
+                    <button onClick={(e) => addCharacter(e)} className="px-2 rounded-md border border-pink-400 bg-pink-200 w-16 hover:border-2 flex justify-center">Add</button>
                 </div>
 
                 <div className="flex flex-col w-full mx-4 my-4 gap-2">
@@ -149,13 +147,6 @@ export default function CreateNovelForm({ steps, completed, activeStep, setActiv
                 )
                 }
             </div>
-
-
-
-
-
-
-
             <ButtonStpper steps={steps} activeStep={activeStep} handleNext={handleNext} handleBack={handleBack} />
         </div>
     </div>
