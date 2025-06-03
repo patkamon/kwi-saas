@@ -69,7 +69,7 @@ export default function CreateMainCharacterForm({ steps, completed, activeStep, 
 
 
             {/* Form */}
-            <form className="space-y-6 border-2 border-blue-600 rounded-lg flex border-dashed mb-4">
+            <form className="space-y-6 border-2 border-blue-400 rounded-lg flex border-dashed mb-4">
                 <div className="flex flex-col justify-around items-center mx-4">
                     {/* Cover Image Upload */}
                     <ImageDialog />
@@ -105,9 +105,9 @@ export default function CreateMainCharacterForm({ steps, completed, activeStep, 
             </form>
 
 
-            <div className="border-t-2 border-b-2 rounded-md">
+            <div className="border-t-2 border-b-2 rounded-md border-blue-200">
                 {characters.map((character) => (
-                    <div className="border-x-2 flex hover:bg-pink-100 first:rounded-t-md last:rounded-b-md" key={character.id}>
+                    <div className="border-x-2 flex hover:bg-pink-100 border-blue-200 first:rounded-t-md last:rounded-b-md" key={character.id}>
                         <div className="flex flex-col justify-around items-center mx-4">
                             {/* Cover Image Upload */}
                             <ImageDialog />

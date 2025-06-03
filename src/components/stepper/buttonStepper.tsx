@@ -1,9 +1,21 @@
+'use client'
+import { useRouter } from "next/navigation";
+
 export default function ButtonStpper({ activeStep, steps, handleBack, handleNext }: {
     activeStep: number;
     steps: string[];
     handleBack: () => void;
     handleNext: () => void;
 }) {
+    const router = useRouter();
+    const handleCreateNovel = (e: React.MouseEvent<HTMLButtonElement>) => {
+        e.preventDefault();
+        // Logic to create the novel
+        console.log("Novel created!");
+        // route to homepage nextjs
+        router.push('/');
+    };
+
     return (
         <div className="flex justify-between mt-4">
             <button
@@ -14,14 +26,23 @@ export default function ButtonStpper({ activeStep, steps, handleBack, handleNext
             >
                 Back
             </button>
-            <button
-                onClick={handleNext}
-                disabled={activeStep === steps.length - 1}
-                type="submit"
-                className="px-4 py-2 bg-black text-white rounded-md hover:bg-gray-900 hover:cursor-pointer"
-            >
-                Next
-            </button>
+            {
+                activeStep === steps.length - 1 ?
+                <button
+                    type="submit"
+                    onClick={handleCreateNovel}
+                    className="px-4 py-2 bg-black text-white rounded-md hover:bg-gray-900 hover:cursor-pointer"
+                    >Create</button>
+                    :
+                    <button
+                    onClick={handleNext}
+                    disabled={activeStep === steps.length - 1}
+                    type="submit"
+                    className="px-4 py-2 bg-black text-white rounded-md hover:bg-gray-900 hover:cursor-pointer"
+                >
+                    Next
+                </button>
+            }
         </div>
     )
 }

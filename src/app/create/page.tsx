@@ -6,6 +6,7 @@ import CreateNovelStepper from '@/components/stepper/createNovelStepper';
 import CreateNovelForm from '@/components/form/createNovelForm';
 import CreateMainCharacterForm from '@/components/form/createMainCharacterForm';
 import ConfigurationForm from '@/components/form/configurationForm';
+import PreviewForm from '@/components/form/previewForm';
 
 export default function CreateNovelPage() {
   const [activeStep, setActiveStep] = useState(0);
@@ -32,7 +33,7 @@ export default function CreateNovelPage() {
               : activeStep == 2 ?// third step
               <ConfigurationForm steps={steps} completed={completed} activeStep={activeStep} setActiveStep={setActiveStep} />
                 :  // fourth step
-                <div className="flex justify-center items-center h-full">4</div>
+                <PreviewForm steps={steps} completed={completed} activeStep={activeStep} setActiveStep={setActiveStep}/>
         }
       </Box>
     </div>

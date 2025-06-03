@@ -1,5 +1,3 @@
-"use client"
-import { useState } from "react";
 import ButtonStpper from "../stepper/buttonStepper";
 import { Switch } from "@/components/shadcn/switch"
 
@@ -7,8 +5,6 @@ import { Switch } from "@/components/shadcn/switch"
 
 export default function ConfigurationForm({ steps, completed, activeStep, setActiveStep }:
     { steps: string[], completed: Record<number, boolean>, activeStep: number, setActiveStep: (step: number) => void }) {
-
-    const [field, setField] = useState(false);
 
     const handleNext = () => {
         const totalSteps = () => {
