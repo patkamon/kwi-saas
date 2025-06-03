@@ -3,12 +3,12 @@ import { Label } from "@/components/shadcn/label"
 import Image from 'next/image';
 import React from 'react';
 import { ScrollArea } from "@/components/shadcn/scroll-area"
-import { Artwork } from '../dialog/coverImageDialog';
+import { Artwork } from '../dialog/imageDialog';
 
 
 export default function CreateNovelWindow({ works }: { works: Artwork[] }) {
     return (<React.Fragment>
-        <Label className="text-blue-900" htmlFor="picture">Cover Image: </Label>
+        <Label className="text-blue-900" htmlFor="picture">Selected Image: </Label>
         <Image
             src="https://ew.com/thmb/WM51kzuKZSa0pvwUoNxu3M2fuG0=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/hp-7-162d26cc5ed042c6ae2be534656a237e.jpg"
             alt={`Photo by ew`}

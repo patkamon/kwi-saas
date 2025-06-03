@@ -1,4 +1,4 @@
-import CoverImageDialog from "../dialog/coverImageDialog";
+import ImageDialog from "../dialog/imageDialog";
 import ButtonStpper from "../stepper/buttonStepper";
 
 export default function CreateNovelForm({ steps, completed, activeStep, setActiveStep }:
@@ -80,7 +80,7 @@ export default function CreateNovelForm({ steps, completed, activeStep, setActiv
                 </div>
 
                 {/* Cover Image Upload */}
-                <CoverImageDialog />
+                <ImageDialog />
             </form>
 
             <ButtonStpper steps={steps} activeStep={activeStep} handleNext={handleNext} handleBack={handleBack} />

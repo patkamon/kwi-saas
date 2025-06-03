@@ -4,6 +4,7 @@ import { useState } from 'react';
 
 import CreateNovelStepper from '@/components/stepper/createNovelStepper';
 import CreateNovelForm from '@/components/form/createNovelForm';
+import CreateMainCharacterForm from '@/components/form/createMainCharacterForm';
 
 
 export default function CreateNovelPage() {
@@ -23,7 +24,17 @@ export default function CreateNovelPage() {
     <div className='mt-8 px-6 pb-8'>
       <Box sx={{ width: '100%' }}>
         <CreateNovelStepper steps={steps} activeStep={activeStep} />
-        <CreateNovelForm steps={steps} completed={completed} activeStep={activeStep} setActiveStep={setActiveStep} />
+
+        {
+          activeStep == 0 ? // first step
+            <CreateNovelForm steps={steps} completed={completed} activeStep={activeStep} setActiveStep={setActiveStep} />
+            : activeStep == 1 ? // second step
+              <CreateMainCharacterForm steps={steps} completed={completed} activeStep={activeStep} setActiveStep={setActiveStep} />
+              : activeStep == 2 ?// third step
+                <div className="flex justify-center items-center h-full">3</div>
+                :  // fourth step
+                <div className="flex justify-center items-center h-full">4</div>
+        }
       </Box>
     </div>
   );
