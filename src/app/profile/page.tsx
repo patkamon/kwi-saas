@@ -1,65 +1,10 @@
 import FeatureChapter from '@/components/carousel/featureChapter';
 import { Coins, User } from 'lucide-react';
+import chapterList from '@/data/chapters.json' assert { type: 'json' };
+import { ChapterInterface } from '@/interface/chapter';
 
 export default function UserDashboardPage() {
-  const featureChapters = [
-    {
-      name: 'Sarah Parker',
-      title: 'The Last Sunset',
-      desc: 'A tale of mystery and adventure in the modern world...',
-      date: 'May 16, 2025',
-      likes: 245,
-      comments: 18,
-    },
-    {
-      name: 'Mike Johnson',
-      title: 'Digital Dreams',
-      desc: 'A cyberpunk story about artificial intelligence...',
-      date: 'May 15, 2025',
-      likes: 189,
-      comments: 24,
-    },
-    {
-      name: 'Emma Wilson',
-      title: 'Echoes of Time',
-      desc: 'A historical novel set in ancient Rome...',
-      date: 'May 14, 2025',
-      likes: 312,
-      comments: 42,
-    },
-    {
-      name: 'Emma Wilson',
-      title: 'Echoes of Time',
-      desc: 'A historical novel set in ancient Rome...',
-      date: 'May 14, 2025',
-      likes: 312,
-      comments: 42,
-    },
-    {
-      name: 'Emma Wilson',
-      title: 'Echoes of Time',
-      desc: 'A historical novel set in ancient Rome...',
-      date: 'May 14, 2025',
-      likes: 312,
-      comments: 42,
-    },
-    {
-      name: 'Sarah Parker',
-      title: 'The Last Sunset',
-      desc: 'A tale of mystery and adventure in the modern world...',
-      date: 'May 16, 2025',
-      likes: 245,
-      comments: 18,
-    },
-    {
-      name: 'Mike Johnson',
-      title: 'Digital Dreams',
-      desc: 'A cyberpunk story about artificial intelligence...',
-      date: 'May 15, 2025',
-      likes: 189,
-      comments: 24,
-    },
-  ];
+  const featureChapters = chapterList as ChapterInterface[];
 
   return (
     <div>

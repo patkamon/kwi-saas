@@ -1,16 +1,10 @@
 'use client';
 import { useState } from 'react';
 import { Plan } from '@/interface/plan';
+import plansData from '@/data/plans.json' assert { type: 'json' };
 
 export default function BuyCreditsPage() {
-  const [plans, setPlans] = useState([
-    { packageName: 'Elementary Student', amount: '100 Credits', price: '฿99', desc: 'Perfect for casual readers', selected: false },
-    { packageName: 'High school Student', amount: '500 Credits', price: '฿499', desc: 'Most popular choice', selected: false },
-    { packageName: 'College Student', amount: '1000 Credits', price: '฿999', desc: 'Best value for money', selected: false },
-    { packageName: 'Newbie Author', amount: '1600 Credits', price: '฿1500', desc: 'Best value for money', selected: false },
-    { packageName: 'Intermidiate Author', amount: '2700 Credits', price: '฿2500', desc: 'Best value for money', selected: false },
-    { packageName: 'Professional Author', amount: '3800 Credits', price: '฿3500', desc: 'Best value for money', selected: false },
-  ] as Plan[])
+  const [plans, setPlans] = useState(plansData as Plan[]);
 
   function onSelectPlan(selectedPlan: Plan) {
     const updatedPlans = plans.map(plan =>
