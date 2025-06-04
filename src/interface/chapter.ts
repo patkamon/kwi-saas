@@ -1,4 +1,5 @@
 export interface ChapterInterface {
+    id: string;           // Unique identifier for the chapter
     name: string;
     title: string;
     desc: string;

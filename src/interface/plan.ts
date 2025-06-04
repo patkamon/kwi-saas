@@ -1,4 +1,5 @@
 export interface Plan {
+    id: string;            // Unique identifier for the plan
     packageName: string; // Name of the credit package
     amount: string;        // Amount of credits in the package
     price: string;         // Price of the package

@@ -1,5 +1,6 @@
 [
     {
+      "id": 1,
       "name": "Rank 1",
       "title": "The Love Chronicles",
       "desc": "A heartwarming tale of love and friendship.",
@@ -7,6 +8,7 @@
       "tags": ["romance", "friendship"]
     },
     {
+      "id": 2,
       "name": "Rank 2",
       "title": "Mystic Adventures",
       "desc": "An epic fantasy journey through mystical lands.",
@@ -14,6 +16,7 @@
       "tags": ["fantasy", "adventure"]
     },
     {
+      "id": 3,
       "name": "Rank 3",
       "title": "Dark Secrets",
       "desc": "A chilling horror story that will keep you on the edge.",
@@ -21,6 +24,7 @@
       "tags": ["horror", "thriller"]
     },
     {
+      "id": 4,
       "name": "Rank 4",
       "title": "Love Beyond Borders",
       "desc": "A touching romance that transcends boundaries.",
@@ -28,6 +32,7 @@
       "tags": ["romance", "drama"]
     },
     {
+      "id": 5,
       "name": "Rank 5",
       "title": "The Enchanted Forest",
       "desc": "A magical adventure in a world of fantasy.",
@@ -35,6 +40,7 @@
       "tags": ["fantasy", "magic"]
     },
     {
+      "id": 6,
       "name": "Rank 6",
       "title": "Whispers in the Dark",
       "desc": "A suspenseful horror story that will haunt you.",

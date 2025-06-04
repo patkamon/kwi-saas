@@ -1,9 +1,11 @@
 'use client';
 import { Carousel } from 'primereact/carousel';
 import { NovelInterface } from '@/interface/novel';
+import Link from 'next/link';
 
 const latestNovelTemplate = (novel: NovelInterface) => {
   return (<div className="bg-white rounded-2xl shadow p-4 space-y-2 carousel-item m-2">
+    <Link href={`/novel/${novel.id}`}>
     <div className="flex justify-between items-center">
       <div className="font-semibold text-blue-800">{novel.name}</div>
       <div className="text-xs text-pink-500">{novel.time}</div>
@@ -20,6 +22,7 @@ const latestNovelTemplate = (novel: NovelInterface) => {
         </span>
       ))}
     </div>
+  </Link>
   </div>
   )
 }
