@@ -2,6 +2,9 @@
 import { SelectButton } from 'primereact/selectbutton';
 import React, { useState } from "react";
 import { NovelInterface } from '@/interface/novel';
+import novelList from '@/data/novels.json' assert { type: 'json' };
+import genreList from '@/data/genres.json' assert { type: 'json' };
+
 
 export interface GenreOption {
     name: string;
@@ -10,57 +13,8 @@ export interface GenreOption {
 
 export default function MostPopularByGenre(){
     const [value, setValue] = useState(1);
-    const items = [
-      { name: 'Romance', value: 1 },
-      { name: 'Boys / Girls Love', value: 2 },
-      { name: 'Fantasy', value: 3 },
-      { name: 'Horror', value: 4 },
-    ] as GenreOption[];
-
-    const novels = [
-      {
-        name: 'Rank 1',
-        title: 'The Love Chronicles',
-        desc: 'A heartwarming tale of love and friendship.',
-        time: '2 hours ago',
-        tags: ['romance', 'friendship']
-      },
-      {
-        name: 'Rank 2',
-        title: 'Mystic Adventures',
-        desc: 'An epic fantasy journey through mystical lands.',
-        time: '5 hours ago',
-        tags: ['fantasy', 'adventure']
-      },
-      {
-        name: 'Rank 3',
-        title: 'Dark Secrets',
-        desc: 'A chilling horror story that will keep you on the edge.',
-        time: '1 day ago',
-        tags: ['horror', 'thriller']
-      },
-      {
-        name: 'Rank 4',
-        title: 'Love Beyond Borders',
-        desc: 'A touching romance that transcends boundaries.',
-        time: '3 days ago',
-        tags: ['romance', 'drama']
-      },
-      {
-        name: 'Rank 5',
-        title: 'The Enchanted Forest',
-        desc: 'A magical adventure in a world of fantasy.',
-        time: '1 week ago',
-        tags: ['fantasy', 'magic']
-      },
-      {
-        name: 'Rank 6',
-        title: 'Whispers in the Dark',
-        desc: 'A suspenseful horror story that will haunt you.',
-        time: '2 weeks ago',
-        tags: ['horror', 'suspense']
-      },
-    ] as NovelInterface[];
+    const items = genreList as GenreOption[];
+    const novels = novelList as NovelInterface[];
 
     const justifyTemplate = (option: GenreOption) => {
         return <div className={`${value == option.value ? 'bg-blue-200 border-pink-400' : 'bg-white'} border-2 border-pink-200 hover:border-pink-500 m-[2px] px-2 rounded-2xl`}>{option.name}</div>;

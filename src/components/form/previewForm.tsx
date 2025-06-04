@@ -4,23 +4,13 @@ import ButtonStpper from "../stepper/buttonStepper";
 import { Switch } from "@/components/shadcn/switch"
 import ImageDialog from "../dialog/imageDialog";
 import { Separator } from "@/components/shadcn/separator"
+import characterList from '@/data/characters.json' assert { type: 'json' };
 
 export default function PreviewForm({ steps, completed, activeStep, setActiveStep }:
     { steps: string[], completed: Record<number, boolean>, activeStep: number, setActiveStep: (step: number) => void }) {
 
     const [characters, setCharacters] = useState<{ id: number, name: string, details: string }[]>(
-        [
-            {
-                "id": 1,
-                "name": "Character 1",
-                "details": "Description of character 1",
-            },
-            {
-                "id": 2,
-                "name": "Character 2",
-                "details": "Description of character 2",
-            },
-        ]
+        characterList as { id: number, name: string, details: string }[]
     );
 
     const handleNext = () => {
@@ -56,7 +46,7 @@ export default function PreviewForm({ steps, completed, activeStep, setActiveSte
                 Check to see wether your novel is ready to be published.
             </p>
 
-            <div className="flex flex-col gap-4 bg-pink-50 p-4 rounded-lg">
+            <div className="flex flex-col gap-4 bg-gray-100 p-4 rounded-lg">
                 <section>
                     <h1 className="text-md font-bold mb-2">Create New Novel</h1>
                     <form className="space-y-6">
@@ -158,23 +148,23 @@ export default function PreviewForm({ steps, completed, activeStep, setActiveSte
                 <Separator className="my-4" />
 
                 <section>
-                <h1 className="text-md font-bold mb-2">Configuration</h1>
-                <form className="flex flex-col gap-3">
-                    <div className="flex justify-between border-blue-200 border-2 p-4 items-center rounded-md">
-                        <div className="flex flex-col">
-                            <label htmlFor="public">Visibility ⭐</label>
-                            <p className="text-xs text-gray-600 font-semibold">Turn on to make your novel public</p>
+                    <h1 className="text-md font-bold mb-2">Configuration</h1>
+                    <form className="flex flex-col gap-3">
+                        <div className="flex justify-between border-blue-200 border-2 p-4 items-center rounded-md">
+                            <div className="flex flex-col">
+                                <label htmlFor="public">Visibility ⭐</label>
+                                <p className="text-xs text-gray-600 font-semibold">Turn on to make your novel public</p>
+                            </div>
+                            <Switch id="public" defaultChecked disabled />
                         </div>
-                        <Switch id="public" defaultChecked disabled />
-                    </div>
-                    <div className="flex justify-between border-blue-200 border-2 p-4 items-center rounded-md">
-                        <div className="flex flex-col">
-                            <label htmlFor="comment">Allow Comments</label>
-                            <p className="text-xs text-gray-600 font-semibold">Turn on to allow comments on your novel</p>
+                        <div className="flex justify-between border-blue-200 border-2 p-4 items-center rounded-md">
+                            <div className="flex flex-col">
+                                <label htmlFor="comment">Allow Comments</label>
+                                <p className="text-xs text-gray-600 font-semibold">Turn on to allow comments on your novel</p>
+                            </div>
+                            <Switch id="comment" defaultChecked disabled />
                         </div>
-                        <Switch id="comment" defaultChecked disabled />
-                    </div>
-                </form>
+                    </form>
                 </section>
 
             </div>

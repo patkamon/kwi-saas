@@ -1,0 +1,6 @@
+[
+    { "name": "Romance", "value": 1 },
+    { "name": "Boys / Girls Love", "value": 2 },
+    { "name": "Fantasy", "value": 3 },
+    { "name": "Horror", "value": 4 }
+  ]

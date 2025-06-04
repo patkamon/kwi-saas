@@ -1,23 +1,13 @@
 import { useState } from "react";
 import ImageDialog from "../dialog/imageDialog";
 import ButtonStpper from "../stepper/buttonStepper";
+import characterList from '@/data/characters.json' assert { type: 'json' };
 
 export default function CreateMainCharacterForm({ steps, completed, activeStep, setActiveStep }:
     { steps: string[], completed: Record<number, boolean>, activeStep: number, setActiveStep: (step: number) => void }) {
 
     const [characters, setCharacters] = useState<{ id: number, name: string, details: string }[]>(
-        [
-            {
-                "id": 1,
-                "name": "Character 1",
-                "details": "Description of character 1",
-            },
-            {
-                "id": 2,
-                "name": "Character 2",
-                "details": "Description of character 2",
-            },
-        ]
+        characterList as { id: number, name: string, details: string }[]
     );
 
     const handleNext = () => {
