@@ -6,4 +6,6 @@ export interface ChapterInterface {
     date: string;
     likes: number;
     comments: number;
+    views?: number;
+    content?: string; // Optional, if not always available
 }
