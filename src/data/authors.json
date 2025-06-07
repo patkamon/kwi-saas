@@ -1,6 +1,6 @@
 [
     {
-        "id": 1,
+        "id": "1",
         "name": "Lena Carter",
         "profileImg": "https://api.dicebear.com/6.x/avataaars/svg?seed=LenaCarter",
         "joinedDate": "2021-04-12",
@@ -10,7 +10,7 @@
         "followers": 1245
     },
     {
-        "id": 2,
+        "id": "2",
         "name": "Jasper Lin",
         "profileImg": "https://api.dicebear.com/6.x/pixel-art/svg?seed=JasperLin",
         "joinedDate": "2020-09-27",
@@ -20,7 +20,7 @@
         "followers": 1980
     },
     {
-        "id": 3,
+        "id": "3",
         "name": "Amina Hassan",
         "profileImg": "https://api.dicebear.com/6.x/adventurer/svg?seed=Amina",
         "joinedDate": "2019-11-03",
@@ -30,7 +30,7 @@
         "followers": 875
     },
     {
-        "id": 4,
+        "id": "4",
         "name": "Carlos Vega",
         "profileImg": "https://api.dicebear.com/6.x/micah/svg?seed=Carlos",
         "joinedDate": "2022-01-10",
@@ -40,7 +40,7 @@
         "followers": 1560
     },
     {
-        "id": 5,
+        "id": "5",
         "name": "Yuki Tanaka",
         "profileImg": "https://api.dicebear.com/6.x/avataaars/svg?seed=Yuki",
         "joinedDate": "2021-07-15",
@@ -50,7 +50,7 @@
         "followers": 2023
     },
     {
-        "id": 6,
+        "id": "6",
         "name": "Marcus Reed",
         "profileImg": "https://api.dicebear.com/6.x/pixel-art/svg?seed=MarcusReed",
         "joinedDate": "2018-05-21",
@@ -60,7 +60,7 @@
         "followers": 3110
     },
     {
-        "id": 7,
+        "id": "7",
         "name": "Isabella Moretti",
         "profileImg": "https://api.dicebear.com/6.x/bottts/svg?seed=Isabella",
         "joinedDate": "2023-03-09",
@@ -70,7 +70,7 @@
         "followers": 690
     },
     {
-        "id": 8,
+        "id": "8",
         "name": "Omar Ndiaye",
         "profileImg": "https://api.dicebear.com/6.x/croodles/svg?seed=Omar",
         "joinedDate": "2020-08-14",
@@ -80,7 +80,7 @@
         "followers": 970
     },
     {
-        "id": 9,
+        "id": "9",
         "name": "Freya Schmidt",
         "profileImg": "https://api.dicebear.com/6.x/adventurer/svg?seed=Freya",
         "joinedDate": "2021-12-06",

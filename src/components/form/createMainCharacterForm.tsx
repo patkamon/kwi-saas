@@ -2,12 +2,13 @@ import { useState } from "react";
 import ImageDialog from "../dialog/imageDialog";
 import ButtonStpper from "../stepper/buttonStepper";
 import characterList from '@/data/characters.json' assert { type: 'json' };
+import { CharacterInterface } from "@/interface/character";
 
 export default function CreateMainCharacterForm({ steps, completed, activeStep, setActiveStep }:
     { steps: string[], completed: Record<number, boolean>, activeStep: number, setActiveStep: (step: number) => void }) {
 
-    const [characters, setCharacters] = useState<{ id: number, name: string, details: string }[]>(
-        characterList as { id: number, name: string, details: string }[]
+    const [characters, setCharacters] = useState<CharacterInterface[]>(
+        characterList as CharacterInterface[]
     );
 
     const handleNext = () => {
@@ -50,7 +51,7 @@ export default function CreateMainCharacterForm({ steps, completed, activeStep, 
         setCharacters([...characters, newCharacter]);
     }
 
-    return (<div className="flex-1 flex justify-center pb-4 pt-8 px-4">
+    return (
         <div className="w-full max-w-2xl bg-white shadow rounded-xl p-8">
             <h1 className="text-2xl font-bold mb-2">Create Main Character(s)</h1>
             <p className="text-sm text-gray-600 mb-8">
@@ -96,7 +97,7 @@ export default function CreateMainCharacterForm({ steps, completed, activeStep, 
 
 
             <div className="border-t-2 border-b-2 rounded-md border-blue-200">
-                {characters.map((character) => (
+                {characters.slice(0,2).map((character) => (
                     <div className="border-x-2 flex hover:bg-pink-100 border-blue-200 first:rounded-t-md last:rounded-b-md" key={character.id}>
                         <div className="flex flex-col justify-around items-center mx-4">
                             {/* Cover Image Upload */}
@@ -139,6 +140,5 @@ export default function CreateMainCharacterForm({ steps, completed, activeStep, 
             </div>
             <ButtonStpper steps={steps} activeStep={activeStep} handleNext={handleNext} handleBack={handleBack} />
         </div>
-    </div>
     )
 }

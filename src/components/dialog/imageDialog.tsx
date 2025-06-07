@@ -5,6 +5,7 @@ import {
     DialogHeader,
     DialogTitle,
     DialogTrigger,
+    DialogClose
 } from "@/components/shadcn/dialog"
 import Image from 'next/image';
 import React, { useState } from "react";
@@ -174,14 +175,16 @@ export default function ImageDialog() {
                                         </AccordionItem>
                                     </Accordion>
                                 </ScrollArea>
-                                <div className="flex justify-end mt-2">
-                                    <button
-                                        type="submit"
-                                        className="px-4 py-2 bg-black text-white  rounded-md hover:bg-gray-900 hover:cursor-pointer"
-                                    >
-                                        Done
-                                    </button>
-                                </div>
+                                <DialogClose asChild>
+                                    <div className="flex justify-end mt-2">
+                                        <button
+                                            type="submit"
+                                            className="px-4 py-2 bg-black text-white  rounded-md hover:bg-gray-900 hover:cursor-pointer"
+                                        >
+                                            Done
+                                        </button>
+                                    </div>
+                                </DialogClose>
                             </TabsContent>
                         </Tabs>
                     </DialogHeader>

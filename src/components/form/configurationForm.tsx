@@ -32,7 +32,7 @@ export default function ConfigurationForm({ steps, completed, activeStep, setAct
         setActiveStep(Math.max(activeStep - 1, 0));
     };
 
-    return (<div className="flex-1 flex justify-center pb-4 pt-8 px-4">
+    return (
         <div className="w-full max-w-2xl bg-white shadow rounded-xl p-8">
             <h1 className="text-2xl font-bold mb-2">Configuration</h1>
             <p className="text-sm text-gray-600 mb-8">
@@ -58,6 +58,5 @@ export default function ConfigurationForm({ steps, completed, activeStep, setAct
             </form>
             <ButtonStpper steps={steps} activeStep={activeStep} handleNext={handleNext} handleBack={handleBack} />
         </div>
-    </div>
     )
 }

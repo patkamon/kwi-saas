@@ -1,6 +1,6 @@
 [
     {
-      "id": 1,
+      "id": "1",
       "packageName": "Elementary Student",
       "amount": "100 Credits",
       "price": "฿99",
@@ -8,7 +8,7 @@
       "selected": false
     },
     {
-      "id": 2,
+      "id": "2",
       "packageName": "High school Student",
       "amount": "500 Credits",
       "price": "฿499",
@@ -16,7 +16,7 @@
       "selected": false
     },
     {
-      "id": 3,
+      "id": "3",
       "packageName": "College Student",
       "amount": "1000 Credits",
       "price": "฿999",
@@ -24,7 +24,7 @@
       "selected": false
     },
     {
-      "id": 4,
+      "id": "4",
       "packageName": "Newbie Author",
       "amount": "1600 Credits",
       "price": "฿1500",
@@ -32,7 +32,7 @@
       "selected": false
     },
     {
-      "id": 5,
+      "id": "5",
       "packageName": "Intermidiate Author",
       "amount": "2700 Credits",
       "price": "฿2500",
@@ -40,7 +40,7 @@
       "selected": false
     },
     {
-      "id": 6,
+      "id": "6",
       "packageName": "Professional Author",
       "amount": "3800 Credits",
       "price": "฿3500",

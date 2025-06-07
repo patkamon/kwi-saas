@@ -29,8 +29,9 @@ export default function CreateNovelForm({ steps, completed, activeStep, setActiv
         setActiveStep(Math.max(activeStep - 1, 0));
     };
 
-    return (<div className="flex-1 flex justify-center pb-4 pt-8 px-4">
-        <div className="w-full max-w-2xl bg-white shadow rounded-xl p-8">
+
+    return (
+        <div className="w-full max-w-2xl bg-white shadow rounded-b-xl rounded-tl-xl p-8">
             <h1 className="text-2xl font-bold mb-2">Create New Novel</h1>
             <p className="text-sm text-gray-600 mb-8">
                 Start crafting your story with our AI-powered writing assistant
@@ -85,6 +86,5 @@ export default function CreateNovelForm({ steps, completed, activeStep, setActiv
 
             <ButtonStpper steps={steps} activeStep={activeStep} handleNext={handleNext} handleBack={handleBack} />
         </div>
-    </div>
     )
 }

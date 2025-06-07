@@ -1,6 +1,6 @@
 [
     {
-      "id": 1,
+      "id": "1",
       "name": "Rank 1",
       "title": "The Love Chronicles",
       "desc": "A heartwarming tale of love and friendship.",
@@ -9,7 +9,7 @@
       "img": "https://ew.com/thmb/WM51kzuKZSa0pvwUoNxu3M2fuG0=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/hp-7-162d26cc5ed042c6ae2be534656a237e.jpg"
     },
     {
-      "id": 2,
+      "id": "2",
       "name": "Rank 2",
       "title": "Mystic Adventures",
       "desc": "An epic fantasy journey through mystical lands.",
@@ -18,7 +18,7 @@
       "img": "https://ew.com/thmb/WM51kzuKZSa0pvwUoNxu3M2fuG0=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/hp-7-162d26cc5ed042c6ae2be534656a237e.jpg"
     },
     {
-      "id": 3,
+      "id": "3",
       "name": "Rank 3",
       "title": "Dark Secrets",
       "desc": "A chilling horror story that will keep you on the edge.",
@@ -27,7 +27,7 @@
       "img": "https://ew.com/thmb/WM51kzuKZSa0pvwUoNxu3M2fuG0=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/hp-7-162d26cc5ed042c6ae2be534656a237e.jpg"
     },
     {
-      "id": 4,
+      "id": "4",
       "name": "Rank 4",
       "title": "Love Beyond Borders",
       "desc": "A touching romance that transcends boundaries.",
@@ -36,7 +36,7 @@
       "img": "https://ew.com/thmb/WM51kzuKZSa0pvwUoNxu3M2fuG0=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/hp-7-162d26cc5ed042c6ae2be534656a237e.jpg"
     },
     {
-      "id": 5,
+      "id": "5",
       "name": "Rank 5",
       "title": "The Enchanted Forest",
       "desc": "A magical adventure in a world of fantasy.",
@@ -45,7 +45,7 @@
       "img": "https://ew.com/thmb/WM51kzuKZSa0pvwUoNxu3M2fuG0=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/hp-7-162d26cc5ed042c6ae2be534656a237e.jpg"
     },
     {
-      "id": 6,
+      "id": "6",
       "name": "Rank 6",
       "title": "Whispers in the Dark",
       "desc": "A suspenseful horror story that will haunt you.",
