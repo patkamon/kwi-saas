@@ -33,7 +33,7 @@ export default function CreateChapterForm() {
         // Logic to create the chapter
         console.log("Chapter created!");
         // route to homepage nextjs
-        router.push('/');
+        router.push('/novel/2/chapter/3/edit');
     };
 
     return (
