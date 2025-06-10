@@ -24,7 +24,7 @@ export default function ButtonStpper({ activeStep, steps, handleBack, handleNext
                 disabled={activeStep === 0}
                 onClick={handleBack}
             >
-                Back
+                ย้อนกลับ
             </button>
             {
                 activeStep === steps.length - 1 ?
@@ -40,7 +40,7 @@ export default function ButtonStpper({ activeStep, steps, handleBack, handleNext
                     type="submit"
                     className="px-4 py-2 bg-black text-white rounded-md hover:bg-gray-900 hover:cursor-pointer"
                 >
-                    Next
+                    ถัดไป
                 </button>
             }
         </div>

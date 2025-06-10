@@ -23,11 +23,11 @@ export default function MostPopularByGenre() {
 
   return (
     <section className="px-6 pb-12">
-      <h2 className="text-2xl font-semibold text-blue-900">Most Popular
+      <h2 className="text-2xl font-semibold text-blue-900">นิยาย ยอดนิยมในหมวด
         <p className='text-pink-400 inline-block ml-2'>{`'${items.find((item) => item.value == value)?.name}'`} </p>
       </h2>
       <div className="card flex justify-end mb-4 items-center gap-1">
-        <label className='text-blue-900 text-lg'> Genre: </label>
+        <label className='text-blue-900 text-lg'> หมวด: </label>
         <SelectButton unselectable={false} value={value} onChange={(e) => setValue(e.value)} itemTemplate={justifyTemplate} optionLabel="name" options={items} />
       </div>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">

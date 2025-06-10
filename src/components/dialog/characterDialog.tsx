@@ -34,7 +34,7 @@ export default function CharacterDialog({ handleCharacterSelect, isCharacterSele
                         <Tabs defaultValue="upload">
                             <DialogTitle>
                                 <TabsList>
-                                    <TabsTrigger value="character">Character</TabsTrigger>
+                                    <TabsTrigger value="character">ตัวละคร</TabsTrigger>
                                 </TabsList>
                             </DialogTitle>
                             <div className="grid grid-cols-4 gap-2 my-4">
@@ -61,7 +61,7 @@ export default function CharacterDialog({ handleCharacterSelect, isCharacterSele
                                         type="submit"
                                         className="px-4 py-2 bg-black text-white  rounded-md hover:bg-gray-900 hover:cursor-pointer"
                                     >
-                                        Done
+                                        เพิ่ม
                                     </button>
                                 </div>
                             </DialogClose>

@@ -8,7 +8,7 @@ import { Artwork } from '../dialog/imageDialog';
 
 export default function CreateNovelWindow({ works, imgSrc, onSelectFile }: { works: Artwork[], imgSrc?: string | null | undefined, onSelectFile: (e: React.ChangeEvent<HTMLInputElement>) => void }) {
     return (<React.Fragment>
-        <Label className="text-blue-900" htmlFor="picture">Selected Image: </Label>
+        <Label className="text-blue-900" htmlFor="picture">เลือกรูปภาพ: </Label>
         {imgSrc ?
             <Image
                 src={imgSrc}
@@ -27,7 +27,7 @@ export default function CreateNovelWindow({ works, imgSrc, onSelectFile }: { wor
             />
         }
         <InputFile onChange={onSelectFile} text='Upload File:' />
-        <Label className="text-blue-900" htmlFor="picture">Previously Upload: </Label>
+        <Label className="text-blue-900" htmlFor="picture">อัปโหลดล่าสุด: </Label>
         <ScrollArea className="h-[400px] w-[400px] rounded-md border p-4">
             <div className='grid grid-cols-4 gap-2'>
                 {works.map((artwork, idx) => (
@@ -56,7 +56,7 @@ export default function CreateNovelWindow({ works, imgSrc, onSelectFile }: { wor
                 type="submit"
                 className="px-4 py-2 bg-black text-white  rounded-md hover:bg-gray-900 hover:cursor-pointer"
             >
-                Done
+                เลือก
             </button>
         </div>
     </React.Fragment>

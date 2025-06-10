@@ -41,19 +41,19 @@ export default function PreviewForm({ steps, completed, activeStep, setActiveSte
 
     return (
         <div className="w-full max-w-2xl bg-white shadow rounded-xl p-8">
-            <h1 className="text-2xl font-bold mb-2">Preview</h1>
+            <h1 className="text-2xl font-bold mb-2">ตรวจสอบความถูกต้อง</h1>
             <p className="text-sm text-gray-600 mb-8">
-                Check to see wether your novel is ready to be published.
+                ตรวจสอบข้อมูลนิยายของคุณก่อนที่จะสร้างนิยายจริง เช่น ชื่อเรื่อง ประเภท คำอธิบาย และตัวละครหลัก
             </p>
 
             <div className="flex flex-col gap-4 bg-gray-100 p-4 rounded-lg">
                 <section>
-                    <h1 className="text-md font-bold mb-2">Create New Novel</h1>
+                    <h1 className="text-md font-bold mb-3">สร้างนิยายใหม่</h1>
                     <form className="space-y-6">
                         {/* Title */}
                         <div>
-                            <label className="block text-sm font-medium mb-1" htmlFor="title">
-                                Title
+                            <label className="block text-sm font-medium" htmlFor="title">
+                                ชื่อเรื่อง
                             </label>
                             <input
                                 type="text"
@@ -65,29 +65,29 @@ export default function PreviewForm({ steps, completed, activeStep, setActiveSte
 
                         {/* Genre */}
                         <div>
-                            <label className="block text-sm font-medium mb-1" htmlFor="genre">
-                                Genre
+                            <label className="block text-sm font-medium" htmlFor="genre">
+                                หมวดหมู่
                             </label>
                             <select
                                 id="genre"
                                 className="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring focus:border-blue-400"
                             >
-                                <option>Fantasy</option>
-                                <option>Sci-Fi</option>
-                                <option>Romance</option>
-                                <option>Horror</option>
+                                <option>แฟนตาซี</option>
+                                <option>ไซไฟ</option>
+                                <option>โรแมนติก</option>
+                                <option>สยองขวัญ</option>
                             </select>
                         </div>
 
                         {/* Description */}
                         <div>
                             <label className="block text-sm font-medium mb-1" htmlFor="description">
-                                Description
+                                เรื่องย่อ
                             </label>
                             <textarea
                                 id="description"
                                 rows={4}
-                                placeholder="Brief description of your story"
+                                placeholder="กรุณากรอกเรื่องย่อของนิยาย"
                                 className="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring focus:border-blue-400"
                             ></textarea>
                         </div>
@@ -100,9 +100,15 @@ export default function PreviewForm({ steps, completed, activeStep, setActiveSte
                 <Separator className="my-4" />
 
                 <section>
-                    <h1 className="text-md font-bold mb-2">Create Main Character(s)</h1>
+                    <h1 className="text-2xl font-bold mb-2">สร้างตัวละครหลัก</h1>
+                    <p className="text-sm text-gray-600 mb-8">
+                        สร้างตัวละครหลักสำหรับนิยายของคุณ มากสุด 3 (สามารถเพิ่มได้อีกหลังจากสร้างนิยายแล้ว)
+                    </p>
+
+
+
                     <div className="border-t-2 border-b-2 rounded-md border-blue-200">
-                        {characters.map((character) => (
+                        {characters.slice(0, 2).map((character) => (
                             <div className="border-x-2 flex hover:bg-pink-100 border-blue-200 first:rounded-t-md last:rounded-b-md" key={character.id}>
                                 <div className="flex flex-col justify-around items-center mx-4">
                                     {/* Cover Image Upload */}
@@ -113,13 +119,13 @@ export default function PreviewForm({ steps, completed, activeStep, setActiveSte
                                 <div className="flex flex-col w-full mx-4 my-4 gap-2">
                                     <div>
                                         <label className="block text-sm font-medium mb-1" htmlFor="name">
-                                            Name
+                                            ชื่อตัวละคร
                                         </label>
                                         <input
                                             type="text"
                                             id="name"
                                             disabled
-                                            placeholder="Enter your character name"
+                                            placeholder="สมชาย"
                                             className="w-full border border-gray-300 placeholder:font-semibold rounded-md px-3 py-2 focus:outline-none focus:ring focus:border-blue-400"
                                         />
                                     </div>
@@ -127,13 +133,13 @@ export default function PreviewForm({ steps, completed, activeStep, setActiveSte
                                     {/* Details */}
                                     <div>
                                         <label className="block text-sm font-medium mb-1" htmlFor="details">
-                                            Details
+                                            ลักษณะตัวละคร
                                         </label>
                                         <textarea
                                             id="details"
                                             rows={4}
                                             disabled
-                                            placeholder="Brief details of your character"
+                                            placeholder="ตัวเล็ก กางเกงสีน้ำเงิน ผมดำ"
                                             className="w-full border border-gray-300 placeholder:font-semibold rounded-md px-3 py-2 focus:outline-none focus:ring focus:border-blue-400"
                                         ></textarea>
                                     </div>
@@ -148,25 +154,29 @@ export default function PreviewForm({ steps, completed, activeStep, setActiveSte
                 <Separator className="my-4" />
 
                 <section>
-                    <h1 className="text-md font-bold mb-2">Configuration</h1>
+                    <h1 className="text-2xl font-bold mb-2">การควบคุม</h1>
+                    <p className="text-sm text-gray-600 mb-8">
+                        ควบคุมการตั้งค่าของนิยาย เช่น การเปิดให้ผู้อื่นอ่านหรือไม่ การอนุญาตให้แสดงความคิดเห็น และอื่นๆ
+                    </p>
+
+                    {/* Form */}
                     <form className="flex flex-col gap-3">
                         <div className="flex justify-between border-blue-200 border-2 p-4 items-center rounded-md">
                             <div className="flex flex-col">
-                                <label htmlFor="public">Visibility ⭐</label>
-                                <p className="text-xs text-gray-600 font-semibold">Turn on to make your novel public</p>
+                                <label htmlFor="public">การเผยแพร่ ⭐</label>
+                                <p className="text-xs text-gray-600 font-semibold">เปิดเพื่อให้นิยายของคุณเป็นสาธารณะ</p>
                             </div>
                             <Switch id="public" defaultChecked disabled />
                         </div>
                         <div className="flex justify-between border-blue-200 border-2 p-4 items-center rounded-md">
                             <div className="flex flex-col">
-                                <label htmlFor="comment">Allow Comments</label>
-                                <p className="text-xs text-gray-600 font-semibold">Turn on to allow comments on your novel</p>
+                                <label htmlFor="comment">อนุญาติการแสดงความคิดเห็น</label>
+                                <p className="text-xs text-gray-600 font-semibold">เปิดให้อนุญาติการแสดงความคิดเห็น</p>
                             </div>
                             <Switch id="comment" defaultChecked disabled />
                         </div>
                     </form>
                 </section>
-
             </div>
 
             <ButtonStpper steps={steps} activeStep={activeStep} handleNext={handleNext} handleBack={handleBack} />

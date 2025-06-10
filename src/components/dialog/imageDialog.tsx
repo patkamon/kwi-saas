@@ -67,7 +67,7 @@ export default function ImageDialog() {
 
     return (
         <div>
-            <label className="block text-sm font-medium mb-1">Selected Image</label>
+            <label className="block text-sm font-medium mb-1">เลือกรูปภาพ</label>
             <Dialog>
                 <DialogTrigger asChild>
                     {imgSrc ? <Image
@@ -84,10 +84,10 @@ export default function ImageDialog() {
                     <DialogHeader>
                         <Tabs defaultValue="upload">
                             <DialogTitle>
-                                <TabsList>
-                                    <TabsTrigger value="upload">Upload</TabsTrigger>
-                                    <TabsTrigger value="ai">Generate</TabsTrigger>
-                                    <TabsTrigger value="collection">Collection</TabsTrigger>
+                                <TabsList className="grid grid-cols-3">
+                                    <TabsTrigger value="upload">อัปโหลด</TabsTrigger>
+                                    <TabsTrigger value="ai">AI เจนภาพ</TabsTrigger>
+                                    <TabsTrigger value="collection">คลัง</TabsTrigger>
                                 </TabsList>
                             </DialogTitle>
                             <TabsContent value="upload">
@@ -95,7 +95,7 @@ export default function ImageDialog() {
                             </TabsContent>
                             <TabsContent value="ai">
                                 <div className="flex flex-col w-[24rem]">
-                                    <Label className="text-blue-900" htmlFor="picture">Selected Image: </Label>
+                                    <Label className="text-blue-900" htmlFor="picture">เลือกรูปภาพ: </Label>
                                     <Image
                                         src="https://ew.com/thmb/WM51kzuKZSa0pvwUoNxu3M2fuG0=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/hp-7-162d26cc5ed042c6ae2be534656a237e.jpg"
                                         alt={`Photo by ew`}
@@ -104,8 +104,8 @@ export default function ImageDialog() {
                                         height={75}
                                     />
                                     <div className="flex justify-between items-center">
-                                        <h2 className="text-blue-900"> Generate using AI: </h2>
-                                        <h5 className="text-rose-400 text-xs">You can use this feature after create novel</h5>
+                                        <h2 className="text-blue-900"> เจนด้วย AI: </h2>
+                                        <h5 className="text-rose-400 text-xs">ฟีเจอร์อยู่ระหว่างการพัฒนา</h5>
                                     </div>
                                     <InputTextarea placeholder="Prompt 🪄✨ Be creative" disabled className="px-2 py-1 border bg-blue-50 border-gray-500 rounded-md" value={value} onChange={(e) => setValue(e.target.value)} rows={5} cols={30} />
                                     <div className="flex justify-end mt-2">
@@ -113,13 +113,13 @@ export default function ImageDialog() {
                                             type="submit"
                                             className="px-4 py-2 bg-black text-white  rounded-md hover:bg-gray-900 hover:cursor-pointer"
                                         >
-                                            Done
+                                            เลือก
                                         </button>
                                     </div>
                                 </div>
                             </TabsContent>
                             <TabsContent value="collection">
-                                <Label className="text-blue-900" htmlFor="picture">Selected Image: </Label>
+                                <Label className="text-blue-900" htmlFor="picture">เลือกรูปภาพ: </Label>
                                 <Image
                                     src="https://ew.com/thmb/WM51kzuKZSa0pvwUoNxu3M2fuG0=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/hp-7-162d26cc5ed042c6ae2be534656a237e.jpg"
                                     alt={`Photo by ew`}
@@ -127,12 +127,12 @@ export default function ImageDialog() {
                                     width={60}
                                     height={75}
                                 />
-                                <Label className="text-blue-900" htmlFor="picture">Collections: </Label>
+                                <Label className="text-blue-900" htmlFor="picture">คลัง: </Label>
                                 <ScrollArea className="max-h-[500px] overflow-y-scroll scrollbar-hide w-[400px] rounded-md border px-4">
                                     <Accordion type="multiple" defaultValue={["item-1", "item-2", "item-3"]}>
                                         <AccordionItem value="item-1">
                                             <AccordionTrigger>
-                                                <Label className="text-blue-900" htmlFor="picture">Your Upload Collection</Label>
+                                                <Label className="text-blue-900" htmlFor="picture">คลังอัปโหลด</Label>
                                             </AccordionTrigger>
                                             <AccordionContent>
                                                 <div className='grid grid-cols-4 gap-2'>
@@ -159,7 +159,7 @@ export default function ImageDialog() {
                                         </AccordionItem>
                                         <AccordionItem value="item-2">
                                             <AccordionTrigger>
-                                                <Label className="text-blue-900" htmlFor="picture">Your AI Generate Collection</Label>
+                                                <Label className="text-blue-900" htmlFor="picture">คลัง AI เจน</Label>
                                             </AccordionTrigger>
                                             <AccordionContent>
                                                 <div className='grid grid-cols-4 gap-2'>
@@ -186,7 +186,7 @@ export default function ImageDialog() {
                                         </AccordionItem>
                                         <AccordionItem value="item-3">
                                             <AccordionTrigger>
-                                                <Label className="text-blue-900" htmlFor="picture">LuckCraft Collection</Label>
+                                                <Label className="text-blue-900" htmlFor="picture">คลังสาธารณะ</Label>
                                             </AccordionTrigger>
                                             <AccordionContent>
                                                 <div className='grid grid-cols-4 gap-2'>
@@ -219,7 +219,7 @@ export default function ImageDialog() {
                                             type="submit"
                                             className="px-4 py-2 bg-black text-white  rounded-md hover:bg-gray-900 hover:cursor-pointer"
                                         >
-                                            Done
+                                            เลือก
                                         </button>
                                     </div>
                                 </DialogClose>

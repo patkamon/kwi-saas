@@ -25,7 +25,7 @@ export default function CreateNovelPage() {
 
   const getClass = (origin: string) => {
     if (origin == windowState) {
-        return 'border-l-2 border-gray-100 bg-white';
+      return 'border-l-2 border-gray-100 bg-white';
     }
     return 'bg-gray-200 text-gray-400';
   }
@@ -33,35 +33,35 @@ export default function CreateNovelPage() {
   return (
     <div className='mt-8 px-6 pb-8'>
       <Box sx={{ width: '100%' }}>
-        { windowState == "novel" && <CreateNovelStepper steps={steps} activeStep={activeStep} />}
+        {windowState == "novel" && <CreateNovelStepper steps={steps} activeStep={activeStep} />}
         <div className="flex-1 flex justify-center pb-4 pt-8 px-4">
-        {
-          windowState == "novel" && (activeStep == 0 ? // first step
-          <CreateNovelForm steps={steps} completed={completed} activeStep={activeStep} setActiveStep={setActiveStep} />
-          : activeStep == 1 ? // second step
-          <CreateMainCharacterForm steps={steps} completed={completed} activeStep={activeStep} setActiveStep={setActiveStep} />
-          : activeStep == 2 ?// third step
-          <ConfigurationForm steps={steps} completed={completed} activeStep={activeStep} setActiveStep={setActiveStep} />
-          :  // fourth step
-          <PreviewForm steps={steps} completed={completed} activeStep={activeStep} setActiveStep={setActiveStep}/>)
-        }
-        {
-          windowState == "chapter" && <CreateChapterForm />
-        }
-        {
-          windowState == "character" && <CreateMainCharacterForm steps={steps} completed={completed} activeStep={activeStep} setActiveStep={setActiveStep} />
-        }
-         <div className="h-fit relative flex flex-col">
-        <button onClick={()=>{setWindowState("novel")}} className={`h-32 w-8 rounded-tr-md ${getClass("novel")} flex justify-center items-center hover:cursor-pointer hover:bg-pink-200`}>
-            <p className="md:rotate-90">Novel</p>
-        </button>
-        <button onClick={()=>{setWindowState("chapter")}} className={`h-32 w-8 rounded-tr-md ${getClass("chapter")} flex justify-center items-center hover:cursor-pointer hover:bg-pink-200`}>
-            <p className="md:rotate-90">Chapter</p>
-        </button>
-        <button onClick={()=>{setWindowState("character")}} className={`h-32 w-8 rounded-tr-md ${getClass("character")} flex justify-center items-center hover:cursor-pointer hover:bg-pink-200`}>
-            <p className="md:rotate-90">Character</p>
-        </button>
-        </div>
+          {
+            windowState == "novel" && (activeStep == 0 ? // first step
+              <CreateNovelForm steps={steps} completed={completed} activeStep={activeStep} setActiveStep={setActiveStep} />
+              : activeStep == 1 ? // second step
+                <CreateMainCharacterForm steps={steps} completed={completed} activeStep={activeStep} setActiveStep={setActiveStep} />
+                : activeStep == 2 ?// third step
+                  <ConfigurationForm steps={steps} completed={completed} activeStep={activeStep} setActiveStep={setActiveStep} />
+                  :  // fourth step
+                  <PreviewForm steps={steps} completed={completed} activeStep={activeStep} setActiveStep={setActiveStep} />)
+          }
+          {
+            windowState == "chapter" && <CreateChapterForm />
+          }
+          {
+            windowState == "character" && <CreateMainCharacterForm steps={steps} completed={completed} activeStep={activeStep} setActiveStep={setActiveStep} />
+          }
+          <div className="h-fit relative flex flex-col">
+            <button onClick={() => { setWindowState("novel") }} className={`h-32 w-8 whitespace-nowrap rounded-tr-md ${getClass("novel")} flex justify-center items-center hover:cursor-pointer hover:bg-pink-200`}>
+              <p className="md:rotate-90">นิยาย</p>
+            </button>
+            <button onClick={() => { setWindowState("chapter") }} className={`h-32 w-8 whitespace-nowrap ${getClass("chapter")} flex justify-center items-center hover:cursor-pointer hover:bg-pink-200`}>
+              <p className="md:rotate-90">ตอน</p>
+            </button>
+            <button onClick={() => { setWindowState("character") }} className={`h-32  w-8 rounded-br-md whitespace-nowrap ${getClass("character")} flex justify-center items-center hover:cursor-pointer hover:bg-pink-200`}>
+              <p className="md:rotate-90">ตัวละคร</p>
+            </button>
+          </div>
         </div>
       </Box>
     </div>

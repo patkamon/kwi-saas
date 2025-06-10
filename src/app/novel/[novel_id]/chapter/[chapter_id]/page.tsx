@@ -26,7 +26,7 @@ export default function ChapterPage() {
       <main className="px-6 py-10 max-w-5xl mx-auto">
         <section className="px-6 py-5 bg-blue-200  rounded-t-md flex items-center">
           <Link href={`/novel/${params.novel_id}`}><Menu className='mr-4 hover:cursor-pointer'/></Link>
-          <h1 className='text-xl'>Chapter: {chapter.title}</h1>
+          <h1 className='text-xl'>ตอน {chapter.title}</h1>
         </section>
 
         <section className="px-6 py-6 bg-pink-50">

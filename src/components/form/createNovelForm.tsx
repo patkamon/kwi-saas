@@ -41,16 +41,16 @@ export default function CreateNovelForm({ steps, completed, activeStep, setActiv
 
     return (
         <div className="w-full max-w-2xl bg-white shadow rounded-b-xl rounded-tl-xl p-8">
-            <h1 className="text-2xl font-bold mb-2">Create New Novel</h1>
+            <h1 className="text-2xl font-bold mb-2">สร้างนิยายใหม่</h1>
             <p className="text-sm text-gray-600 mb-8">
-                Start crafting your story with our AI-powered writing assistant
+                กรอกข้อมูลนิยายของคุณ เช่น ชื่อเรื่อง ประเภท และคำอธิบาย เพื่อเริ่มต้นการสร้างนิยายใหม่
             </p>
             {/* Form */}
             <form className="space-y-6" ref={formRef}>
                 {/* Title */}
                 <div>
                     <label className="block text-sm font-medium mb-1" htmlFor="title">
-                        Title
+                        ชื่อเรื่อง
                     </label>
                     <input
                         type="text"
@@ -64,29 +64,29 @@ export default function CreateNovelForm({ steps, completed, activeStep, setActiv
                 {/* Genre */}
                 <div>
                     <label className="block text-sm font-medium mb-1" htmlFor="genre">
-                        Genre
+                    หมวดหมู่
                     </label>
                     <select
                         id="genre"
                         className="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring focus:border-blue-400"
                         required
                     >
-                        <option>Fantasy</option>
-                        <option>Sci-Fi</option>
-                        <option>Romance</option>
-                        <option>Horror</option>
+                        <option>แฟนตาซี</option>
+                        <option>ไซไฟ</option>
+                        <option>โรแมนติก</option>
+                        <option>สยองขวัญ</option>
                     </select>
                 </div>
 
                 {/* Description */}
                 <div>
                     <label className="block text-sm font-medium mb-1" htmlFor="description">
-                        Description
+                        เรื่องย่อ
                     </label>
                     <textarea
                         id="description"
                         rows={4}
-                        placeholder="Brief description of your story"
+                        placeholder="กรุณาใส่เรื่องย่อของนิยาย"
                         className="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring focus:border-blue-400"
                         required
                     ></textarea>

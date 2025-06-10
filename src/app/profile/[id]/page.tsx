@@ -14,7 +14,7 @@ export default function UserDashboardPage() {
         <div className="flex items-center space-x-4 mb-10">
           <User className="w-16 h-16 text-blue-900" />
           <div>
-            <h2 className="text-xl font-bold text-blue-900">Sarah Parker</h2>
+            <h2 className="text-xl font-bold text-blue-900">หมูบิน</h2>
             <p className="text-sm text-gray-500">Member since January 2025</p>
             <div className="flex items-center space-x-2 text-sm text-blue-700 mt-1">
               <Coins className="w-4 h-4 text-yellow-800" />
@@ -29,7 +29,7 @@ export default function UserDashboardPage() {
 
       {/* Your Novels */}
       <section className="px-6 pb-8">
-        <h3 className="text-lg font-semibold mb-4 text-blue-900">Your Novels</h3>
+        <h3 className="text-lg font-semibold mb-4 text-blue-900">นิยายที่คุณแต่ง</h3>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           {[
             { title: 'The Magic Portal', date: 'May 1, 2025', views: '2.5k', likes: 180 },
@@ -37,7 +37,7 @@ export default function UserDashboardPage() {
           ].map((story, idx) => (
             <div key={idx} className="bg-gray-50 p-4 rounded-xl space-y-1">
               <div className="font-semibold">{story.title}</div>
-              <div className="text-xs text-gray-500">Published: {story.date}</div>
+              <div className="text-xs text-gray-500">อัปเดท: {story.date}</div>
               <div className="flex items-center space-x-4 text-sm text-gray-700 mt-2">
                 <div className="flex items-center space-x-1">
                   <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" /><circle cx="12" cy="12" r="3" /></svg>

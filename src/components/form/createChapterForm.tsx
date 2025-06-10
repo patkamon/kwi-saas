@@ -38,16 +38,16 @@ export default function CreateChapterForm() {
 
     return (
         <div className="w-full max-w-2xl bg-white shadow rounded-b-xl rounded-tl-xl p-8">
-            <h1 className="text-2xl font-bold mb-2">Create New Chapter</h1>
+            <h1 className="text-2xl font-bold mb-2">สร้างตอนใหม่</h1>
             <p className="text-sm text-gray-600 mb-8">
-                Start crafting your story with our AI-powered writing assistant
+                สร้างตอนใหม่สำหรับนิยายของคุณ เลือกตัวละครที่ปรากฏในตอนนี้และกรอกข้อมูลที่จำเป็น
             </p>
             {/* Form */}
             <form className="space-y-6">
                 {/* Genre */}
                 <div>
                     <label className="block text-sm font-medium mb-1" htmlFor="novel">
-                        Novel
+                        นิยาย
                     </label>
                     <select
                         id="novel"
@@ -63,7 +63,7 @@ export default function CreateChapterForm() {
                 {/* Title */}
                 <div>
                     <label className="block text-sm font-medium mb-1" htmlFor="title">
-                        Title
+                        ชื่อตอน
                     </label>
                     <input
                         type="text"
@@ -76,7 +76,7 @@ export default function CreateChapterForm() {
                 {/* Chose Characters */}
                 <div>
                     <label className="block text-sm font-medium mb-1" htmlFor="description">
-                        Characters Appear
+                        ตัวละครที่ปรากฏในตอนนี้  (ไม่จำเป็นต้องระบุ)
                     </label>
                     <div className="mt-2 grid grid-cols-6 gap-2">
                         {characters.filter(character => selectedCharacter.includes(character.id)).map((selectedCharacter, index) => (
@@ -104,7 +104,7 @@ export default function CreateChapterForm() {
                 {/* Description */}
                 <div>
                     <label className="block text-sm font-medium mb-1" htmlFor="description">
-                        Description
+                        เค้าโครงของตอน (ไม่จำเป็นต้องระบุ)
                     </label>
                     <textarea
                         id="description"
@@ -121,7 +121,7 @@ export default function CreateChapterForm() {
                     type="submit"
                     onClick={handleCreateChapter}
                     className="px-4 py-2 mt-4 bg-black text-white rounded-md hover:bg-gray-900 hover:cursor-pointer"
-                >Create</button>
+                >สร้าง</button>
             </div>
         </div>
     )

@@ -34,24 +34,24 @@ export default function ConfigurationForm({ steps, completed, activeStep, setAct
 
     return (
         <div className="w-full max-w-2xl bg-white shadow rounded-xl p-8">
-            <h1 className="text-2xl font-bold mb-2">Configuration</h1>
+            <h1 className="text-2xl font-bold mb-2">การควบคุม</h1>
             <p className="text-sm text-gray-600 mb-8">
-                Configure your novel. Publishing options, visibility, and more.
+                ควบคุมการตั้งค่าของนิยาย เช่น การเปิดให้ผู้อื่นอ่านหรือไม่ การอนุญาตให้แสดงความคิดเห็น และอื่นๆ
             </p>
 
             {/* Form */}
             <form className="flex flex-col gap-3">
                 <div className="flex justify-between border-blue-200 border-2 p-4 items-center rounded-md">
                     <div className="flex flex-col">
-                        <label htmlFor="public">Visibility ⭐</label>
-                        <p className="text-xs text-gray-600 font-semibold">Turn on to make your novel public</p>
+                        <label htmlFor="public">การเผยแพร่ ⭐</label>
+                        <p className="text-xs text-gray-600 font-semibold">เปิดเพื่อให้นิยายของคุณเป็นสาธารณะ</p>
                     </div>
                     <Switch id="public" defaultChecked disabled />
                 </div>
                 <div className="flex justify-between border-blue-200 border-2 p-4 items-center rounded-md">
                     <div className="flex flex-col">
-                        <label htmlFor="comment">Allow Comments</label>
-                        <p className="text-xs text-gray-600 font-semibold">Turn on to allow comments on your novel</p>
+                        <label htmlFor="comment">อนุญาติการแสดงความคิดเห็น</label>
+                        <p className="text-xs text-gray-600 font-semibold">เปิดให้อนุญาติการแสดงความคิดเห็น</p>
                     </div>
                     <Switch id="comment" defaultChecked disabled />
                 </div>

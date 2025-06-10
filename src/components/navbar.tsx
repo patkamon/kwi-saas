@@ -14,20 +14,20 @@ export default function Navbar() {
             <div className="flex items-center space-x-8">
                 <Link href='/' className="flex items-center space-x-2">
                     <BookOpen className="w-6 h-6 text-pink-600" />
-                    <span className="text-2xl font-bold text-pink-600">WriteCraft</span>
+                    <span className="text-2xl font-bold text-pink-600">LoveCraft</span>
                 </Link>
                 <div className="flex items-center space-x-6 text-sm text-gray-700">
                     <Link href='/' className="flex items-center gap-1 hover:text-black text-blue-700">
                         <Home className="w-4 h-4" />
-                        Home
+                        หน้าแรก
                     </Link>
                     <Link href='/profile/1' className="flex items-center gap-1 hover:text-black text-blue-700">
                         <BookOpen className="w-4 h-4" />
-                        Your Novel
+                        นิยายของคุณ
                     </Link>
                     <Link href='/credit' className="flex items-center gap-1 hover:text-black text-blue-700">
                         <CreditCard className="w-4 h-4" />
-                        Your Credit
+                        เพิ่มเครดิต
                     </Link>
                 </div>
             </div>
@@ -39,7 +39,7 @@ export default function Navbar() {
                     <div className="w-8 h-8 rounded-full bg-gray-300 flex items-center justify-center">
                         <User className="w-4 h-4 text-blue-700" />
                     </div>
-                    <span className="text-sm font-medium">John Doe</span>
+                    <span className="text-sm font-medium">จอห์น โด</span>
                 </div>
             </div>
         </nav>

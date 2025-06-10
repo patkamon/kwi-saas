@@ -8,4 +8,5 @@ export interface NovelInterface {
     img: string; // URL to the novel cover image
     views?: number; // Optional, if not always available
     likes?: number; // Optional, if not always available
+    authorId?: string; // Optional, if not always available
 }

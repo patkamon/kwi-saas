@@ -4,62 +4,62 @@
         "name": "Lena Carter",
         "profileImg": "https://api.dicebear.com/6.x/avataaars/svg?seed=LenaCarter",
         "joinedDate": "2021-04-12",
-        "bio": "Writes emotionally rich historical fiction with strong female leads.",
+        "bio": "Writes emotionally rich historical fiction with strong female leads."
     },
     {
         "id": "2",
         "name": "Jasper Lin",
         "profileImg": "https://api.dicebear.com/6.x/pixel-art/svg?seed=JasperLin",
         "joinedDate": "2020-09-27",
-        "bio": "Cyberpunk and speculative fiction author with a love for neon cities.",
+        "bio": "Cyberpunk and speculative fiction author with a love for neon cities."
     },
     {
         "id": "3",
         "name": "Amina Hassan",
         "profileImg": "https://api.dicebear.com/6.x/adventurer/svg?seed=Amina",
         "joinedDate": "2019-11-03",
-        "bio": "Tales of self-discovery, faith, and cultural identity in desert landscapes.",
+        "bio": "Tales of self-discovery, faith, and cultural identity in desert landscapes."
     },
     {
         "id": "4",
         "name": "Carlos Vega",
         "profileImg": "https://api.dicebear.com/6.x/micah/svg?seed=Carlos",
         "joinedDate": "2022-01-10",
-        "bio": "Thrilling techno-mysteries exploring AI, ethics, and paranoia.",
+        "bio": "Thrilling techno-mysteries exploring AI, ethics, and paranoia."
     },
     {
         "id": "5",
         "name": "Yuki Tanaka",
         "profileImg": "https://api.dicebear.com/6.x/avataaars/svg?seed=Yuki",
         "joinedDate": "2021-07-15",
-        "bio": "Psychological drama inspired by Japanese urban legends.",
+        "bio": "Psychological drama inspired by Japanese urban legends."
     },
     {
         "id": "6",
         "name": "Marcus Reed",
         "profileImg": "https://api.dicebear.com/6.x/pixel-art/svg?seed=MarcusReed",
         "joinedDate": "2018-05-21",
-        "bio": "Dark fantasy and grim political sagas with richly built worlds.",
+        "bio": "Dark fantasy and grim political sagas with richly built worlds."
     },
     {
         "id": "7",
         "name": "Isabella Moretti",
         "profileImg": "https://api.dicebear.com/6.x/bottts/svg?seed=Isabella",
         "joinedDate": "2023-03-09",
-        "bio": "Intrigue, art, and European culture wrapped in thrilling plots.",
+        "bio": "Intrigue, art, and European culture wrapped in thrilling plots."
     },
     {
         "id": "8",
         "name": "Omar Ndiaye",
         "profileImg": "https://api.dicebear.com/6.x/croodles/svg?seed=Omar",
         "joinedDate": "2020-08-14",
-        "bio": "Myths, family sagas, and African history come alive in his work.",
+        "bio": "Myths, family sagas, and African history come alive in his work."
     },
     {
         "id": "9",
         "name": "Freya Schmidt",
         "profileImg": "https://api.dicebear.com/6.x/adventurer/svg?seed=Freya",
         "joinedDate": "2021-12-06",
-        "bio": "Combines historical research and icy survival stories in thrilling narratives.",
+        "bio": "Combines historical research and icy survival stories in thrilling narratives."
     }
 ]

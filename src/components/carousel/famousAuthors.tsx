@@ -8,7 +8,7 @@ export default function FamousAuthors({ }) {
   const authors = authorList as AuthorInterface[];
   return (
     <section className="px-6 pb-12">
-      <h2 className="text-2xl font-semibold text-blue-900">Famous Authors</h2>
+      <h2 className="text-2xl font-semibold text-blue-900">นักเขียนยอดนิยม</h2>
       <div className="flex justify-between mt-6 mb-4">
         {authors.map((item, index) =>
         (<div key={index} className="flex flex-col items-center justify-center gap-2">
