@@ -5,9 +5,6 @@
         "profileImg": "https://api.dicebear.com/6.x/avataaars/svg?seed=LenaCarter",
         "joinedDate": "2021-04-12",
         "bio": "Writes emotionally rich historical fiction with strong female leads.",
-        "location": "New York, USA",
-        "booksPublished": 3,
-        "followers": 1245
     },
     {
         "id": "2",
@@ -15,9 +12,6 @@
         "profileImg": "https://api.dicebear.com/6.x/pixel-art/svg?seed=JasperLin",
         "joinedDate": "2020-09-27",
         "bio": "Cyberpunk and speculative fiction author with a love for neon cities.",
-        "location": "Taipei, Taiwan",
-        "booksPublished": 5,
-        "followers": 1980
     },
     {
         "id": "3",
@@ -25,9 +19,6 @@
         "profileImg": "https://api.dicebear.com/6.x/adventurer/svg?seed=Amina",
         "joinedDate": "2019-11-03",
         "bio": "Tales of self-discovery, faith, and cultural identity in desert landscapes.",
-        "location": "Cairo, Egypt",
-        "booksPublished": 4,
-        "followers": 875
     },
     {
         "id": "4",
@@ -35,9 +26,6 @@
         "profileImg": "https://api.dicebear.com/6.x/micah/svg?seed=Carlos",
         "joinedDate": "2022-01-10",
         "bio": "Thrilling techno-mysteries exploring AI, ethics, and paranoia.",
-        "location": "Barcelona, Spain",
-        "booksPublished": 2,
-        "followers": 1560
     },
     {
         "id": "5",
@@ -45,9 +33,6 @@
         "profileImg": "https://api.dicebear.com/6.x/avataaars/svg?seed=Yuki",
         "joinedDate": "2021-07-15",
         "bio": "Psychological drama inspired by Japanese urban legends.",
-        "location": "Kyoto, Japan",
-        "booksPublished": 6,
-        "followers": 2023
     },
     {
         "id": "6",
@@ -55,9 +40,6 @@
         "profileImg": "https://api.dicebear.com/6.x/pixel-art/svg?seed=MarcusReed",
         "joinedDate": "2018-05-21",
         "bio": "Dark fantasy and grim political sagas with richly built worlds.",
-        "location": "London, UK",
-        "booksPublished": 7,
-        "followers": 3110
     },
     {
         "id": "7",
@@ -65,9 +47,6 @@
         "profileImg": "https://api.dicebear.com/6.x/bottts/svg?seed=Isabella",
         "joinedDate": "2023-03-09",
         "bio": "Intrigue, art, and European culture wrapped in thrilling plots.",
-        "location": "Venice, Italy",
-        "booksPublished": 1,
-        "followers": 690
     },
     {
         "id": "8",
@@ -75,9 +54,6 @@
         "profileImg": "https://api.dicebear.com/6.x/croodles/svg?seed=Omar",
         "joinedDate": "2020-08-14",
         "bio": "Myths, family sagas, and African history come alive in his work.",
-        "location": "Dakar, Senegal",
-        "booksPublished": 3,
-        "followers": 970
     },
     {
         "id": "9",
@@ -85,8 +61,5 @@
         "profileImg": "https://api.dicebear.com/6.x/adventurer/svg?seed=Freya",
         "joinedDate": "2021-12-06",
         "bio": "Combines historical research and icy survival stories in thrilling narratives.",
-        "location": "Berlin, Germany",
-        "booksPublished": 2,
-        "followers": 1120
     }
 ]

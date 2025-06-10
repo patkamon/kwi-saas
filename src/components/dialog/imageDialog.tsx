@@ -8,7 +8,7 @@ import {
     DialogClose
 } from "@/components/shadcn/dialog"
 import Image from 'next/image';
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/shadcn/tabs"
 import CreateNovelWindow from "../window/createNovelWindow";
 import { InputTextarea } from 'primereact/inputtextarea';
@@ -30,17 +30,55 @@ export interface Artwork {
 
 export const works: Artwork[] = artworkList as Artwork[];
 
+const ASPECT_RATIO = 1;
+const MIN_DIMENSION = 150;
+
 export default function ImageDialog() {
     const [value, setValue] = useState('');
+
+    const previewCanvasRef = useRef(null);
+    const [imgSrc, setImgSrc] = useState("");
+    const [crop, setCrop] = useState();
+    const [error, setError] = useState("");
+
+    const onSelectFile = (e) => {
+        const file = e.target.files?.[0];
+        if (!file) return;
+
+        const reader = new FileReader();
+        reader.addEventListener("load", () => {
+            const imageElement = new FileReader()
+            const imageUrl = reader.result?.toString() || "";
+
+            imageElement.addEventListener("load", (e) => {
+                if (error) setError("");
+                const { naturalWidth, naturalHeight } = e.currentTarget;
+                if (naturalWidth < MIN_DIMENSION || naturalHeight < MIN_DIMENSION) {
+                    setError("Image must be at least 150 x 150 pixels.");
+                    return setImgSrc("");
+                }
+            });
+            setImgSrc(imageUrl);
+            console.log(imgSrc)
+        });
+        reader.readAsDataURL(file);
+    };
+
 
     return (
         <div>
             <label className="block text-sm font-medium mb-1">Selected Image</label>
             <Dialog>
                 <DialogTrigger asChild>
-                    <Image alt='Selected Image' src="https://ew.com/thmb/WM51kzuKZSa0pvwUoNxu3M2fuG0=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/hp-7-162d26cc5ed042c6ae2be534656a237e.jpg"
+                    {imgSrc ? <Image
+                        src={imgSrc}
+                        alt={`Photo by ${imgSrc}`}
+                        className="aspect-[3/4] h-50 w-36 object-cover border-2 border-dashed border-pink-400 p-1"
+                        width={160}
+                        height={200}
+                    /> : <Image alt='Selected Image' src="https://ew.com/thmb/WM51kzuKZSa0pvwUoNxu3M2fuG0=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/hp-7-162d26cc5ed042c6ae2be534656a237e.jpg"
                         width="160" height="200" className="px-4 py-2 bg-white border-dashed border-2 border-pink-400 text-white rounded-md hover:bg-pink-200 hover:cursor-pointer"
-                    />
+                    />}
                 </DialogTrigger>
                 <DialogContent className='flex justify-center'>
                     <DialogHeader>
@@ -53,7 +91,7 @@ export default function ImageDialog() {
                                 </TabsList>
                             </DialogTitle>
                             <TabsContent value="upload">
-                                <CreateNovelWindow works={works} />
+                                <CreateNovelWindow works={works} imgSrc={imgSrc} onSelectFile={onSelectFile} />
                             </TabsContent>
                             <TabsContent value="ai">
                                 <div className="flex flex-col w-[24rem]">

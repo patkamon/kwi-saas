@@ -4,7 +4,4 @@ export interface AuthorInterface {
   profileImg: string;    // URL to the profile image
   joinedDate: string;    // ISO date string (e.g. "2021-04-12")
   bio: string;
-  location: string;
-  booksPublished: number;
-  followers: number;
 }

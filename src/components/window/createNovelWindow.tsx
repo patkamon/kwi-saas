@@ -6,17 +6,27 @@ import { ScrollArea } from "@/components/shadcn/scroll-area"
 import { Artwork } from '../dialog/imageDialog';
 
 
-export default function CreateNovelWindow({ works }: { works: Artwork[] }) {
+export default function CreateNovelWindow({ works, imgSrc, onSelectFile }: { works: Artwork[], imgSrc?: string | null | undefined, onSelectFile: (e: React.ChangeEvent<HTMLInputElement>) => void }) {
     return (<React.Fragment>
         <Label className="text-blue-900" htmlFor="picture">Selected Image: </Label>
-        <Image
-            src="https://ew.com/thmb/WM51kzuKZSa0pvwUoNxu3M2fuG0=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/hp-7-162d26cc5ed042c6ae2be534656a237e.jpg"
-            alt={`Photo by ew`}
-            className="aspect-[3/4] h-fit w-fit object-cover mx-auto border-2 border-dashed border-pink-400 p-1"
-            width={60}
-            height={75}
-        />
-        <InputFile text='Upload File:' />
+        {imgSrc ?
+            <Image
+                src={imgSrc}
+                alt={`Photo by ${imgSrc}`}
+                className="aspect-[3/4] h-32 w-24 object-cover mx-auto border-2 border-dashed border-pink-400 p-1"
+                width={60}
+                height={75}
+            />
+            :
+            <Image
+                src="https://ew.com/thmb/WM51kzuKZSa0pvwUoNxu3M2fuG0=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/hp-7-162d26cc5ed042c6ae2be534656a237e.jpg"
+                alt={`Photo by ew`}
+                className="aspect-[3/4] h-32 w-24 object-cover mx-auto border-2 border-dashed border-pink-400 p-1"
+                width={60}
+                height={75}
+            />
+        }
+        <InputFile onChange={onSelectFile} text='Upload File:' />
         <Label className="text-blue-900" htmlFor="picture">Previously Upload: </Label>
         <ScrollArea className="h-[400px] w-[400px] rounded-md border p-4">
             <div className='grid grid-cols-4 gap-2'>

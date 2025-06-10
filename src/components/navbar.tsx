@@ -21,7 +21,7 @@ export default function Navbar() {
                         <Home className="w-4 h-4" />
                         Home
                     </Link>
-                    <Link href='/profile' className="flex items-center gap-1 hover:text-black text-blue-700">
+                    <Link href='/profile/1' className="flex items-center gap-1 hover:text-black text-blue-700">
                         <BookOpen className="w-4 h-4" />
                         Your Novel
                     </Link>

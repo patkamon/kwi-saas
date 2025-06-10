@@ -39,7 +39,7 @@ export default function EditPage() {
                 <section className="col-span-1 flex flex-col gap-4">
                     <Link href='/' className="bg-blue-400 w-full flex items-center hover:cursor-pointer hover:bg-blue-500 justify-center text-xl py-2 rounded-3xl border-blue-400 border-2 text-white">
                         <Save className="mr-2" />
-                        Create Chapter
+                        Save Chapter
                     </Link>
 
                     <section className="px-6 py-6 h-fit border-2 border-blue-400 rounded-3xl bg-blue-100">
@@ -59,9 +59,6 @@ export default function EditPage() {
                         </div>
                     </section>
                 </section>
-
-
-
 
             </section>
         </div>
