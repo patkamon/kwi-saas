@@ -4,13 +4,9 @@ import React, { useState } from "react";
 import { NovelInterface } from '@/interface/novel';
 import novelList from '@/data/novels.json' assert { type: 'json' };
 import genreList from '@/data/genres.json' assert { type: 'json' };
-import Link from 'next/link';
+import NovelCard from '../card/novelCard';
+import { GenreOption } from '@/interface/genre';
 
-
-export interface GenreOption {
-  name: string;
-  value: number;
-}
 
 export default function MostPopularByGenre() {
   const [value, setValue] = useState(1);
@@ -31,28 +27,7 @@ export default function MostPopularByGenre() {
         <SelectButton unselectable={false} value={value} onChange={(e) => setValue(e.value)} itemTemplate={justifyTemplate} optionLabel="name" options={items} />
       </div>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-        {novels.map((novel, idx) => (
-          <div key={idx} className="bg-white rounded-2xl shadow p-4 space-y-2 carousel-item">
-            <Link href={`/novel/${novel.id}`} className="block">
-              <div className="flex justify-between items-center">
-                <div className="font-semibold text-blue-800">{novel.name}</div>
-                <div className="text-xs text-pink-500">{novel.time}</div>
-              </div>
-              <div className="font-bold text-blue-900">{novel.title}</div>
-              <div className="text-sm text-blue-600">{novel.desc}</div>
-              <div className="flex space-x-2 mt-2">
-                {novel.tags.map((tag, tagIdx) => (
-                  <span
-                    key={tagIdx}
-                    className="text-xs bg-blue-100 text-blue-600 px-2 py-1 rounded-full"
-                  >
-                    {tag}
-                  </span>
-                ))}
-              </div>
-            </Link>
-          </div>
-        ))}
+        {novels.map((novel, idx) => (<NovelCard key={idx} {...novel} />))}
       </div>
     </section>
   )

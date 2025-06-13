@@ -25,15 +25,10 @@ export default function StoryVersePage() {
 
       {/* Featured Chapters */}
       <FeatureChapter featureChapters={featureChapters} />
-
-
       {/* Latest Stories */}
       <LatestNovel latestNovels={latestNovels} />
-
-
       {/* Famous Authors */}
       <FamousAuthors />
-
       {/* Most Popular by Genre */}
       <MostPopularByGenre />
 
