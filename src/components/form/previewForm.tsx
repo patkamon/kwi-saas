@@ -77,7 +77,7 @@ export default function PreviewForm({ steps, completed, activeStep, setActiveSte
                     </p>
 
                     {/* Form */}
-                    <ConfigurationPureForm/>
+                    <ConfigurationPureForm />
                 </section>
             </div>
 

@@ -5,7 +5,7 @@ import novelList from '@/data/novels.json' assert { type: 'json' };
 import { NovelInterface } from '@/interface/novel';
 import { CharacterInterface } from "@/interface/character";
 import characterList from '@/data/characters.json' assert { type: 'json' };
-import {  Trash2 } from "lucide-react";
+import { Trash2 } from "lucide-react";
 import { useRouter } from "next/navigation";
 
 export default function CreateChapterForm() {

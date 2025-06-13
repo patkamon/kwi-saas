@@ -40,7 +40,7 @@ export default function ConfigurationForm({ steps, completed, activeStep, setAct
             </p>
 
             {/* Form */}
-            <ConfigurationPureForm/>
+            <ConfigurationPureForm />
             <ButtonStpper steps={steps} activeStep={activeStep} handleNext={handleNext} handleBack={handleBack} />
         </div>
     )

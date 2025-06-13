@@ -32,7 +32,7 @@ export default function RootLayout({
         <div className="min-h-screen px-60  bg-linear-to-br/oklab from-pink-100 from-50%  to-70% to-blue-50 font-bold text-blue-700 flex flex-col">
           <Navbar />
           <div className="px-12">
-          {children}
+            {children}
           </div>
           <Footer />
         </div>

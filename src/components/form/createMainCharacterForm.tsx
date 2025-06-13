@@ -65,7 +65,7 @@ export default function CreateMainCharacterForm({ steps, completed, activeStep, 
 
             {/* Character List */}
             <ListCreatedCharacter characters={characters} />
-            
+
             <ButtonStpper steps={steps} activeStep={activeStep} handleNext={handleNext} handleBack={handleBack} />
         </div>
     )
