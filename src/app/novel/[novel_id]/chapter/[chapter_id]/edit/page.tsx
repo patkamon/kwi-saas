@@ -19,7 +19,7 @@ export default function EditPage() {
 
                 {/* edit */}
                 <section className="px-6 py-5 col-span-3">
-                    <input className="text-5xl w-full" placeholder="Chapter Title"/>
+                    <input className="text-5xl w-full" placeholder="Chapter Title" />
                     <div className="flex mt-2">
                         <div>ตอนที่ 12</div>
                         <Dot />
