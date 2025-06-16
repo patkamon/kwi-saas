@@ -1,14 +1,17 @@
 import FeatureChapter from '@/components/carousel/featureChapter';
 import { Coins, User } from 'lucide-react';
-import chapterList from '@/data/chapters.json' assert { type: 'json' };
 import { ChapterInterface } from '@/interface/chapter';
 import NovelCard from '@/components/card/novelCard';
 import { NovelInterface } from '@/interface/novel';
-import novelList from '@/data/novels.json' assert { type: 'json' };
+import { AuthorInterface } from '@/interface/author';
+import { getChapterByAuthorId, getNovelByAuthorId, getProfileById } from '@/components/api/get';
 
-export default function UserDashboardPage() {
-  const featureChapters = chapterList as ChapterInterface[];
-  const novels = novelList.slice(2) as NovelInterface[];
+export default async function UserDashboardPage({params}: { params: { id: string } }) {
+  const { id} = params;
+
+  const featureChapters = await getChapterByAuthorId(id) as ChapterInterface[];
+  const novels = await getNovelByAuthorId(id) as NovelInterface[];
+  const profile = await getProfileById(id) as AuthorInterface;
 
   return (
     <div>
@@ -16,13 +19,13 @@ export default function UserDashboardPage() {
       <main className="px-6 py-10 max-w-5xl mx-auto">
         {/* User Info */}
         <div className="flex items-center space-x-4 mb-10">
-          <User className="w-16 h-16 text-blue-900" />
+          <img src={profile.image?.image_path} className=' rounded-full w-36 h-36 p-2 bg-pink-300' />
           <div>
-            <h2 className="text-xl font-bold text-blue-900">หมูบิน</h2>
-            <p className="text-sm text-gray-500">Member since January 2025</p>
+            <h2 className="text-xl font-bold text-blue-900">{profile.name}</h2>
+            <p className="text-sm text-gray-500">Member since {profile.created_at}</p>
             <div className="flex items-center space-x-2 text-sm text-blue-700 mt-1">
               <Coins className="w-4 h-4 text-yellow-800" />
-              <span>2,500 Credits</span>
+              <span>{profile.credit} Credits</span>
             </div>
           </div>
         </div>

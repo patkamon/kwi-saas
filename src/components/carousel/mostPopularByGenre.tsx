@@ -26,7 +26,7 @@ export default function MostPopularByGenre() {
         <label className='text-blue-900 text-lg'> หมวด: </label>
         <SelectButton unselectable={false} value={value} onChange={(e) => setValue(e.value)} itemTemplate={justifyTemplate} optionLabel="name" options={items} />
       </div>
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-y-4">
         {novels.map((novel, idx) => (<NovelCard key={idx} {...novel} />))}
       </div>
     </section>

@@ -1,7 +1,13 @@
+import { ImageInterface } from "./image";
+
 export interface CharacterInterface {
-    id: string;           
     name: string;
-    details: string;   
-    img: string; 
-    novelId: string; 
+    description: string;
+    novel_id: string;
+    image_id: string | undefined;
+    character_id: string;
+    created_at: string;
+    updated_at: string;
+
+    image?: ImageInterface
   }

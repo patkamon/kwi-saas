@@ -4,14 +4,17 @@ import FeatureChapter from '@/components/carousel/featureChapter';
 import MostPopularByGenre from '@/components/carousel/mostPopularByGenre';
 import FamousAuthors from '@/components/carousel/famousAuthors';
 import LatestNovel from '@/components/carousel/latestNovel';
-import novelList from '@/data/novels.json' assert { type: 'json' };
-import chapterList from '@/data/chapters.json' assert { type: 'json' };
 import { NovelInterface } from '@/interface/novel';
 import { ChapterInterface } from '@/interface/chapter';
+import { getLatestAuthor, getLatestChapters, getLatestNovels } from '@/components/api/get';
+import { AuthorInterface } from '@/interface/author';
 
-export default function StoryVersePage() {
-  const latestNovels = novelList as NovelInterface[];
-  const featureChapters = chapterList as ChapterInterface[];
+export default async function StoryVersePage() {
+  const latestNovels = await getLatestNovels() as NovelInterface[];
+  const featureChapters = await getLatestChapters() as ChapterInterface[];
+  const authors = await getLatestAuthor() as AuthorInterface[]
+
+  console.log(featureChapters)
 
   return (
     <div>
@@ -28,7 +31,7 @@ export default function StoryVersePage() {
       {/* Latest Stories */}
       <LatestNovel latestNovels={latestNovels} />
       {/* Famous Authors */}
-      <FamousAuthors />
+      <FamousAuthors authors={authors}/>
       {/* Most Popular by Genre */}
       <MostPopularByGenre />
 

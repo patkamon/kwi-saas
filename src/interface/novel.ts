@@ -1,12 +1,16 @@
+import { AuthorInterface } from "./author";
+import { ImageInterface } from "./image";
+
 export interface NovelInterface {
-    id: string;
-    name: string;
+    user_id: string; 
+    image_id: string | undefined; 
     title: string;
-    desc: string;
-    time: string;
-    tags: string[];
-    img: string; // URL to the novel cover image
-    views?: number; // Optional, if not always available
-    likes?: number; // Optional, if not always available
-    authorId?: string; // Optional, if not always available
+    description: string;
+    genre: string;
+    novel_id: string;
+    created_at: string;
+    updated_at: string;
+
+    author?: AuthorInterface;
+    image?: ImageInterface
 }

@@ -1,19 +1,24 @@
 'use client';
 import { Carousel } from 'primereact/carousel';
 import { ChapterInterface } from '@/interface/chapter';
+import { timeAgo } from '@/lib/utils';
+import Link from 'next/link';
 
 const featureChapterTemplate = (chapter: ChapterInterface) => {
   return (
-    <div className="bg-white surface-border rounded-2xl shadow p-4 space-y-2 m-4">
-      <div className="font-semibold text-blue-800">นิยายชื่อ {chapter.novelId}</div>
-      <div className="font-bold text-blue-900">ตอน {chapter.title}</div>
-      <div className="text-sm text-blue-600">ชื่อนักเขียน {chapter.desc}</div>
-      <div className="text-xs text-pink-500">อัปเดท {chapter.date}</div>
+    <div  className="bg-white surface-border rounded-2xl shadow p-4 space-y-2 m-4">
+    <Link href={`/novel/${chapter.novel_id}/chapter/${chapter.chapter_id}`}>
+      <div className="font-semibold text-blue-800">{chapter.novel ? chapter.novel.title : "No Name"}</div>
+      <div className="font-bold text-blue-900">{chapter.title}</div>
+      <div className="text-sm text-blue-600">{chapter.author ? chapter.author.name : "No Name"}</div>
+      <div className="text-xs text-pink-500">อัปเดท {timeAgo(chapter.updated_at)}</div>
       <div className="flex space-x-4 text-sm text-gray-600">
-        <div>💗 {chapter.likes}</div>
-        <div>💬 {chapter.comments}</div>
+        <div>💗 {chapter.views}</div>
+        {/* <div>💬 {chapter.comments}</div> */}
       </div>
+    </Link>
     </div>
+
   );
 };
 
