@@ -19,8 +19,9 @@ export default function CreateNovelPage() {
   const [formData, setFormData] = useState({
     title: '',
     description: '',
-    genre: '',
+    genre: 'fantasy',
     image_id: undefined,
+    image: undefined,
   });
 
   const steps = [

@@ -33,7 +33,7 @@ export const works: Artwork[] = artworkList as Artwork[];
 const ASPECT_RATIO = 1;
 const MIN_DIMENSION = 150;
 
-export default function ImageDialog() {
+export default function ImageDialog({setFormData}: {setFormData: React.Dispatch<React.SetStateAction<Record<string, any>>>}) {
     const [value, setValue] = useState('');
 
     const previewCanvasRef = useRef(null);
@@ -44,25 +44,28 @@ export default function ImageDialog() {
     const onSelectFile = (e) => {
         const file = e.target.files?.[0];
         if (!file) return;
-
+      
         const reader = new FileReader();
-        reader.addEventListener("load", () => {
-            const imageElement = new FileReader()
-            const imageUrl = reader.result?.toString() || "";
-
-            imageElement.addEventListener("load", (e) => {
-                if (error) setError("");
-                const { naturalWidth, naturalHeight } = e.currentTarget;
-                if (naturalWidth < MIN_DIMENSION || naturalHeight < MIN_DIMENSION) {
-                    setError("Image must be at least 150 x 150 pixels.");
-                    return setImgSrc("");
-                }
-            });
-            setImgSrc(imageUrl);
-            console.log(imgSrc)
-        });
-        reader.readAsDataURL(file);
-    };
+      
+        reader.onload = () => {
+          const imageUrl = reader.result?.toString() || "";
+          const img = document.createElement('img');
+          img.onload = () => {
+            const { naturalWidth, naturalHeight } = img;
+            if (naturalWidth < 150 || naturalHeight < 150) {
+              setError("Image must be at least 150 x 150 pixels.");
+              setImgSrc("");
+              return;
+            }
+      
+            setImgSrc(imageUrl); // show preview
+            setFormData((prev) => ({ ...prev, image: file })); // store file for upload
+          };
+          img.src = imageUrl;
+        };
+      
+        reader.readAsDataURL(file); // load preview
+      };
 
 
     return (

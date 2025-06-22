@@ -1,7 +1,7 @@
 import { Dispatch, useRef } from "react";
 import ButtonStpper from "../stepper/buttonStepper";
 import CreateNovelPureForm from "./pureForm/createNovelPureForm";
-import { createNovel } from "../api/post";
+import { createNovel, uploadImageAndInsertPath } from "../api/post";
 
 export default function CreateNovelForm({ formData, setFormData, steps, completed, activeStep, setActiveStep }:
     { formData: Record<string, any>, // Adjust type as needed
@@ -38,20 +38,28 @@ export default function CreateNovelForm({ formData, setFormData, steps, complete
             setActiveStep(newActiveStep);
 
             // TODO: MIGHT CHANGE THIS
-            createNovel(
-                formData.title,
-                formData.description,
-                formData.genre,
-                formData.image_id,
-            ).then((res) => {
-                if (res) {
-                    console.log("Novel created successfully:", res);
+            uploadImageAndInsertPath(formData.image).then((res) => {
+                if (res.success) {
+                    console.log("Image uploaded successfully:", res.image_id);
                 } else {
-                    console.error("Failed to create novel.");
+                    console.error("Image upload failed:", res.error);
                 }
-            }).catch((error) => {
-                console.error("Error creating novel:", error);
-            });
+
+                createNovel(
+                    formData.title,
+                    formData.description,
+                    formData.genre,
+                    formData.image_id || res.image_id // Use the image_id from the upload result,
+                ).then((res) => {
+                    if (res) {
+                        console.log("Novel created successfully:", res);
+                    } else {
+                        console.error("Failed to create novel.");
+                    }
+                }).catch((error) => {
+                    console.error("Error creating novel:", error);
+                });
+            })
 
         } else {
             form?.reportValidity();

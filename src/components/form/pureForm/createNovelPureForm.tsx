@@ -73,7 +73,7 @@ export default function CreateNovelPureForm({ formData, setFormData, formRef }: 
             </div>
 
             {/* Cover Image Upload */}
-            <ImageDialog />
+            <ImageDialog setFormData={setFormData}/>
         </form>
     )
 }
