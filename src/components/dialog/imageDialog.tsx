@@ -8,7 +8,7 @@ import {
     DialogClose
 } from "@/components/shadcn/dialog"
 import Image from 'next/image';
-import React, { useRef, useState } from "react";
+import React, { useState } from "react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/shadcn/tabs"
 import CreateNovelWindow from "../window/createNovelWindow";
 import { InputTextarea } from 'primereact/inputtextarea';
@@ -30,16 +30,16 @@ export interface Artwork {
 
 export const works: Artwork[] = artworkList as Artwork[];
 
-const ASPECT_RATIO = 1;
-const MIN_DIMENSION = 150;
+// const ASPECT_RATIO = 1;
+// const MIN_DIMENSION = 150;
 
 export default function ImageDialog({setFormData}: {setFormData: React.Dispatch<React.SetStateAction<Record<string, any>>>}) {
     const [value, setValue] = useState('');
 
-    const previewCanvasRef = useRef(null);
+    // const previewCanvasRef = useRef(null);
     const [imgSrc, setImgSrc] = useState("");
-    const [crop, setCrop] = useState();
-    const [error, setError] = useState("");
+    // const [crop, setCrop] = useState();
+    // const [error, setError] = useState("");
 
     const onSelectFile = (e) => {
         const file = e.target.files?.[0];
@@ -53,7 +53,7 @@ export default function ImageDialog({setFormData}: {setFormData: React.Dispatch<
           img.onload = () => {
             const { naturalWidth, naturalHeight } = img;
             if (naturalWidth < 150 || naturalHeight < 150) {
-              setError("Image must be at least 150 x 150 pixels.");
+            //   setError("Image must be at least 150 x 150 pixels.");
               setImgSrc("");
               return;
             }
