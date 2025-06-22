@@ -27,3 +27,10 @@ export function timeAgo(dateString: string) {
   
     return 'just now'
   }
+
+  export function getLocalDate(parse_date: string){
+    const date = new Date(parse_date);
+    const formatted = `${String(date.getHours()).padStart(2, "0")}:${String(date.getMinutes()).padStart(2, "0")} ${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, "0")}-${String(date.getDate()).padStart(2, "0")}`;
+    
+    return formatted;
+  }

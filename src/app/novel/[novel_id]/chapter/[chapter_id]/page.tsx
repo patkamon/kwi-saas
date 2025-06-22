@@ -6,11 +6,9 @@ import DOMPurify from "isomorphic-dompurify";
 import Link from 'next/link';
 import { getChapterById, getNovelById } from '@/components/api/get';
 
-
-export default async function ChapterPage({ params } : { params: { novel_id: string , chapter_id: string } }) {
-  const {novel_id, chapter_id} = params;
+export default async function ChapterPage({ params } : { params: Promise<{ novel_id: string , chapter_id: string }> }) {
+  const { novel_id, chapter_id } = await (params);
   const novel = await getNovelById(novel_id) as NovelInterface;
-  console.log(novel_id, chapter_id);
   const chapter = await getChapterById(chapter_id) as ChapterInterface
 
   const clean = DOMPurify.sanitize(chapter.content || '', {

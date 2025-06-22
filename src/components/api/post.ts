@@ -1,8 +1,4 @@
-// import { createClient } from '@supabase/supabase-js'
-// const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL
-// const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
-// const supabase = createClient(supabaseUrl, supabaseKey)
-
+import { ChapterInterface } from "@/interface/chapter";
 import { createClient } from "@/utils/supabase/client";
 
 const supabase = createClient()
@@ -44,7 +40,7 @@ type UploadResult = {
     error?: string;
   };
   
-  export async function uploadImageAndInsertPath(file: File): Promise<UploadResult> {
+export async function uploadImageAndInsertPath(file: File): Promise<UploadResult> {
     const { data: { user } } = await supabase.auth.getUser();
     console.log("User ID:", user?.id);
 
@@ -72,10 +68,49 @@ type UploadResult = {
     const { data: image, error: insertError } = await supabase
       .from('images')
       .insert({ image_path: publicUrl })
-      .select(`*`);
+      .select(`*`).single(); // Use single() to return a single object instead of an array
   
     if (insertError) {
       return { success: false, error: `Insert failed: ${insertError.message}` };
     }
-    return { success: true, image_id: image ? image[0].image_id : null };
-  }
+    return { success: true, image_id: image ? image.image_id : null };
+}
+
+export async function createChapter(
+    title: string,
+    novel_id: string,
+    content: string,
+    image_id?: string | undefined,
+    // characters?: string[],
+    ): Promise<{ success: boolean; error?: string; result?: ChapterInterface }> {
+    const { data: { user } } = await supabase.auth.getUser();
+    
+    console.log({
+        title,
+        novel_id,
+        content,
+        image_id,
+        user_id: user?.id, // Ensure user ID is included
+    })
+    const { data, error } = await supabase
+        .from('chapters')
+        .insert([
+        {
+            title,
+            content,
+            novel_id,
+            image_id: image_id || null, // Use the image ID if provided, otherwise null
+            user_id: user?.id, // Use the user ID from the session
+        },
+        ])
+        .select('*').single(); // Use single() to return a single object instead of an array
+    
+    if (error) {
+        console.error('Error creating chapter:', error);
+        return { success: false, error: error.message };
+    }
+    
+    return { success: true, result: data};
+    }
+
+

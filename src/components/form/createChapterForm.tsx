@@ -1,18 +1,47 @@
 'use client'
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import CharacterDialog from "../dialog/characterDialog";
-import novelList from '@/data/novels.json' assert { type: 'json' };
 import { NovelInterface } from '@/interface/novel';
 import { CharacterInterface } from "@/interface/character";
 import characterList from '@/data/characters.json' assert { type: 'json' };
 import { Trash2 } from "lucide-react";
 import { useRouter } from "next/navigation";
+import { getNovelByAuthorId } from "../api/get";
+import { createChapter } from "../api/post";
 
 export default function CreateChapterForm() {
     const [characters, setCharacters] = useState<CharacterInterface[]>(
         characterList as CharacterInterface[]
     );
-    const ownNovels = novelList as NovelInterface[];
+    // get user_id from session
+    const userId = sessionStorage.getItem('user_id');
+    const [ownNovels, setOwnNovels] = useState<NovelInterface[]>([]);
+    if (!userId) {
+        throw new Error("User ID not found in session storage");
+    }
+    const [formData, setFormData] = useState({
+        title: '',
+        novel_id: '',
+        content: '<b>This is a new chapter</b>',
+        image: undefined,
+    });
+
+    useEffect(() => {
+        async function fetchNovels() {
+            const novels = await getNovelByAuthorId(userId);
+            setOwnNovels(novels);
+            if (novels && novels.length > 0) {
+                setFormData({
+                    ...formData,
+                    novel_id: novels[0].novel_id // Set the first novel as default
+                });
+            }
+        }
+
+        fetchNovels();
+    }, [userId]);
+
+
     const [selectedCharacter, setSelectedCharacter] = useState<string[]>([]);
 
     const handleCharacterSelect = (characterId: string) => {
@@ -28,12 +57,26 @@ export default function CreateChapterForm() {
     };
 
     const router = useRouter();
-    const handleCreateChapter = (e: React.MouseEvent<HTMLButtonElement>) => {
+    const handleCreateChapter = async (e: React.MouseEvent<HTMLButtonElement>) => {
         e.preventDefault();
         // Logic to create the chapter
         console.log("Chapter created!");
         // route to homepage nextjs
-        router.push('/novel/2/chapter/3/edit');
+
+        const {success, result} = await createChapter(
+            formData.title,
+            formData.novel_id,
+            formData.content,
+            formData.image,
+        );
+
+        if (!success) {
+            console.error("Failed to create chapter:", result);
+            return;
+        }else{
+            router.push(`/novel/${formData.novel_id}/chapter/${result.chapter_id}/edit`);
+        }
+
     };
 
     return (
@@ -52,9 +95,15 @@ export default function CreateChapterForm() {
                     <select
                         id="novel"
                         className="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring focus:border-blue-400"
+                        onChange={(e) => {
+                            setFormData({
+                                ...formData,
+                                novel_id: e.target.value
+                            });
+                        }}
                     >
                         {ownNovels.map((novel) => (
-                            <option key={novel.id}>{novel.title}</option>
+                            <option key={novel.novel_id} value={novel.novel_id}>{novel.title}</option>
                         ))
                         }
                     </select>
@@ -70,6 +119,12 @@ export default function CreateChapterForm() {
                         id="title"
                         placeholder="Enter your chapter title"
                         className="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring focus:border-blue-400"
+                        onChange={(e) => {
+                            setFormData({
+                                ...formData,
+                                title: e.target.value
+                            });
+                        }}
                     />
                 </div>
 

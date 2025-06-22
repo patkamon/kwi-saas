@@ -199,7 +199,7 @@ export async function getChapterByAuthorId(authorId: string) {
         image_path
       )
     `)
-    .eq('user_id', authorId)
+    .eq('user_id', authorId) // Use the authenticated user's ID
     .limit(10) // Limit to 10 chapters
 
   if (error) {
