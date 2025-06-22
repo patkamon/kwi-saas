@@ -1,17 +1,32 @@
 'use client';
 import { SelectButton } from 'primereact/selectbutton';
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { NovelInterface } from '@/interface/novel';
-import novelList from '@/data/novels.json' assert { type: 'json' };
 import genreList from '@/data/genres.json' assert { type: 'json' };
 import NovelCard from '../card/novelCard';
 import { GenreOption } from '@/interface/genre';
+import { getNovelByGenre } from '../api/get';
 
 
 export default function MostPopularByGenre() {
   const [value, setValue] = useState(1);
   const items = genreList as GenreOption[];
-  const novels = novelList as NovelInterface[];
+
+  const [novels, setNovels] = useState<NovelInterface[]>([]);
+
+  useEffect(() => {
+    const fetchNovels = async () => {
+      const genreName = items.find((item) => item.value === value)?.db_value;
+      if (genreName) {
+        const fetchedNovels = await getNovelByGenre(genreName) as NovelInterface[];
+        setNovels(fetchedNovels);
+      }
+    };
+
+    fetchNovels();
+  }, [value]);
+
+  console.log(novels)
 
   const justifyTemplate = (option: GenreOption) => {
     return <div className={`${value == option.value ? 'bg-blue-200 border-pink-400' : 'bg-white'} border-2 border-pink-200 hover:border-pink-500 m-[2px] px-2 rounded-2xl`}>{option.name}</div>;

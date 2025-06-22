@@ -208,3 +208,22 @@ export async function getChapterByAuthorId(authorId: string) {
   }
   return data
 }
+
+export async function getNovelByGenre(genre: string) {
+  // select only 6 novels for each genre
+  const { data, error } = await supabase
+    .from('novels')
+    .select(`*,
+      image:images (
+        image_path
+      )`)
+    .eq('genre', genre)
+    .order('created_at', { ascending: false }) // Sort by creation date
+    .limit(6) // Limit to 6 novels per genre
+
+  if (error) {
+    console.error('Error fetching novels by genre:', error)
+    return null
+  }
+  return data
+}

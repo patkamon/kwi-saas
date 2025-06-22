@@ -16,6 +16,13 @@ export default function CreateNovelPage() {
     [k: number]: boolean;
   }>({});
 
+  const [formData, setFormData] = useState({
+    title: '',
+    description: '',
+    genre: '',
+    image_id: undefined,
+  });
+
   const steps = [
     'Create Novel',
     'Create Main Characters',
@@ -37,7 +44,7 @@ export default function CreateNovelPage() {
         <div className="flex-1 flex justify-center pb-4 pt-8 px-4">
           {
             windowState == "novel" && (activeStep == 0 ? // first step
-              <CreateNovelForm steps={steps} completed={completed} activeStep={activeStep} setActiveStep={setActiveStep} />
+              <CreateNovelForm formData={formData} setFormData={setFormData} steps={steps} completed={completed} activeStep={activeStep} setActiveStep={setActiveStep} />
               : activeStep == 1 ? // second step
                 <CreateMainCharacterForm steps={steps} completed={completed} activeStep={activeStep} setActiveStep={setActiveStep} />
                 : activeStep == 2 ?// third step

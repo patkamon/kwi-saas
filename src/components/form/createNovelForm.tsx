@@ -1,9 +1,16 @@
-import { useRef } from "react";
+import { Dispatch, useRef } from "react";
 import ButtonStpper from "../stepper/buttonStepper";
 import CreateNovelPureForm from "./pureForm/createNovelPureForm";
+import { createNovel } from "../api/post";
 
-export default function CreateNovelForm({ steps, completed, activeStep, setActiveStep }:
-    { steps: string[], completed: Record<number, boolean>, activeStep: number, setActiveStep: (step: number) => void }) {
+export default function CreateNovelForm({ formData, setFormData, steps, completed, activeStep, setActiveStep }:
+    { formData: Record<string, any>, // Adjust type as needed
+      setFormData: Dispatch<React.SetStateAction<Record<string, any>>>,
+      steps: string[],
+      completed: Record<number, boolean>,
+      activeStep: number, 
+      setActiveStep: (step: number) => void 
+    }) {
 
     const formRef = useRef<HTMLFormElement>(null);
     const handleNext = () => {
@@ -29,6 +36,23 @@ export default function CreateNovelForm({ steps, completed, activeStep, setActiv
                     steps.findIndex((step, i) => !(i in completed))
                     : activeStep + 1;
             setActiveStep(newActiveStep);
+
+            // TODO: MIGHT CHANGE THIS
+            createNovel(
+                formData.title,
+                formData.description,
+                formData.genre,
+                formData.image_id,
+            ).then((res) => {
+                if (res) {
+                    console.log("Novel created successfully:", res);
+                } else {
+                    console.error("Failed to create novel.");
+                }
+            }).catch((error) => {
+                console.error("Error creating novel:", error);
+            });
+
         } else {
             form?.reportValidity();
         }
@@ -46,7 +70,7 @@ export default function CreateNovelForm({ steps, completed, activeStep, setActiv
                 กรอกข้อมูลนิยายของคุณ เช่น ชื่อเรื่อง ประเภท และคำอธิบาย เพื่อเริ่มต้นการสร้างนิยายใหม่
             </p>
             {/* Form */}
-            <CreateNovelPureForm formRef={formRef} />
+            <CreateNovelPureForm formData={formData} setFormData={setFormData} formRef={formRef} />
             <ButtonStpper steps={steps} activeStep={activeStep} handleNext={handleNext} handleBack={handleBack} />
         </div>
     )

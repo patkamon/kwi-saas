@@ -1,8 +1,32 @@
 import ImageDialog from "@/components/dialog/imageDialog";
-import { RefObject } from "react";
-export default function CreateNovelPureForm({ formRef }: { formRef?: RefObject<HTMLFormElement | null> }) {
+import { Dispatch, RefObject } from "react";
+import { GenreOption } from '@/interface/genre';
+import genreList from '@/data/genres.json' assert { type: 'json' };
+
+
+export default function CreateNovelPureForm({ formData, setFormData, formRef }: { 
+    formData: Record<string, any>, // Adjust type as needed
+    setFormData: Dispatch<React.SetStateAction<Record<string, any>>>,
+    formRef?: RefObject<HTMLFormElement | null> }) {
+
+    const items = genreList as GenreOption[];
+
+    function setBack(key, value){
+        if (key === "genre"){
+            const selectedGenre = items.find((item) => item.name === value);
+            if (selectedGenre) {
+                value = selectedGenre.db_value; // Use the db_value for the genre
+            }
+        }
+        setFormData((prevData) => ({
+            ...prevData,
+            [key]: value
+        }));
+    }
+
+
     return (
-        <form className="space-y-6" ref={formRef}>
+        <form onChange={(e)=> {setBack(e.target.id, e.target.value)}} className="space-y-6" ref={formRef}>
             {/* Title */}
             <div>
                 <label className="block text-sm font-medium mb-1" htmlFor="title">
