@@ -113,4 +113,53 @@ export async function createChapter(
     return { success: true, result: data};
     }
 
+export async function createChapterCharacter(
+    chapter_id: string,
+    character_id: string
+){
+  const { data, error } = await supabase
+    .from('chapter_character')
+    .insert([
+      {
+        chapter_id,
+        character_id,
+      }
+    ])
+    .select('*')
+    .single()
+
+  if (error) {
+    console.error('Error creating novel:', error)
+    return null
+  }
+
+  return data
+}
+
+export async function createCharacter(
+    name: string,
+    description: string,
+    image_id: string | null,
+    novel_id: string
+) {
+  const { data, error } = await supabase
+    .from('characters')
+    .insert([
+      {
+        name,
+        description,
+        image_id,
+        novel_id
+      }
+    ])
+    .select('*')
+    .single()
+
+  if (error) {
+    console.error('Error creating character:', error)
+    return null
+  }
+
+  return data
+}
 
