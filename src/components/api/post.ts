@@ -76,6 +76,7 @@ export async function uploadImageAndInsertPath(file: File): Promise<UploadResult
     return { success: true, image_id: image ? image.image_id : null };
 }
 
+
 export async function createChapter(
     title: string,
     novel_id: string,

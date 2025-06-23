@@ -1,12 +1,32 @@
+'use client';
+
 import ImageDialog from "@/components/dialog/imageDialog";
+import { useState } from "react";
 
 export default function CreateMainCharacterPureForm({ addCharacter }: { addCharacter: (e: any) => void }) {
+
+    const [img, setImg] = useState<object | undefined>({});
+
+    function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+        e.preventDefault();
+        const form = e.target;
+        const name = form.name.value;
+        const details = form.details.value;
+
+        addCharacter({
+            name,
+            description: details,
+            img: img ? img.image : undefined
+        });
+        form.reset();
+    }
+
     return (
-        <form className="space-y-6 border-2 border-blue-400 rounded-lg flex border-dashed mb-4">
-            <div className="flex flex-col justify-around items-center mx-4">
+        <form onSubmit={(e)=>handleSubmit(e)} className="space-y-6 border-2 border-blue-400 rounded-lg flex border-dashed mb-4">
+            <div   className="flex flex-col justify-around items-center mx-4">
                 {/* Cover Image Upload */}
-                <ImageDialog />
-                <button onClick={(e) => addCharacter(e)} className="px-2 rounded-md border border-pink-400 bg-pink-200 min-w-16 hover:border-2 flex justify-center">เพิ่ม</button>
+                <ImageDialog setFormData={setImg}/>
+                <button type="submit" className="px-2 rounded-md border border-pink-400 bg-pink-200 min-w-16 hover:border-2 flex justify-center">เพิ่ม</button>
             </div>
 
             <div className="flex flex-col w-full mx-4 my-4 gap-2">
@@ -17,6 +37,7 @@ export default function CreateMainCharacterPureForm({ addCharacter }: { addChara
                     <input
                         type="text"
                         id="name"
+                        name="name"
                         placeholder="สมชาย"
                         className="w-full border border-gray-300 placeholder:font-semibold rounded-md px-3 py-2 focus:outline-none focus:ring focus:border-blue-400"
                     />
@@ -30,6 +51,7 @@ export default function CreateMainCharacterPureForm({ addCharacter }: { addChara
                     <textarea
                         id="details"
                         rows={4}
+                        name="details"
                         placeholder="ตัวเล็ก กางเกงสีน้ำเงิน ผมดำ"
                         className="w-full border border-gray-300 placeholder:font-semibold rounded-md px-3 py-2 focus:outline-none focus:ring focus:border-blue-400"
                     ></textarea>

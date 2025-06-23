@@ -1,18 +1,19 @@
 import { useState } from "react";
 import ButtonStpper from "../stepper/buttonStepper";
-import characterList from '@/data/characters.json' assert { type: 'json' };
 import { CharacterInterface } from "@/interface/character";
 import CreateMainCharacterPureForm from "./pureForm/createMainCharacterPureForm";
 import ListCreatedCharacter from "./pureForm/listCreatedCharacter";
+import { createCharacter, uploadImageAndInsertPath } from "../api/post";
 
 export default function CreateMainCharacterForm({ steps, completed, activeStep, setActiveStep }:
-    { steps: string[], completed: Record<number, boolean>, activeStep: number, setActiveStep: (step: number) => void }) {
+    { steps?: string[], completed?: Record<number, boolean>, activeStep?: number, setActiveStep?: (step: number) => void }) {
 
     const [characters, setCharacters] = useState<CharacterInterface[]>(
-        characterList as CharacterInterface[]
+        [] as CharacterInterface[]
     );
 
     const handleNext = () => {
+        if (setActiveStep === undefined || activeStep === undefined || steps === undefined || completed === undefined) return;
         const totalSteps = () => {
             return steps.length;
         };
@@ -35,21 +36,77 @@ export default function CreateMainCharacterForm({ steps, completed, activeStep, 
     };
 
     const handleBack = () => {
+        if (setActiveStep === undefined || activeStep === undefined) return;
         setActiveStep(Math.max(activeStep - 1, 0));
     };
 
-    const addCharacter = (e: any) => {
-        e.preventDefault();
+    const addCharacter = ({name, description , img} : { 
+        name: string, 
+        description: string, 
+        img?: string | undefined
+    }) => {
+        console.log("Adding character:", name, description, img);
         if (characters.length >= 3) {
             alert("คุณสามารถเพิ่มตัวละครได้สูงสุด 3 ตัว\nสามารถเพิ่มได้อีก หลังสร้างนิยาย");
             return;
         }
-        const newCharacter = {
-            id: characters.length + 1,
-            name: "",
-            details: ""
-        };
-        setCharacters([...characters, newCharacter]);
+        else{
+            const newCharacter = {
+                id: characters.length + 1,
+                name,
+                description: description,
+                image: img ? {
+                    image_id: img,
+                    image_path: img,
+                } : undefined,
+            };
+            setCharacters([...characters, newCharacter]);
+        }
+
+    }
+
+    function handleCreateCharacter(){
+        characters.forEach((character) => {
+            let imgPath = null
+            if (character.image){
+                uploadImageAndInsertPath(character.image.image_id).then((results) => {
+                    if (results) {
+                        imgPath = results.image_id;
+                        createCharacter(
+                            character.name,
+                            character.description,
+                            imgPath,
+                            "a998c624-b4b4-48b9-8798-209504f986b4" // TODO: Replace with actual novel ID
+                        ).then((createdCharacter) => {
+                            if (createdCharacter) {
+                                console.log("Character created successfully:", createdCharacter);
+                            } else {
+                                console.error("Failed to create character.");
+                            }
+                        }
+                        )
+                    }
+                }
+                ).catch((error) => {
+                    console.error("Error uploading image:", error);
+                });
+            }else{
+                createCharacter(
+                    character.name,
+                    character.description,
+                    imgPath,
+                    "a998c624-b4b4-48b9-8798-209504f986b4" // Replace with actual novel ID
+                ).then((createdCharacter) => {
+                    if (createdCharacter) {
+                        console.log("Character created successfully:", createdCharacter);
+                    } else {
+                        console.error("Failed to create character.");
+                    }
+                })
+            }
+        })
+
+           
     }
 
     return (
@@ -66,7 +123,23 @@ export default function CreateMainCharacterForm({ steps, completed, activeStep, 
             {/* Character List */}
             <ListCreatedCharacter characters={characters} />
 
-            <ButtonStpper steps={steps} activeStep={activeStep} handleNext={handleNext} handleBack={handleBack} />
+
+            { (steps && activeStep) ?
+            (
+                <ButtonStpper steps={steps} activeStep={activeStep} handleNext={handleNext} handleBack={handleBack} />
+            ) :
+            (
+            <div className="flex justify-end">
+                <button
+                    type="submit"
+                    onClick={handleCreateCharacter}
+                    className="px-4 py-2 mt-4 bg-black text-white rounded-md hover:bg-gray-900 hover:cursor-pointer"
+                >สร้าง</button>
+            </div>
+            )
+            }
+
+          
         </div>
     )
 }
