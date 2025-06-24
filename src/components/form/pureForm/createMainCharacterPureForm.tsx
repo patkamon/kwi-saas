@@ -5,20 +5,21 @@ import { useState } from "react";
 
 export default function CreateMainCharacterPureForm({ addCharacter }: { addCharacter: (e: any) => void }) {
 
-    const [img, setImg] = useState<object | undefined>({});
+    const [img, setImg] = useState<{ image?: string } | undefined>({});
 
     function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
         e.preventDefault();
         const form = e.target;
-        const name = form.name.value;
-        const details = form.details.value;
+        const name = ((form as HTMLFormElement).elements.namedItem("name") as HTMLInputElement | null)?.value;
+        const details = ((form as HTMLFormElement).elements.namedItem("details") as HTMLInputElement | null)?.value;
+
 
         addCharacter({
             name,
             description: details,
-            img: img ? img.image : undefined
+            img: img?.image
         });
-        form.reset();
+        (form as HTMLFormElement).reset();
     }
 
     return (

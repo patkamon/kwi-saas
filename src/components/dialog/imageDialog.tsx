@@ -35,17 +35,14 @@ export const works: Artwork[] = artworkList as Artwork[];
 
 export default function ImageDialog({setFormData, selected_img}: 
     {
-        setFormData: React.Dispatch<React.SetStateAction<Record<string, any>>>,
+        setFormData: React.Dispatch<React.SetStateAction<Record<string, unknown>>>,
         selected_img?: string | undefined,
     }) {
     const [value, setValue] = useState('');
 
-    // const previewCanvasRef = useRef(null);
     const [imgSrc, setImgSrc] = useState("");
-    // const [crop, setCrop] = useState();
-    // const [error, setError] = useState("");
 
-    const onSelectFile = (e) => {
+    const onSelectFile = (e: React.ChangeEvent<HTMLInputElement>) => {
         const file = e.target.files?.[0];
         if (!file) return;
       
@@ -87,7 +84,7 @@ export default function ImageDialog({setFormData, selected_img}:
                     src={
                         selected_img ?
                         selected_img :
-                        "https://ew.com/thmb/WM51kzuKZSa0pvwUoNxu3M2fuG0=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/hp-7-162d26cc5ed042c6ae2be534656a237e.jpg"
+                        "/lovecraft_brew.jpeg"
                         }
                         width="160" height="200" className="px-4 py-2 bg-white border-dashed border-2 border-pink-400 text-white rounded-md hover:bg-pink-200 hover:cursor-pointer"
                     />}
@@ -109,7 +106,7 @@ export default function ImageDialog({setFormData, selected_img}:
                                 <div className="flex flex-col w-[24rem]">
                                     <Label className="text-blue-900" htmlFor="picture">เลือกรูปภาพ: </Label>
                                     <Image
-                                        src="https://ew.com/thmb/WM51kzuKZSa0pvwUoNxu3M2fuG0=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/hp-7-162d26cc5ed042c6ae2be534656a237e.jpg"
+                                        src="/lovecraft_brew.jpeg"
                                         alt={`Photo by ew`}
                                         className="aspect-[3/4] h-fit w-fit object-cover mx-auto border-2 border-dashed border-pink-400 p-1"
                                         width={60}
@@ -133,7 +130,7 @@ export default function ImageDialog({setFormData, selected_img}:
                             <TabsContent value="collection">
                                 <Label className="text-blue-900" htmlFor="picture">เลือกรูปภาพ: </Label>
                                 <Image
-                                    src="https://ew.com/thmb/WM51kzuKZSa0pvwUoNxu3M2fuG0=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/hp-7-162d26cc5ed042c6ae2be534656a237e.jpg"
+                                    src="/lovecraft_brew.jpeg"
                                     alt={`Photo by ew`}
                                     className="aspect-[3/4] h-fit w-fit object-cover mx-auto border-2 border-dashed border-pink-400 p-1"
                                     width={60}
@@ -152,7 +149,7 @@ export default function ImageDialog({setFormData, selected_img}:
                                                         <figure key={artwork.artist + idx} className="shrink-0 truncate flex flex-col items-center p-1 hover:bg-white rounded-md hover:border-2 hover:border-pink-400" >
                                                             <div className="overflow-hidden rounded-md">
                                                                 <Image
-                                                                    src={artwork.art}
+                                                                    src={artwork.art || "/lovecraft_brew.jpeg"}
                                                                     alt={`Photo by ${artwork.artist}`}
                                                                     className="aspect-[3/4] h-fit w-fit object-cover"
                                                                     width={60}
@@ -179,7 +176,7 @@ export default function ImageDialog({setFormData, selected_img}:
                                                         <figure key={artwork.artist + idx} className="shrink-0 truncate flex flex-col items-center p-1 hover:bg-white rounded-md hover:border-2 hover:border-pink-400" >
                                                             <div className="overflow-hidden rounded-md">
                                                                 <Image
-                                                                    src={artwork.art}
+                                                                    src={artwork.art || "/lovecraft_brew.jpeg"}
                                                                     alt={`Photo by ${artwork.artist}`}
                                                                     className="aspect-[3/4] h-fit w-fit object-cover"
                                                                     width={60}
@@ -206,7 +203,7 @@ export default function ImageDialog({setFormData, selected_img}:
                                                         <figure key={artwork.artist + idx} className="shrink-0 truncate flex flex-col items-center p-1 hover:bg-white rounded-md hover:border-2 hover:border-pink-400" >
                                                             <div className="overflow-hidden rounded-md">
                                                                 <Image
-                                                                    src={artwork.art}
+                                                                    src={artwork.art || "/lovecraft_brew.jpeg"}
                                                                     alt={`Photo by ${artwork.artist}`}
                                                                     className="aspect-[3/4] h-fit w-fit object-cover"
                                                                     width={60}

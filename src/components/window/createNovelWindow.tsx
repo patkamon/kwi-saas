@@ -11,7 +11,7 @@ export default function CreateNovelWindow({ works, imgSrc, onSelectFile }: { wor
         <Label className="text-blue-900" htmlFor="picture">เลือกรูปภาพ: </Label>
         {imgSrc ?
             <Image
-                src={imgSrc}
+                src={imgSrc || "/lovecraft_brew.jpeg"}
                 alt={`Photo by ${imgSrc}`}
                 className="aspect-[3/4] h-32 w-24 object-cover mx-auto border-2 border-dashed border-pink-400 p-1"
                 width={60}
@@ -19,7 +19,7 @@ export default function CreateNovelWindow({ works, imgSrc, onSelectFile }: { wor
             />
             :
             <Image
-                src="https://ew.com/thmb/WM51kzuKZSa0pvwUoNxu3M2fuG0=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/hp-7-162d26cc5ed042c6ae2be534656a237e.jpg"
+                src="/lovecraft_brew.jpeg"
                 alt={`Photo by ew`}
                 className="aspect-[3/4] h-32 w-24 object-cover mx-auto border-2 border-dashed border-pink-400 p-1"
                 width={60}
@@ -34,7 +34,7 @@ export default function CreateNovelWindow({ works, imgSrc, onSelectFile }: { wor
                     <figure key={artwork.artist + idx} className="shrink-0 truncate flex flex-col items-center p-1 hover:bg-white rounded-md hover:border-2 hover:border-pink-400" >
                         <div className="overflow-hidden rounded-md">
                             <Image
-                                src={artwork.art}
+                                src={artwork.art || "/lovecraft_brew.jpeg"}
                                 alt={`Photo by ${artwork.artist}`}
                                 className="aspect-[3/4] h-fit w-fit object-cover"
                                 width={60}

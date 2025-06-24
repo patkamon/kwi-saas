@@ -16,22 +16,22 @@ export default async function NovelPage({ params } : { params: { novel_id: strin
       <main className="px-6 py-10 max-w-5xl mx-auto">
         <section className="px-6 pb-8">
           <div className="grid gap-4">
-            <div key={novel.id} className="p-8 shadow rounded-xl space-y-1 bg-linear-to-r/srgb from-indigo-200 to-pink-200 flex gap-6">
-              <img src={novel.image?.image_path} className='rounded-xl w-32' />
+            <div key={novel.novel_id} className="p-8 shadow rounded-xl space-y-1 bg-linear-to-r/srgb from-indigo-200 to-pink-200 flex gap-6">
+              <img src={novel.image?.image_path || "/lovecraft_brew.jpeg"} className='rounded-xl w-32' />
               <div className='flex flex-col'>
                 <div className="font-semibold text-3xl">{novel.title}</div>
-                <div className="text-xs text-gray-500">อัปเดท: {novel.time}</div>
+                <div className="text-xs text-gray-500">อัปเดท: {novel.updated_at}</div>
                 <div className="flex items-center space-x-4 text-sm text-gray-700 mt-2">
                   <div className="flex items-center space-x-1">
                     <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" /><circle cx="12" cy="12" r="3" /></svg>
-                    <span>{novel.views || 0}</span>
+                    {/* <span>{novel.views || 0}</span> */}
                   </div>
                   <div className="flex items-center space-x-1">
                     <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4" viewBox="0 0 24 20" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M20.8 4.6c-1.4-1.4-3.6-1.4-5 0l-.8.8-.8-.8c-1.4-1.4-3.6-1.4-5 0s-1.4 3.6 0 5l5.8 5.8 5.8-5.8c1.4-1.4 1.4-3.6 0-5z" /></svg>
-                    <span>{novel.likes || 0}</span>
+                    {/* <span>{novel.likes || 0}</span> */}
                   </div>
                 </div>
-                <div>{novel.desc}</div>
+                <div>{novel.description}</div>
                 <div className="flex space-x-2 mt-2">
                   {/* {novel.genre.map((tag, tagIdx) => ( */}
                     <span

@@ -164,7 +164,7 @@ export default function CreateChapterForm() {
                             <button onClick={() => handleCharacterSelect(selectedCharacter.character_id)} key={selectedCharacter.character_id} className="flex flex-col justify-center items-center mb-2">
                                 <div key={selectedCharacter.character_id} className={`rounded-full hover:bg-gray-500 hover:border-pink-400 relative w-24 h-24 border-2 border-blue-400 group`}>
                                     <img
-                                        src={selectedCharacter.image?.image_path}
+                                        src={selectedCharacter.image?.image_path || "/lovecraft_brew.jpeg"}
                                         alt={selectedCharacter.name}
                                         className={`mix-blend-multiply w-full h-full object-cover  rounded-full mr-2`}
                                     />

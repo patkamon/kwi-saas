@@ -53,7 +53,7 @@ export default function EditNovel({ chapter, characters }: { chapter: ChapterInt
                 {/* edit toolbar */}
                 <div className='rounded-xl border-1 mt-6'>
                     <div className="my-editor-wrapper">
-                        <Editor className="bg-blue-50" value={text} onTextChange={(e) => setText(e.htmlValue)} style={{ height: 'fit', minHeight: "400px", maxHeight: "800px", overflow: "scroll" }} />
+                        <Editor className="bg-blue-50" value={text} onTextChange={(e) => setText(e.htmlValue || '')} style={{ height: 'fit', minHeight: "400px", maxHeight: "800px", overflow: "scroll" }} />
                     </div>
                 </div>
             </section>
@@ -69,10 +69,10 @@ export default function EditNovel({ chapter, characters }: { chapter: ChapterInt
                         {
                             characters?.map((character, index) => (
                                 <div key={index} className="border-2 border-pink-3\200 bg-teal-50 rounded-full p-2 grid grid-cols-3 gap-2 my-2 items-center">
-                                    <img src={character.image?.image_path} alt={character.name} className="border-2 border-blue-300 w-16 h-16 col-span-1 rounded-full" />
+                                    <img src={character.image?.image_path || "/lovecraft_brew.jpeg"} alt={character.name} className="border-2 border-blue-300 w-16 h-16 col-span-1 rounded-full" />
                                     <div className="col-span-2 h-16">
                                         <h2 className="text-lg font-semibold h-6">{character.name}</h2>
-                                        <p className="text-xs font-light text-gray-800 h-10 overflow-hidden text-ellipsis">{character.details}</p>
+                                        <p className="text-xs font-light text-gray-800 h-10 overflow-hidden text-ellipsis">{character.description}</p>
                                     </div>
                                 </div>
                             ))

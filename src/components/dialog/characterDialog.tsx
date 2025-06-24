@@ -34,11 +34,11 @@ export default function CharacterDialog({ characters, handleCharacterSelect, isC
                                 </TabsList>
                             </DialogTitle>
                             <div className="grid grid-cols-4 gap-2 my-4">
-                                {characters.map((character, index) => (
+                                {characters.map((character) => (
                                     <button onClick={() => handleCharacterSelect(character.character_id)} key={character.character_id} className="flex flex-col justify-center items-center mb-2">
                                         <div className={`rounded-full relative w-24 h-24 ${isCharacterSelected(character.character_id) ? 'border-4 border-blue-500 bg-pink-400' : 'border-2 border-gray-300 hover:border-white'} `}>
                                             <img
-                                                src={character.image?.image_path}
+                                                src={character.image?.image_path || "/lovecraft_brew.jpeg"}
                                                 alt={character.name}
                                                 className={`mix-blend-multiply w-full h-full object-cover  rounded-full mr-2 `}
                                             />

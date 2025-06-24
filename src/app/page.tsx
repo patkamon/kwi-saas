@@ -10,7 +10,7 @@ import { getLatestAuthor, getLatestChapters, getLatestNovels } from '@/component
 import { AuthorInterface } from '@/interface/author';
 
 export default async function StoryVersePage() {
-  const latestNovels = await getLatestNovels() as NovelInterface[];
+  const latestNovels = await getLatestNovels() as unknown as NovelInterface[];
   const featureChapters = await getLatestChapters() as ChapterInterface[];
   const authors = await getLatestAuthor() as AuthorInterface[]
 

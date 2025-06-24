@@ -14,7 +14,6 @@ const featureChapterTemplate = (chapter: ChapterInterface) => {
       <div className="text-xs text-pink-500">อัปเดท {timeAgo(chapter.updated_at)}</div>
       <div className="flex space-x-4 text-sm text-gray-600">
         <div>💗 {chapter.views}</div>
-        {/* <div>💬 {chapter.comments}</div> */}
       </div>
     </Link>
     </div>

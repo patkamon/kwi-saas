@@ -6,7 +6,7 @@
       "desc": "A heartwarming tale of love and friendship.",
       "time": "2 hours ago",
       "tags": ["romance", "friendship"],
-      "img": "https://ew.com/thmb/WM51kzuKZSa0pvwUoNxu3M2fuG0=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/hp-7-162d26cc5ed042c6ae2be534656a237e.jpg"
+      "img": "/lovecraft_brew.jpeg"
     },
     {
       "id": "2",
@@ -15,7 +15,7 @@
       "desc": "An epic fantasy journey through mystical lands.",
       "time": "5 hours ago",
       "tags": ["fantasy", "adventure"],
-      "img": "https://ew.com/thmb/WM51kzuKZSa0pvwUoNxu3M2fuG0=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/hp-7-162d26cc5ed042c6ae2be534656a237e.jpg"
+      "img": "/lovecraft_brew.jpeg"
     },
     {
       "id": "3",
@@ -24,7 +24,7 @@
       "desc": "A chilling horror story that will keep you on the edge.",
       "time": "1 day ago",
       "tags": ["horror", "thriller"],
-      "img": "https://ew.com/thmb/WM51kzuKZSa0pvwUoNxu3M2fuG0=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/hp-7-162d26cc5ed042c6ae2be534656a237e.jpg"
+      "img": "/lovecraft_brew.jpeg"
     },
     {
       "id": "4",
@@ -33,7 +33,7 @@
       "desc": "A touching romance that transcends boundaries.",
       "time": "3 days ago",
       "tags": ["romance", "drama"],
-      "img": "https://ew.com/thmb/WM51kzuKZSa0pvwUoNxu3M2fuG0=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/hp-7-162d26cc5ed042c6ae2be534656a237e.jpg"
+      "img": "/lovecraft_brew.jpeg"
     },
     {
       "id": "5",
@@ -42,7 +42,7 @@
       "desc": "A magical adventure in a world of fantasy.",
       "time": "1 week ago",
       "tags": ["fantasy", "magic"],
-      "img": "https://ew.com/thmb/WM51kzuKZSa0pvwUoNxu3M2fuG0=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/hp-7-162d26cc5ed042c6ae2be534656a237e.jpg"
+      "img": "/lovecraft_brew.jpeg"
     },
     {
       "id": "6",
@@ -51,7 +51,7 @@
       "desc": "A suspenseful horror story that will haunt you.",
       "time": "2 weeks ago",
       "tags": ["horror", "suspense"],
-      "img": "https://ew.com/thmb/WM51kzuKZSa0pvwUoNxu3M2fuG0=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/hp-7-162d26cc5ed042c6ae2be534656a237e.jpg"
+      "img": "/lovecraft_brew.jpeg"
     }
   ]
   
