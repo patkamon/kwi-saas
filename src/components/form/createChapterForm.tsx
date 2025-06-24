@@ -3,16 +3,17 @@ import { useEffect, useState } from "react";
 import CharacterDialog from "../dialog/characterDialog";
 import { NovelInterface } from '@/interface/novel';
 import { CharacterInterface } from "@/interface/character";
-import characterList from '@/data/characters.json' assert { type: 'json' };
 import { Trash2 } from "lucide-react";
 import { useRouter } from "next/navigation";
-import { getNovelByAuthorId } from "../api/get";
-import { createChapter } from "../api/post";
+import { getCharacterByNovelId, getNovelByAuthorId } from "../api/get";
+import { createChapter, createChracterChapter } from "../api/post";
 
 export default function CreateChapterForm() {
     const [characters, setCharacters] = useState<CharacterInterface[]>(
-        characterList as CharacterInterface[]
+     [] as CharacterInterface[]
     );
+    const [selectedCharacter, setSelectedCharacter] = useState<string[]>([]);
+
     // get user_id from session
     const userId = sessionStorage.getItem('user_id');
     const [ownNovels, setOwnNovels] = useState<NovelInterface[]>([]);
@@ -41,8 +42,27 @@ export default function CreateChapterForm() {
         fetchNovels();
     }, [userId]);
 
+    useEffect(() => {
+        async function fetchCharacter() {
+            if (formData.novel_id === '') {
+                console.warn("Novel ID is not set. Cannot fetch characters.");
+                setCharacters([]);
+                return;
+            }
+            const fetchCharacter = await getCharacterByNovelId(formData.novel_id);
+            if (!fetchCharacter) {
+                console.error("Failed to fetch characters for novel ID:", formData.novel_id);
+                setCharacters([]);
+                return;
+            }
+            setCharacters(fetchCharacter as CharacterInterface[]);
+        }
 
-    const [selectedCharacter, setSelectedCharacter] = useState<string[]>([]);
+        fetchCharacter();
+    }, [formData.novel_id]);
+    
+
+
 
     const handleCharacterSelect = (characterId: string) => {
         if (selectedCharacter.includes(characterId)) {
@@ -70,10 +90,16 @@ export default function CreateChapterForm() {
             formData.image,
         );
 
+       
+
         if (!success) {
             console.error("Failed to create chapter:", result);
             return;
         }else{
+            await createChracterChapter(
+                result.chapter_id,
+                selectedCharacter
+            )
             router.push(`/novel/${formData.novel_id}/chapter/${result.chapter_id}/edit`);
         }
 
@@ -134,11 +160,11 @@ export default function CreateChapterForm() {
                         ตัวละครที่ปรากฏในตอนนี้  (ไม่จำเป็นต้องระบุ)
                     </label>
                     <div className="mt-2 grid grid-cols-6 gap-2">
-                        {characters.filter(character => selectedCharacter.includes(character.id)).map((selectedCharacter, index) => (
-                            <button onClick={() => handleCharacterSelect(selectedCharacter.id)} key={selectedCharacter.id} className="flex flex-col justify-center items-center mb-2">
-                                <div key={selectedCharacter.id} className={`rounded-full hover:bg-gray-500 hover:border-pink-400 relative w-24 h-24 border-2 border-blue-400 group`}>
+                        {characters.filter(character => selectedCharacter.includes(character.character_id)).map((selectedCharacter, index) => (
+                            <button onClick={() => handleCharacterSelect(selectedCharacter.character_id)} key={selectedCharacter.character_id} className="flex flex-col justify-center items-center mb-2">
+                                <div key={selectedCharacter.character_id} className={`rounded-full hover:bg-gray-500 hover:border-pink-400 relative w-24 h-24 border-2 border-blue-400 group`}>
                                     <img
-                                        src={selectedCharacter.img}
+                                        src={selectedCharacter.image?.image_path}
                                         alt={selectedCharacter.name}
                                         className={`mix-blend-multiply w-full h-full object-cover  rounded-full mr-2`}
                                     />
@@ -150,6 +176,7 @@ export default function CreateChapterForm() {
                         ))
                         }
                         <CharacterDialog
+                            characters={characters}
                             handleCharacterSelect={handleCharacterSelect}
                             isCharacterSelected={isCharacterSelected}
                         />

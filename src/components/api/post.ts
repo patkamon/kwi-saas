@@ -86,13 +86,6 @@ export async function createChapter(
     ): Promise<{ success: boolean; error?: string; result?: ChapterInterface }> {
     const { data: { user } } = await supabase.auth.getUser();
     
-    console.log({
-        title,
-        novel_id,
-        content,
-        image_id,
-        user_id: user?.id, // Ensure user ID is included
-    })
     const { data, error } = await supabase
         .from('chapters')
         .insert([
@@ -164,3 +157,22 @@ export async function createCharacter(
   return data
 }
 
+
+export async function createChracterChapter(chapter_id: string, character_ids: string[]) {
+  const { data, error } = await supabase
+    .from('chapter_character')
+    .insert(
+      character_ids.map(character_id => ({
+        chapter_id,
+        character_id
+      }))
+    )
+    .select('*')
+
+  if (error) {
+    console.error('Error creating character-chapter relationship:', error)
+    return null
+  }
+
+  return data
+}

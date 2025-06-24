@@ -227,3 +227,41 @@ export async function getNovelByGenre(genre: string) {
   }
   return data
 }
+
+export async function getCharacterByNovelId(novelId: string) {
+    const { data, error } = await supabase
+    .from('characters')
+    .select(`*,
+      image:images (
+        image_path
+      )`)
+    .eq('novel_id', novelId)
+    .order('created_at', { ascending: true }) // Sort by creation date
+
+  if (error) {
+    console.error('Error fetching characters by novel ID:', error)
+    return null
+  }
+  return data
+}
+
+export async function getCharacterByChapterId(chapterId: string) {
+  const { data, error } = await supabase
+    .from('chapter_character')
+    .select(`
+      character:characters (
+        *,
+        image: images (
+          image_path
+        )
+      )
+    `)
+    .eq('chapter_id', chapterId)
+
+  if (error) {
+    console.error('Error fetching characters by chapter ID:', error)
+    return null
+  }
+
+  return data
+}

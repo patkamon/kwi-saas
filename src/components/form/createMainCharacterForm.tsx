@@ -1,9 +1,13 @@
-import { useState } from "react";
+'use client';
+import { useEffect, useState } from "react";
 import ButtonStpper from "../stepper/buttonStepper";
 import { CharacterInterface } from "@/interface/character";
 import CreateMainCharacterPureForm from "./pureForm/createMainCharacterPureForm";
 import ListCreatedCharacter from "./pureForm/listCreatedCharacter";
 import { createCharacter, uploadImageAndInsertPath } from "../api/post";
+import { NovelInterface } from "@/interface/novel";
+import { getNovelByAuthorId } from "../api/get";
+import { useRouter } from "next/navigation";
 
 export default function CreateMainCharacterForm({ steps, completed, activeStep, setActiveStep }:
     { steps?: string[], completed?: Record<number, boolean>, activeStep?: number, setActiveStep?: (step: number) => void }) {
@@ -11,6 +15,25 @@ export default function CreateMainCharacterForm({ steps, completed, activeStep, 
     const [characters, setCharacters] = useState<CharacterInterface[]>(
         [] as CharacterInterface[]
     );
+    // get user_id from session
+    const userId = sessionStorage.getItem('user_id');
+    const [novelId, setNovelId] = useState('' as string); // Store the novel ID if needed
+    const [ownNovels, setOwnNovels] = useState<NovelInterface[]>([]);
+
+    const router = useRouter();
+
+    useEffect(() => {
+        async function fetchNovels() {
+            const novels = await getNovelByAuthorId(userId);
+            setOwnNovels(novels);
+            if (novels && novels.length > 0) {
+                setNovelId(novels[0].novel_id);
+            }
+        }
+
+        fetchNovels();
+    }, [userId]);
+
 
     const handleNext = () => {
         if (setActiveStep === undefined || activeStep === undefined || steps === undefined || completed === undefined) return;
@@ -76,10 +99,11 @@ export default function CreateMainCharacterForm({ steps, completed, activeStep, 
                             character.name,
                             character.description,
                             imgPath,
-                            "a998c624-b4b4-48b9-8798-209504f986b4" // TODO: Replace with actual novel ID
+                            novelId
                         ).then((createdCharacter) => {
                             if (createdCharacter) {
                                 console.log("Character created successfully:", createdCharacter);
+                                router.push(`/`);
                             } else {
                                 console.error("Failed to create character.");
                             }
@@ -95,10 +119,11 @@ export default function CreateMainCharacterForm({ steps, completed, activeStep, 
                     character.name,
                     character.description,
                     imgPath,
-                    "a998c624-b4b4-48b9-8798-209504f986b4" // Replace with actual novel ID
+                    novelId
                 ).then((createdCharacter) => {
                     if (createdCharacter) {
                         console.log("Character created successfully:", createdCharacter);
+                        router.push(`/`);
                     } else {
                         console.error("Failed to create character.");
                     }
@@ -115,6 +140,24 @@ export default function CreateMainCharacterForm({ steps, completed, activeStep, 
             <p className="text-sm text-gray-600 mb-8">
                 สร้างตัวละครหลักสำหรับนิยายของคุณ มากสุด 3 (สามารถเพิ่มได้อีกหลังจากสร้างนิยายแล้ว)
             </p>
+
+            <div className="flex justify-end items-center gap-4 mb-4">
+                    <label className="block text-xl font-medium mb-1" htmlFor="novel">
+                        นิยาย:
+                    </label>
+                    <select
+                        id="novel"
+                        className="w-[30%] border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring focus:border-blue-400"
+                        onChange={(e) => {
+                            setNovelId(e.target.value);
+                        }}
+                    >
+                        {ownNovels.map((novel) => (
+                            <option key={novel.novel_id} value={novel.novel_id}>{novel.title}</option>
+                        ))
+                        }
+                    </select>
+                </div>
 
 
             {/* Form */}

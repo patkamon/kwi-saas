@@ -1,5 +1,4 @@
 'use client';
-import { useState } from "react";
 import {
     Dialog,
     DialogContent,
@@ -9,17 +8,14 @@ import {
     DialogClose
 } from "@/components/shadcn/dialog"
 import { TabsList, TabsTrigger, Tabs } from "@/components/shadcn/tabs"
-import characterList from '@/data/characters.json' assert { type: 'json' };
 import { CharacterInterface } from "@/interface/character";
 import { Check } from "lucide-react";
 
-export default function CharacterDialog({ handleCharacterSelect, isCharacterSelected }: {
+export default function CharacterDialog({ characters, handleCharacterSelect, isCharacterSelected }: {
+    characters: CharacterInterface[];
     handleCharacterSelect: (characterId: string) => void;
     isCharacterSelected: (characterId: string) => boolean;
 }) {
-    const [characters, setCharacters] = useState<CharacterInterface[]>(
-        characterList as CharacterInterface[]
-    );
 
     return (
         <div>
@@ -39,14 +35,14 @@ export default function CharacterDialog({ handleCharacterSelect, isCharacterSele
                             </DialogTitle>
                             <div className="grid grid-cols-4 gap-2 my-4">
                                 {characters.map((character, index) => (
-                                    <button onClick={() => handleCharacterSelect(character.id)} key={character.id} className="flex flex-col justify-center items-center mb-2">
-                                        <div className={`rounded-full relative w-24 h-24 ${isCharacterSelected(character.id) ? 'border-4 border-blue-500 bg-pink-400' : 'border-2 border-gray-300 hover:border-white'} `}>
+                                    <button onClick={() => handleCharacterSelect(character.character_id)} key={character.character_id} className="flex flex-col justify-center items-center mb-2">
+                                        <div className={`rounded-full relative w-24 h-24 ${isCharacterSelected(character.character_id) ? 'border-4 border-blue-500 bg-pink-400' : 'border-2 border-gray-300 hover:border-white'} `}>
                                             <img
-                                                src={character.img}
+                                                src={character.image?.image_path}
                                                 alt={character.name}
                                                 className={`mix-blend-multiply w-full h-full object-cover  rounded-full mr-2 `}
                                             />
-                                            {isCharacterSelected(character.id) && <div className="absolute inset-0 flex justify-center items-center rounded-lg">
+                                            {isCharacterSelected(character.character_id) && <div className="absolute inset-0 flex justify-center items-center rounded-lg">
                                                 <Check className="text-white w-12 h-12" />
                                             </div>
                                             }

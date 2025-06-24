@@ -38,7 +38,7 @@ export default function EditNovel({ chapter, characters }: { chapter: ChapterInt
     return (
         <section className="px-6 py-10 grid grid-cols-4 gap-8 max-w-7xl mx-auto">
             <section className="px-6 py-5 col-span-3">
-                <input className="text-5xl w-full" placeholder={chapter.title} onChange={
+                <input className="text-5xl w-full" placeholder={title} onChange={
                     (e) => {
                         setTitle(e.target.value);
                         chapter.title = e.target.value; // Update the chapter title
@@ -69,7 +69,7 @@ export default function EditNovel({ chapter, characters }: { chapter: ChapterInt
                         {
                             characters?.map((character, index) => (
                                 <div key={index} className="border-2 border-pink-3\200 bg-teal-50 rounded-full p-2 grid grid-cols-3 gap-2 my-2 items-center">
-                                    <img src={character.image} alt={character.name} className="border-2 border-blue-300 w-16 h-16 col-span-1 rounded-full" />
+                                    <img src={character.image?.image_path} alt={character.name} className="border-2 border-blue-300 w-16 h-16 col-span-1 rounded-full" />
                                     <div className="col-span-2 h-16">
                                         <h2 className="text-lg font-semibold h-6">{character.name}</h2>
                                         <p className="text-xs font-light text-gray-800 h-10 overflow-hidden text-ellipsis">{character.details}</p>
