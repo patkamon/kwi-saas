@@ -26,8 +26,6 @@ export default function MostPopularByGenre() {
     fetchNovels();
   }, [value]);
 
-  console.log(novels)
-
   const justifyTemplate = (option: GenreOption) => {
     return <div className={`${value == option.value ? 'bg-blue-200 border-pink-400' : 'bg-white'} border-2 border-pink-200 hover:border-pink-500 m-[2px] px-2 rounded-2xl`}>{option.name}</div>;
   }

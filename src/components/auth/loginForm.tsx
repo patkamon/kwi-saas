@@ -15,7 +15,7 @@ import SignInWithGoogleButton from "./signInWithGoogleButton"
 
 export function LoginForm() {
   return (
-    <Card className="mx-auto max-w-sm">
+    <Card className="mx-auto w-96 h-fit my-32">
       <CardHeader>
         <CardTitle className="text-2xl">Login</CardTitle>
         <CardDescription>
@@ -44,7 +44,7 @@ export function LoginForm() {
                 </div>
                 <Input id="password" name="password" type="password" required />
               </div>
-              <Button type="submit" formAction={login} className="w-full">
+              <Button type="submit" formAction={login} className="w-full bg-blue-500 text-white">
                 Login
               </Button>
              <SignInWithGoogleButton/> 

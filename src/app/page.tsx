@@ -14,8 +14,6 @@ export default async function StoryVersePage() {
   const featureChapters = await getLatestChapters() as ChapterInterface[];
   const authors = await getLatestAuthor() as AuthorInterface[]
 
-  console.log(featureChapters)
-
   return (
     <div>
       <section className="px-6 pt-4 flex justify-end">

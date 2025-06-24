@@ -45,8 +45,9 @@ export default function LoginButton() {
     <button
       className="text-sm text-red-600 hover:underline"
       onClick={async () => {
+        sessionStorage.removeItem("user_id");
         signout();
-          setUser(null);
+        setUser(null);
       }}
     >
       ออกจากระบบ

@@ -6,7 +6,7 @@ import Link from 'next/link';
 
 const featureChapterTemplate = (chapter: ChapterInterface) => {
   return (
-    <div  className="bg-white surface-border rounded-2xl shadow p-4 space-y-2 m-4">
+    <div  className="bg-white surface-border rounded-2xl shadow p-4 space-y-2 m-4 h-32">
     <Link href={`/novel/${chapter.novel_id}/chapter/${chapter.chapter_id}`}>
       <div className="font-semibold text-blue-800">{chapter.novel ? chapter.novel.title : "No Name"}</div>
       <div className="font-bold text-blue-900">{chapter.title}</div>

@@ -216,6 +216,9 @@ export async function getNovelByGenre(genre: string) {
     .select(`*,
       image:images (
         image_path
+      ),
+      author:profiles (
+          name
       )`)
     .eq('genre', genre)
     .order('created_at', { ascending: false }) // Sort by creation date

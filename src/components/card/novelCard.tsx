@@ -12,16 +12,13 @@ export default function NovelCard(novel: NovelInterface) {
           <div className="text-xs text-pink-500">{timeAgo(novel.updated_at)}</div>
         </div>
         <div className="font-bold text-blue-900">{novel.title}</div>
-        <div className="text-sm text-blue-600">{novel.description}</div>
+        <div className="text-sm text-blue-600 line-clamp-2">{novel.description}</div>
         <div className="flex space-x-2 mt-2">
-          {/* {novel.genre.map((tag, tagIdx) => ( */}
             <span
-              // key={tagIdx}
               className="text-xs bg-blue-100 text-blue-600 px-2 py-1 rounded-full"
             >
               {novel.genre}
             </span>
-          {/* ))} */}
         </div>
       </Link>
     </div>
