@@ -3,7 +3,6 @@
 import { ChapterInterface } from "@/interface/chapter";
 import { getLocalDate } from "@/lib/utils";
 import { Dot } from "lucide-react";
-import { Editor } from 'primereact/editor'
 import { useState } from "react";
 import { Save } from "lucide-react";
 import { CharacterInterface } from "@/interface/character";
@@ -36,7 +35,7 @@ export default function EditNovel({ chapter, characters }: { chapter: ChapterInt
     }
     
     return (
-        <section className="px-6 py-10 grid grid-cols-4 gap-8 max-w-7xl mx-auto">
+        <section className="py-10 grid grid-cols-4 mx-auto">
             <section className="px-6 py-5 col-span-3">
                 <input className="text-5xl w-full" placeholder={title} onChange={
                     (e) => {
@@ -51,26 +50,29 @@ export default function EditNovel({ chapter, characters }: { chapter: ChapterInt
                 </div>
 
                 {/* edit toolbar */}
-                <div className='rounded-xl border-1 mt-6'>
-                    <div className="my-editor-wrapper">
-                        <Editor className="bg-blue-50" value={text} onTextChange={(e) => setText(e.htmlValue || '')} style={{ height: 'fit', minHeight: "400px", maxHeight: "800px", overflow: "scroll" }} />
+                {/* <div className='rounded-xl border-1 mt-6'> */}
+                    <div className="my-editor-wrapper mt-4">
+                        <textarea className="bg-blue-50 w-full border-1 rounded-xl p-2"
+                            value={text} 
+                            onChange={(e) => setText(e.target.value || '')} 
+                            style={{ height: 'fit', minHeight: "400px", maxHeight: "800px", overflow: "scroll" }} />
                     </div>
-                </div>
+                {/* </div> */}
             </section>
-            <section className="col-span-1 flex flex-col gap-4">
-                <button onClick={()=>{callUpdateChapter()}}  className="bg-blue-400 w-full flex items-center hover:cursor-pointer hover:bg-blue-500 justify-center text-xl py-2 rounded-3xl border-blue-400 border-2 text-white">
+            <section className="col-span-1 flex flex-col gap-4 w-full">
+                <button onClick={()=>{callUpdateChapter()}}  className="bg-blue-400 w-full mt-6 flex items-center hover:cursor-pointer hover:bg-blue-500 justify-center text-xl py-2 rounded-3xl border-blue-400 border-2 text-white">
                     <Save className="mr-2" />
                     บันทึก
                 </button>
 
-                <section className="px-6 py-6 h-fit border-2 border-blue-400 rounded-3xl bg-blue-100">
+                <section className="px-2 py-2 h-fit border-2 border-blue-400 rounded-3xl bg-blue-100">
                     <div className="">
-                        <h1 className="text-xl">ตัวละครที่ปรากฏ</h1>
+                        <h1 className="text-xl ml-4">ตัวละครที่ปรากฏ</h1>
                         {
                             characters?.map((character, index) => (
-                                <div key={index} className="border-2 border-pink-3\200 bg-teal-50 rounded-full p-2 grid grid-cols-3 gap-2 my-2 items-center">
-                                    <img src={character.image?.image_path || "/lovecraft_brew.jpeg"} alt={character.name} className="border-2 border-blue-300 w-16 h-16 col-span-1 rounded-full" />
-                                    <div className="col-span-2 h-16">
+                                <div key={index} className="border-2 border-pink-3\200 bg-teal-50 rounded-full p-2 grid grid-cols-5 gap-2 my-2 items-center">
+                                    <img src={character.image?.image_path || "/lovecraft_brew.jpeg"} alt={character.name} className="border-2 border-blue-300 w-16 h-16 col-span-2 rounded-full object-cover" />
+                                    <div className="col-span-3 h-16">
                                         <h2 className="text-lg font-semibold h-6">{character.name}</h2>
                                         <p className="text-xs font-light text-gray-800 h-10 overflow-hidden text-ellipsis">{character.description}</p>
                                     </div>

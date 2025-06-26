@@ -265,3 +265,22 @@ export async function getCharacterByChapterId(chapterId: string) {
 
   return data
 }
+
+export async function getImgByPath(imagePath: string) {
+  if (!imagePath) {
+    console.error('Image path is empty');
+    return null;
+  }
+
+  //TODO: change to signed
+  const { data } = await supabase.storage
+  .from('image_bucket')
+  .getPublicUrl(imagePath.split('image_bucket/')[1]);
+
+  if (!data) {
+    console.error('Error fetching image by path:', imagePath);
+    return null;
+  }
+
+  return data.publicUrl
+}

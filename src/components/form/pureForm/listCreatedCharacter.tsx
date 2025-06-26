@@ -7,7 +7,10 @@ export default function ListCreatedCharacter({ characters }: { characters: Chara
             <div className="border-x-2 flex hover:bg-pink-100 border-blue-200 first:rounded-t-md last:rounded-b-md" key={character.id}>
                 <div className="flex flex-col justify-around items-center mx-4">
                     {/* Cover Image Upload */}
-                    <ImageDialog selected_img={character.image ? URL.createObjectURL(character.image?.image_path): undefined} />
+                    <ImageDialog selected_img={
+                        character.image ? character.image?.image_id ?`data:image/png;base64,${character.image.image_path}` // Use base64 if available
+                            : URL.createObjectURL(character.image?.image_path)
+                            : undefined} />
                     <button className="px-2 rounded-md border border-pink-400 bg-pink-200 hover:border-2 min-w-16 flex justify-center">ลบ</button>
                 </div>
 

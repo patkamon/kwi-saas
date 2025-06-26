@@ -38,18 +38,13 @@ export default function CreateNovelForm({ formData, setFormData, steps, complete
             setActiveStep(newActiveStep);
 
             // TODO: MIGHT CHANGE THIS
-            uploadImageAndInsertPath(formData.image).then((res) => {
-                if (res.success) {
-                    console.log("Image uploaded successfully:", res.image_id);
-                } else {
-                    console.error("Image upload failed:", res.error);
-                }
-
+            if (!formData.image && formData.image_id) {
+                // skip uploading image if image_id is already set
                 createNovel(
                     formData.title,
                     formData.description,
                     formData.genre,
-                    formData.image_id || res.image_id // Use the image_id from the upload result,
+                    formData.image_id // Use the image_id from the upload result,
                 ).then((res) => {
                     if (res) {
                         console.log("Novel created successfully:", res);
@@ -59,8 +54,31 @@ export default function CreateNovelForm({ formData, setFormData, steps, complete
                 }).catch((error) => {
                     console.error("Error creating novel:", error);
                 });
-            })
-
+            }
+            else{
+                uploadImageAndInsertPath(formData.image).then((res) => {
+                    if (res.success) {
+                        console.log("Image uploaded successfully:", res.image_id);
+                    } else {
+                        console.error("Image upload failed:", res.error);
+                    }
+    
+                    createNovel(
+                        formData.title,
+                        formData.description,
+                        formData.genre,
+                        formData.image_id || res.image_id // Use the image_id from the upload result,
+                    ).then((res) => {
+                        if (res) {
+                            console.log("Novel created successfully:", res);
+                        } else {
+                            console.error("Failed to create novel.");
+                        }
+                    }).catch((error) => {
+                        console.error("Error creating novel:", error);
+                    });
+                })
+            }
         } else {
             form?.reportValidity();
         }

@@ -12,7 +12,7 @@ export default async function EditPage({params}: { params: { novel_id: string, c
     console.log("Characters for chapter:", characters?.map((c)=>c.character) );
 
     return (
-        <div className="">
+        <div>
                 <EditNovel 
                     chapter={chapterData as ChapterInterface}
                     characters={characters?.map((c)=>c.character) as CharacterInterface[]}

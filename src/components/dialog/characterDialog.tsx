@@ -10,12 +10,41 @@ import {
 import { TabsList, TabsTrigger, Tabs } from "@/components/shadcn/tabs"
 import { CharacterInterface } from "@/interface/character";
 import { Check } from "lucide-react";
+import { getImgByPath } from "../api/get";
+import { useEffect, useState } from "react";
 
 export default function CharacterDialog({ characters, handleCharacterSelect, isCharacterSelected }: {
     characters: CharacterInterface[];
     handleCharacterSelect: (characterId: string) => void;
     isCharacterSelected: (characterId: string) => boolean;
 }) {
+
+    const fallbackImg = "/lovecraft_brew.jpeg";
+    const [imageMap, setImageMap] = useState({});
+
+    useEffect(() => {
+        const loadImages = async () => {
+            const newImageMap = {};
+
+            await Promise.all(
+                characters.map(async (character) => {
+                    const path = character.image?.image_path;
+                    if (path) {
+                        const publicUrl = await getImgByPath(path);
+                        newImageMap[character.character_id] = publicUrl || fallbackImg;
+                    } else {
+                        newImageMap[character.character_id] = fallbackImg;
+                    }
+                })
+            );
+
+            setImageMap(newImageMap);
+        };
+
+        loadImages();
+    }, [characters]);
+
+
 
     return (
         <div>
@@ -38,9 +67,9 @@ export default function CharacterDialog({ characters, handleCharacterSelect, isC
                                     <button onClick={() => handleCharacterSelect(character.character_id)} key={character.character_id} className="flex flex-col justify-center items-center mb-2">
                                         <div className={`rounded-full relative w-24 h-24 ${isCharacterSelected(character.character_id) ? 'border-4 border-blue-500 bg-pink-400' : 'border-2 border-gray-300 hover:border-white'} `}>
                                             <img
-                                                src={character.image?.image_path || "/lovecraft_brew.jpeg"}
+                                                src={imageMap[character.character_id] || fallbackImg}
                                                 alt={character.name}
-                                                className={`mix-blend-multiply w-full h-full object-cover  rounded-full mr-2 `}
+                                                className="mix-blend-multiply w-full h-full object-cover rounded-full mr-2"
                                             />
                                             {isCharacterSelected(character.character_id) && <div className="absolute inset-0 flex justify-center items-center rounded-lg">
                                                 <Check className="text-white w-12 h-12" />

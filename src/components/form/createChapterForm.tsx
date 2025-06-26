@@ -6,7 +6,7 @@ import { CharacterInterface } from "@/interface/character";
 import { Trash2 } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { getCharacterByNovelId, getNovelByAuthorId } from "../api/get";
-import { createChapter, createChracterChapter } from "../api/post";
+import { createChapter, createChracterChapter, generateNovel } from "../api/post";
 
 export default function CreateChapterForm() {
     const [characters, setCharacters] = useState<CharacterInterface[]>(
@@ -23,8 +23,9 @@ export default function CreateChapterForm() {
     const [formData, setFormData] = useState({
         title: '',
         novel_id: '',
-        content: '<b>This is a new chapter</b>',
+        content: 'nah',
         image: undefined,
+        description: ''
     });
 
     useEffect(() => {
@@ -100,6 +101,32 @@ export default function CreateChapterForm() {
                 result.chapter_id,
                 selectedCharacter
             )
+         
+            const selectNovel = ownNovels.find(novel => novel.novel_id === formData.novel_id);
+            
+            console.log(
+                selectNovel?.novel_id,
+                selectNovel?.genre,
+                "กาย กับ แก้ว",
+                result.chapter_id,
+                formData.description
+            )
+
+            const content = await generateNovel(
+                selectNovel?.title,
+                selectNovel?.genre,
+                "ไทเลอร์ ชายกล้ามโต หัวโล้น",
+                formData.description,
+                result.chapter_id
+            )
+        
+            if (!content) {
+                console.error("Failed to create chapter character association");
+                return;
+            }
+            console.log("Chapter created successfully:", content);
+         
+
             router.push(`/novel/${formData.novel_id}/chapter/${result.chapter_id}/edit`);
         }
 
@@ -191,6 +218,12 @@ export default function CreateChapterForm() {
                     <textarea
                         id="description"
                         rows={8}
+                        onChange={(e) => {
+                            setFormData({
+                                ...formData,
+                                description: e.target.value
+                            });
+                        }}
                         placeholder="Brief description of your chapter"
                         className="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring focus:border-blue-400"
                     ></textarea>

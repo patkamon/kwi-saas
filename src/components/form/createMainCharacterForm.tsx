@@ -63,12 +63,13 @@ export default function CreateMainCharacterForm({ steps, completed, activeStep, 
         setActiveStep(Math.max(activeStep - 1, 0));
     };
 
-    const addCharacter = ({name, description , img} : { 
+    const addCharacter = ({name, description , img, image_id} : { 
         name: string, 
         description: string, 
         img?: string | undefined
+        image_id?: string | undefined
     }) => {
-        console.log("Adding character:", name, description, img);
+        console.log("Adding character:", name, description, img, image_id);
         if (characters.length >= 3) {
             alert("คุณสามารถเพิ่มตัวละครได้สูงสุด 3 ตัว\nสามารถเพิ่มได้อีก หลังสร้างนิยาย");
             return;
@@ -79,8 +80,8 @@ export default function CreateMainCharacterForm({ steps, completed, activeStep, 
                 name,
                 description: description,
                 image: img ? {
-                    image_id: img,
                     image_path: img,
+                    image_id: image_id,
                 } : undefined,
             };
             setCharacters([...characters, newCharacter]);
@@ -90,31 +91,49 @@ export default function CreateMainCharacterForm({ steps, completed, activeStep, 
 
     function handleCreateCharacter(){
         characters.forEach((character) => {
-            let imgPath = null
+            let img_id = null
             if (character.image){
-                uploadImageAndInsertPath(character.image.image_id).then((results) => {
-                    if (results) {
-                        imgPath = results.image_id;
-                        createCharacter(
-                            character.name,
-                            character.description,
-                            imgPath,
-                            novelId
-                        ).then((createdCharacter) => {
-                            if (createdCharacter) {
-                                console.log("Character created successfully:", createdCharacter);
-                                router.push(`/`);
-                            } else {
-                                console.error("Failed to create character.");
-                            }
+                // already upload image (gen)
+                if (character.image.image_id) {
+                    // skip upload if image_id is already present
+                    createCharacter(
+                        character.name,
+                        character.description,
+                        character.image.image_id,
+                        novelId
+                    ).then((createdCharacter) => {
+                        if (createdCharacter) {
+                            console.log("Character created successfully:", createdCharacter);
+                            router.push(`/`);
+                        } else {
+                            console.error("Failed to create character.");
                         }
-                        )
-                    }
+                    })
                 }
-                ).catch((error) => {
-                    console.error("Error uploading image:", error);
-                });
-            }else{
+                else{ // upload image
+                    uploadImageAndInsertPath(character.image.image_path).then((results) => {
+                        if (results) {
+                            img_id = results.image_id;
+                            createCharacter(
+                                character.name,
+                                character.description,
+                                img_id,
+                                novelId
+                            ).then((createdCharacter) => {
+                                if (createdCharacter) {
+                                    console.log("Character created successfully:", createdCharacter);
+                                    router.push(`/`);
+                                } else {
+                                    console.error("Failed to create character.");
+                                }
+                            }
+                            )
+                        }
+                    }).catch((error) => {
+                        console.error("Error uploading image:", error);
+                    });
+                }
+            }else{ // no image
                 createCharacter(
                     character.name,
                     character.description,

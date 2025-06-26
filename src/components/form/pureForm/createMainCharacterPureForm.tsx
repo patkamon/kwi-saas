@@ -5,7 +5,7 @@ import { useState } from "react";
 
 export default function CreateMainCharacterPureForm({ addCharacter }: { addCharacter: (e: any) => void }) {
 
-    const [img, setImg] = useState<{ image?: string } | undefined>({});
+    const [img, setImg] = useState<{ image?: string, image_id?:string } | undefined>({});
 
     function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
         e.preventDefault();
@@ -17,7 +17,8 @@ export default function CreateMainCharacterPureForm({ addCharacter }: { addChara
         addCharacter({
             name,
             description: details,
-            img: img?.image
+            img: img?.image,
+            image_id: img?.image_id
         });
         (form as HTMLFormElement).reset();
     }

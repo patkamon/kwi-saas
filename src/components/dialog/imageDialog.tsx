@@ -5,12 +5,12 @@ import {
     DialogHeader,
     DialogTitle,
     DialogTrigger,
-    DialogClose
+    DialogClose,
+    DialogFooter
 } from "@/components/shadcn/dialog"
 import Image from 'next/image';
 import React, { useState } from "react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/shadcn/tabs"
-import CreateNovelWindow from "../window/createNovelWindow";
 import { InputTextarea } from 'primereact/inputtextarea';
 import { ScrollArea } from "@/components/shadcn/scroll-area"
 import { Label } from "@/components/shadcn/label"
@@ -21,6 +21,8 @@ import {
     AccordionTrigger,
 } from "@/components/shadcn/accordion"
 import artworkList from '@/data/artworks.json' assert { type: 'json' };
+import { generateImage } from "../api/post";
+import UploadImagelWindow from "../window/uploadImageWindow";
 
 export interface Artwork {
     artist: string
@@ -33,40 +35,55 @@ export const works: Artwork[] = artworkList as Artwork[];
 // const ASPECT_RATIO = 1;
 // const MIN_DIMENSION = 150;
 
-export default function ImageDialog({setFormData, selected_img}: 
+export default function ImageDialog({ setFormData, selected_img }:
     {
         setFormData: React.Dispatch<React.SetStateAction<Record<string, unknown>>>,
         selected_img?: string | undefined,
     }) {
     const [value, setValue] = useState('');
 
-    const [imgSrc, setImgSrc] = useState("");
+    const [imgSrc, setImgSrc] = useState('');
 
     const onSelectFile = (e: React.ChangeEvent<HTMLInputElement>) => {
         const file = e.target.files?.[0];
         if (!file) return;
-      
+
         const reader = new FileReader();
-      
+
         reader.onload = () => {
-          const imageUrl = reader.result?.toString() || "";
-          const img = document.createElement('img');
-          img.onload = () => {
-            const { naturalWidth, naturalHeight } = img;
-            if (naturalWidth < 150 || naturalHeight < 150) {
-            //   setError("Image must be at least 150 x 150 pixels.");
-              setImgSrc("");
-              return;
-            }
-      
-            setImgSrc(imageUrl); // show preview
-            setFormData((prev) => ({ ...prev, image: file })); // store file for upload
-          };
-          img.src = imageUrl;
+            const imageUrl = reader.result?.toString() || "";
+            const img = document.createElement('img');
+            img.onload = () => {
+                const { naturalWidth, naturalHeight } = img;
+                if (naturalWidth < 150 || naturalHeight < 150) {
+                    //   setError("Image must be at least 150 x 150 pixels.");
+                    setImgSrc("");
+                    return;
+                }
+
+                setImgSrc(imageUrl); // show preview
+                setFormData((prev) => ({ ...prev, image: file })); // store file for upload
+            };
+            img.src = imageUrl;
         };
-      
+
         reader.readAsDataURL(file); // load preview
-      };
+    };
+
+    function callGenerateImage() {
+        generateImage(value).then((res) => {
+            if (res) {
+                setImgSrc(`data:image/png;base64,${res.image}`);
+                setFormData((prev) => ({ ...prev, image_id: res.image_id, image:res.image }))
+            } else {
+                console.error("Error generating image:", res.error);
+            }
+        }
+        ).catch((error) => {
+            console.error("Error generating image:", error);
+        }
+        );
+    }
 
 
     return (
@@ -77,17 +94,20 @@ export default function ImageDialog({setFormData, selected_img}:
                     {imgSrc ? <Image
                         src={imgSrc}
                         alt={`Photo by ${imgSrc}`}
-                        className="aspect-[3/4] h-50 w-36 object-cover border-2 border-dashed border-pink-400 p-1"
-                        width={160}
-                        height={200}
-                    /> : <Image alt='Selected Image' 
-                    src={
-                        selected_img ?
-                        selected_img :
-                        "/lovecraft_brew.jpeg"
+                        className="max-w-32 max-h-40 min-w-32 min-h-40 aspect-[3/4] h-fit w-fit object-cover mx-4 my-2 border-2 border-dashed border-pink-400 p-1"
+                        width={256}
+                        height={256}
+                    /> : <Image alt='Selected Image'
+                        src={
+                            selected_img ?
+                                selected_img :
+                                "/lovecraft_brew.jpeg"
                         }
-                        width="160" height="200" className="px-4 py-2 bg-white border-dashed border-2 border-pink-400 text-white rounded-md hover:bg-pink-200 hover:cursor-pointer"
-                    />}
+                        className="max-w-32 max-h-40 min-w-32 min-h-40 aspect-[3/4] h-fit w-fit object-cover mx-4 my-2 border-2 border-dashed border-pink-400 p-1"
+                        width={256}
+                        height={256}
+                   
+                   />}
                 </DialogTrigger>
                 <DialogContent className='flex justify-center'>
                     <DialogHeader>
@@ -100,41 +120,40 @@ export default function ImageDialog({setFormData, selected_img}:
                                 </TabsList>
                             </DialogTitle>
                             <TabsContent value="upload">
-                                <CreateNovelWindow works={works} imgSrc={imgSrc} onSelectFile={onSelectFile} />
+                                <UploadImagelWindow works={works} imgSrc={imgSrc || selected_img || "/lovecraft_brew.jpeg"} onSelectFile={onSelectFile} />
                             </TabsContent>
                             <TabsContent value="ai">
                                 <div className="flex flex-col w-[24rem]">
                                     <Label className="text-blue-900" htmlFor="picture">เลือกรูปภาพ: </Label>
                                     <Image
-                                        src="/lovecraft_brew.jpeg"
+                                        src={imgSrc || selected_img || "/lovecraft_brew.jpeg"}
                                         alt={`Photo by ew`}
-                                        className="aspect-[3/4] h-fit w-fit object-cover mx-auto border-2 border-dashed border-pink-400 p-1"
+                                        className="max-w-24 max-h-32 min-w-24 min-h-32 aspect-[3/4] h-fit w-fit object-cover mx-auto border-2 border-dashed border-pink-400 p-1"
                                         width={60}
                                         height={75}
                                     />
                                     <div className="flex justify-between items-center">
                                         <h2 className="text-blue-900"> เจนด้วย AI: </h2>
-                                        <h5 className="text-rose-400 text-xs">ฟีเจอร์อยู่ระหว่างการพัฒนา</h5>
+                                        <h5 className="text-rose-400 text-xs">ใช้ภาษาอังกฤษ</h5>
                                     </div>
-                                    <InputTextarea placeholder="Prompt 🪄✨ Be creative" disabled className="px-2 py-1 border bg-blue-50 border-gray-500 rounded-md" value={value} onChange={(e) => setValue(e.target.value)} rows={5} cols={30} />
-                                    <div className="flex justify-end mt-2">
-                                        <button
-                                            type="submit"
-                                            className="px-4 py-2 bg-black text-white  rounded-md hover:bg-gray-900 hover:cursor-pointer"
-                                        >
-                                            เลือก
-                                        </button>
-                                    </div>
+                                    <InputTextarea placeholder="Prompt 🪄✨ Be creative" className="px-2 py-1 border bg-blue-50 border-gray-500 rounded-md" value={value} onChange={(e) => setValue(e.target.value)} rows={5} cols={30} />
+                                    <button
+                                        type="submit"
+                                        className="px-4 py-2 my-2 bg-blue-500 text-white  rounded-md hover:bg-pink-400 hover:cursor-pointer"
+                                        onClick={() => { callGenerateImage() }}
+                                    >
+                                        generate
+                                    </button>
                                 </div>
                             </TabsContent>
                             <TabsContent value="collection">
                                 <Label className="text-blue-900" htmlFor="picture">เลือกรูปภาพ: </Label>
                                 <Image
-                                    src="/lovecraft_brew.jpeg"
+                                    src={imgSrc || selected_img || "/lovecraft_brew.jpeg"}
                                     alt={`Photo by ew`}
-                                    className="aspect-[3/4] h-fit w-fit object-cover mx-auto border-2 border-dashed border-pink-400 p-1"
-                                    width={60}
-                                    height={75}
+                                    className="max-w-24 max-h-32 min-w-24 min-h-32 aspect-[3/4] h-fit w-fit object-cover mx-auto border-2 border-dashed border-pink-400 p-1"
+                                    width={256}
+                                    height={256}
                                 />
                                 <Label className="text-blue-900" htmlFor="picture">คลัง: </Label>
                                 <ScrollArea className="max-h-[500px] overflow-y-scroll scrollbar-hide w-[400px] rounded-md border px-4">
@@ -179,8 +198,8 @@ export default function ImageDialog({setFormData, selected_img}:
                                                                     src={artwork.art || "/lovecraft_brew.jpeg"}
                                                                     alt={`Photo by ${artwork.artist}`}
                                                                     className="aspect-[3/4] h-fit w-fit object-cover"
-                                                                    width={60}
-                                                                    height={75}
+                                                                    width={256}
+                                                                    height={256}
                                                                 />
                                                             </div>
                                                             <figcaption className="pt-2 text-xs text-muted-foreground">
@@ -222,17 +241,17 @@ export default function ImageDialog({setFormData, selected_img}:
                                         </AccordionItem>
                                     </Accordion>
                                 </ScrollArea>
-                                <DialogClose asChild>
-                                    <div className="flex justify-end mt-2">
-                                        <button
-                                            type="submit"
-                                            className="px-4 py-2 bg-black text-white  rounded-md hover:bg-gray-900 hover:cursor-pointer"
-                                        >
-                                            เลือก
-                                        </button>
-                                    </div>
-                                </DialogClose>
                             </TabsContent>
+                            <DialogFooter className="flex justify-end mt-2">
+                                <DialogClose asChild>
+                                    <button
+                                        type="submit"
+                                        className="px-4 py-2 bg-black text-white  rounded-md hover:bg-gray-900 hover:cursor-pointer"
+                                    >
+                                        เลือก
+                                    </button>
+                                </DialogClose>
+                            </DialogFooter>
                         </Tabs>
                     </DialogHeader>
                 </DialogContent>
