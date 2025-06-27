@@ -9,7 +9,7 @@ import {
     DialogFooter
 } from "@/components/shadcn/dialog"
 import Image from 'next/image';
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/shadcn/tabs"
 import { InputTextarea } from 'primereact/inputtextarea';
 import { ScrollArea } from "@/components/shadcn/scroll-area"
@@ -20,17 +20,12 @@ import {
     AccordionItem,
     AccordionTrigger,
 } from "@/components/shadcn/accordion"
-import artworkList from '@/data/artworks.json' assert { type: 'json' };
 import { generateImage } from "../api/post";
 import UploadImagelWindow from "../window/uploadImageWindow";
+import { getPublicImageUrls } from "../api/get";
+import { ImageInterface } from "@/interface/image";
 
-export interface Artwork {
-    artist: string
-    art: string
-    date?: string
-}
 
-export const works: Artwork[] = artworkList as Artwork[];
 
 // const ASPECT_RATIO = 1;
 // const MIN_DIMENSION = 150;
@@ -43,6 +38,22 @@ export default function ImageDialog({ setFormData, selected_img }:
     const [value, setValue] = useState('');
 
     const [imgSrc, setImgSrc] = useState('');
+    const [imagePublicCollection, setImagePublicCollection]= useState([] as ImageInterface[]) ;
+    const [imageUploadCollection, setImageUploadCollection] = useState([] as ImageInterface[]);
+    const [imageGeneratedCollection, setImageGeneratedCollection] = useState([] as ImageInterface[]);
+
+
+    useEffect(() => {
+        async function getImage(type: string, setFunc: React.Dispatch<React.SetStateAction<ImageInterface[]>>) {
+            const data = await getPublicImageUrls(type)
+            setFunc(data);
+        }
+        getImage('public', setImagePublicCollection)
+        getImage('upload', setImageUploadCollection)
+        getImage('gen', setImageGeneratedCollection)
+
+    },[])
+
 
     const onSelectFile = (e: React.ChangeEvent<HTMLInputElement>) => {
         const file = e.target.files?.[0];
@@ -120,7 +131,7 @@ export default function ImageDialog({ setFormData, selected_img }:
                                 </TabsList>
                             </DialogTitle>
                             <TabsContent value="upload">
-                                <UploadImagelWindow works={works} imgSrc={imgSrc || selected_img || "/lovecraft_brew.jpeg"} onSelectFile={onSelectFile} />
+                                <UploadImagelWindow imageCollection={imageUploadCollection} imgSrc={imgSrc || selected_img || "/lovecraft_brew.jpeg"} onSelectFile={onSelectFile} />
                             </TabsContent>
                             <TabsContent value="ai">
                                 <div className="flex flex-col w-[24rem]">
@@ -157,19 +168,19 @@ export default function ImageDialog({ setFormData, selected_img }:
                                 />
                                 <Label className="text-blue-900" htmlFor="picture">คลัง: </Label>
                                 <ScrollArea className="max-h-[500px] overflow-y-scroll scrollbar-hide w-[400px] rounded-md border px-4">
-                                    <Accordion type="multiple" defaultValue={["item-1", "item-2", "item-3"]}>
+                                    <Accordion type="multiple" defaultValue={[]}>
                                         <AccordionItem value="item-1">
                                             <AccordionTrigger>
                                                 <Label className="text-blue-900" htmlFor="picture">คลังอัปโหลด</Label>
                                             </AccordionTrigger>
                                             <AccordionContent>
                                                 <div className='grid grid-cols-4 gap-2'>
-                                                    {works.slice(4, 10).map((artwork, idx) => (
-                                                        <figure key={artwork.artist + idx} className="shrink-0 truncate flex flex-col items-center p-1 hover:bg-white rounded-md hover:border-2 hover:border-pink-400" >
+                                                    {imageUploadCollection.map((image, idx) => (
+                                                        <figure key={image.image_id + "upload"} className="shrink-0 truncate flex flex-col items-center p-1 hover:bg-white rounded-md hover:border-2 hover:border-pink-400" >
                                                             <div className="overflow-hidden rounded-md">
                                                                 <Image
-                                                                    src={artwork.art || "/lovecraft_brew.jpeg"}
-                                                                    alt={`Photo by ${artwork.artist}`}
+                                                                    src={image.image_path || "/lovecraft_brew.jpeg"}
+                                                                    alt={`Photo by ${image.created_by}`}
                                                                     className="aspect-[3/4] h-fit w-fit object-cover"
                                                                     width={60}
                                                                     height={75}
@@ -177,7 +188,7 @@ export default function ImageDialog({ setFormData, selected_img }:
                                                             </div>
                                                             <figcaption className="pt-2 text-xs text-muted-foreground">
                                                                 <span className="font-semibold text-foreground">
-                                                                    {artwork.artist}
+                                                                    {image.created_by}
                                                                 </span>
                                                             </figcaption>
                                                         </figure>
@@ -191,12 +202,12 @@ export default function ImageDialog({ setFormData, selected_img }:
                                             </AccordionTrigger>
                                             <AccordionContent>
                                                 <div className='grid grid-cols-4 gap-2'>
-                                                    {works.slice(1, 3).map((artwork, idx) => (
-                                                        <figure key={artwork.artist + idx} className="shrink-0 truncate flex flex-col items-center p-1 hover:bg-white rounded-md hover:border-2 hover:border-pink-400" >
+                                                    {imageGeneratedCollection.map((image, idx) => (
+                                                        <figure key={image.image_id + "ai_gen"} className="shrink-0 truncate flex flex-col items-center p-1 hover:bg-white rounded-md hover:border-2 hover:border-pink-400" >
                                                             <div className="overflow-hidden rounded-md">
                                                                 <Image
-                                                                    src={artwork.art || "/lovecraft_brew.jpeg"}
-                                                                    alt={`Photo by ${artwork.artist}`}
+                                                                    src={image.image_path || "/lovecraft_brew.jpeg"}
+                                                                    alt={`Photo by ${image.created_by}`}
                                                                     className="aspect-[3/4] h-fit w-fit object-cover"
                                                                     width={256}
                                                                     height={256}
@@ -204,7 +215,7 @@ export default function ImageDialog({ setFormData, selected_img }:
                                                             </div>
                                                             <figcaption className="pt-2 text-xs text-muted-foreground">
                                                                 <span className="font-semibold text-foreground">
-                                                                    {artwork.artist}
+                                                                    {image.created_by}
                                                                 </span>
                                                             </figcaption>
                                                         </figure>
@@ -218,20 +229,20 @@ export default function ImageDialog({ setFormData, selected_img }:
                                             </AccordionTrigger>
                                             <AccordionContent>
                                                 <div className='grid grid-cols-4 gap-2'>
-                                                    {works.slice(0, 7).map((artwork, idx) => (
-                                                        <figure key={artwork.artist + idx} className="shrink-0 truncate flex flex-col items-center p-1 hover:bg-white rounded-md hover:border-2 hover:border-pink-400" >
-                                                            <div className="overflow-hidden rounded-md">
+                                                    {imagePublicCollection.map((image, idx) => (
+                                                        <figure key={image.image_id+ "public"} className="shrink-0 truncate flex flex-col justify-center items-center p-1 hover:bg-white rounded-md hover:border-2 hover:border-pink-400" >
+                                                            {/* <div className="overflow-hidden rounded-md"> */}
                                                                 <Image
-                                                                    src={artwork.art || "/lovecraft_brew.jpeg"}
-                                                                    alt={`Photo by ${artwork.artist}`}
-                                                                    className="aspect-[3/4] h-fit w-fit object-cover"
-                                                                    width={60}
-                                                                    height={75}
+                                                                    src={image.image_path || "/lovecraft_brew.jpeg"}
+                                                                    alt={`Photo by ${image.created_by}`}
+                                                                    className="aspect-[3/4] h-full w-full object-cover"
+                                                                    width={256}
+                                                                    height={256}
                                                                 />
-                                                            </div>
+                                                            {/* </div> */}
                                                             <figcaption className="pt-2 text-xs text-muted-foreground">
                                                                 <span className="font-semibold text-foreground">
-                                                                    {artwork.artist}
+                                                                    {image.created_by}
                                                                 </span>
                                                             </figcaption>
                                                         </figure>

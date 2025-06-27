@@ -1,6 +1,8 @@
 import { createClient } from "@/utils/supabase/client";
 const supabase = createClient()
 
+const supabase_url = process.env.NEXT_PUBLIC_SUPABASE_URL
+
 export async function getLatestNovels() {
     const { data , error }  = await supabase
     .from('novels')
@@ -36,7 +38,7 @@ export async function getLatestAuthor(){
     const { data, error } = await supabase
     .from('profiles')
     .select(`*,
-      image:images (
+      image:images!profiles_image_id_fkey (
         image_path
       )
       `)
@@ -283,4 +285,26 @@ export async function getImgByPath(imagePath: string) {
   }
 
   return data.publicUrl
+}
+
+export async function getPublicImageUrls(type: string) {
+  const { data, error } = await supabase
+    .from('images')
+    .select('*')
+    .eq('type', type)  // filter for public images
+
+  if (error) {
+    console.error('Error fetching images:', error)
+    return []
+  }
+
+  const publicUrls = data.map(img => {
+    return {
+    ...img,
+    image_path: `${supabase_url}/storage/v1/object/public/${img.image_path}`
+    }
+  }
+  )
+
+  return publicUrls
 }

@@ -40,12 +40,12 @@ type UploadResult = {
     error?: string;
   };
   
-export async function uploadImageAndInsertPath(file: File): Promise<UploadResult> {
+export async function uploadImageAndInsertPath(file: File, type: string): Promise<UploadResult> {
     const { data: { user } } = await supabase.auth.getUser();
     console.log("User ID:", user?.id);
 
     const fileExt = file.name.split('.').pop();
-    const filePath = `./uploads/${Date.now()}.${fileExt}`;  // ✅ correct
+    const filePath = `${type}/${Date.now()}.${fileExt}`;  // ✅ correct
   
     // 1. Upload to Supabase Storage
     const { error: uploadError } = await supabase.storage
@@ -55,19 +55,14 @@ export async function uploadImageAndInsertPath(file: File): Promise<UploadResult
     if (uploadError) {
       return { success: false, error: `Upload failed: ${uploadError.message}` };
     }
-    // 2. Get public URL
-    const { data } = supabase
-    .storage
-    .from('image_bucket')
-    .getPublicUrl(filePath);
-
-    const publicUrl = data.publicUrl;
-    console.log(publicUrl)
-
-    // 3. Insert into `image` table
+    // 2. Insert into `image` table
     const { data: image, error: insertError } = await supabase
       .from('images')
-      .insert({ image_path: publicUrl })
+      .insert({ 
+        image_path: 'image_bucket/' + filePath,
+        created_by: user?.id, // Use the user ID from the session
+        type: type, // Store the type of image
+       })
       .select(`*`).single(); // Use single() to return a single object instead of an array
   
     if (insertError) {

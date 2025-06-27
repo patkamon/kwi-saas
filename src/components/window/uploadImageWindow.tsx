@@ -4,10 +4,10 @@ import { Label } from "@/components/shadcn/label"
 import Image from 'next/image';
 import React, { useRef } from 'react';
 import { ScrollArea } from "@/components/shadcn/scroll-area"
-import { Artwork } from '../dialog/imageDialog';
+import { ImageInterface } from '@/interface/image';
 
 
-export default function UploadImagelWindow({ works, imgSrc, onSelectFile }: { works: Artwork[], imgSrc?: string | null | undefined, onSelectFile: (e: React.ChangeEvent<HTMLInputElement>) => void }) {
+export default function UploadImagelWindow({ imageCollection, imgSrc, onSelectFile }: { imageCollection: ImageInterface[], imgSrc?: string | null | undefined, onSelectFile: (e: React.ChangeEvent<HTMLInputElement>) => void }) {
     const fileInputRef = useRef(null);
 
     const handleImageClick = () => {
@@ -41,14 +41,14 @@ export default function UploadImagelWindow({ works, imgSrc, onSelectFile }: { wo
         }
         <InputFile ref={fileInputRef} onChange={onSelectFile} text='Upload File:' />
         <Label className="text-blue-900" htmlFor="picture">อัปโหลดล่าสุด: </Label>
-        <ScrollArea className="h-[400px] w-[400px] rounded-md border p-4">
+        <ScrollArea className="max-h-[400px] max-w-[400px] rounded-md border p-4">
             <div className='grid grid-cols-4 gap-2'>
-                {works.map((artwork, idx) => (
-                    <figure key={artwork.artist + idx} className="shrink-0 truncate flex flex-col items-center p-1 hover:bg-white rounded-md hover:border-2 hover:border-pink-400" >
+                {imageCollection.map((image, idx) => (
+                    <figure key={image.image_id + "uploaded"} className="shrink-0 truncate w-24 h-32 flex flex-col items-center p-1 hover:bg-white rounded-md hover:border-2 hover:border-pink-400" >
                         <div className="overflow-hidden rounded-md">
                             <Image
-                                src={artwork.art || "/lovecraft_brew.jpeg"}
-                                alt={`Photo by ${artwork.artist}`}
+                                src={image.image_path || "/lovecraft_brew.jpeg"}
+                                alt={`Photo by ${image.created_by}`}
                                 className="aspect-[3/4] h-fit w-fit object-cover"
                                 width={60}
                                 height={75}
@@ -56,7 +56,7 @@ export default function UploadImagelWindow({ works, imgSrc, onSelectFile }: { wo
                         </div>
                         <figcaption className="pt-2 text-xs text-muted-foreground">
                             <span className="font-semibold text-foreground">
-                                {artwork.artist}
+                                {image.created_by}
                             </span>
                         </figcaption>
                     </figure>

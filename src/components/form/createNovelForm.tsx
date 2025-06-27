@@ -56,7 +56,7 @@ export default function CreateNovelForm({ formData, setFormData, steps, complete
                 });
             }
             else{
-                uploadImageAndInsertPath(formData.image).then((res) => {
+                uploadImageAndInsertPath(formData.image, "upload").then((res) => {
                     if (res.success) {
                         console.log("Image uploaded successfully:", res.image_id);
                     } else {
