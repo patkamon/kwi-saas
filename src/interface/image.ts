@@ -4,4 +4,6 @@ export interface ImageInterface {
 
     created_at: string; // Timestamp of when the image was uploaded
     updated_at: string; // Timestamp of when the image was last updated
+    created_by: string; // User who uploaded the image
+    type: string; // Type of image (e.g., 'character', 'novel', etc.)
   }
