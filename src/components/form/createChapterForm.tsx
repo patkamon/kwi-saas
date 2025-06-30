@@ -82,7 +82,6 @@ export default function CreateChapterForm() {
         e.preventDefault();
         // Logic to create the chapter
         console.log("Chapter created!");
-        // route to homepage nextjs
 
         const {success, result} = await createChapter(
             formData.title,
@@ -91,8 +90,7 @@ export default function CreateChapterForm() {
             formData.image,
         );
 
-       
-
+    
         if (!success) {
             console.error("Failed to create chapter:", result);
             return;
@@ -103,11 +101,17 @@ export default function CreateChapterForm() {
             )
          
             const selectNovel = ownNovels.find(novel => novel.novel_id === formData.novel_id);
+            const fullSelectedCharacter = characters.filter(
+                character => selectedCharacter.includes(character.character_id)
+                ).map(
+                    (c)=>`${c.name} (${c.description})`
+                ).join(", ");
+            console.log("Selected Characters:", fullSelectedCharacter);
             
             const content = await generateNovel(
                 selectNovel?.title,
                 selectNovel?.genre,
-                "ไทเลอร์ ชายกล้ามโต หัวโล้น",
+                fullSelectedCharacter,
                 " ชื่อตอน " + formData.title + ", " +formData.description,
                 formData.novel_id,
                 result.chapter_id
