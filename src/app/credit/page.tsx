@@ -2,6 +2,9 @@
 import { useState } from 'react';
 import { Plan } from '@/interface/plan';
 import plansData from '@/data/plans.json' assert { type: 'json' };
+import { loadStripe } from '@stripe/stripe-js';
+
+const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLIC_KEY);
 
 export default function BuyCreditsPage() {
   const [plans, setPlans] = useState(plansData as Plan[]);
@@ -13,7 +16,32 @@ export default function BuyCreditsPage() {
         : { ...plan, selected: false }
     );
     setPlans(updatedPlans);
+
+    createCheckoutSession(selectedPlan)
+
   }
+
+  async function createCheckoutSession(selectedPlan: Plan) {
+     console.log(selectedPlan)
+      const res = await fetch('/api/stripe', {
+        method: 'POST',
+        body: JSON.stringify({
+          ...selectedPlan,
+          user_id: sessionStorage.getItem('user_id')
+        }),
+      });
+      console.log(selectedPlan)
+
+      const data = await res.json();
+      if (data.error) {
+        console.error('Stripe error:', data.error);
+        return;
+      }
+      
+      const stripe = await stripePromise;
+      stripe.redirectToCheckout({ sessionId: data.id });
+  
+  };
 
   return (
     <div >
@@ -27,8 +55,8 @@ export default function BuyCreditsPage() {
               className={`rounded-xl text-blue-900 p-6 space-y-2 text-center border-2 ${plan.selected ? 'border-pink-600' : 'border-blue-900 hover:border-pink-400'}`}
             >
               <div className="text-lg font-semibold">{plan.packageName}</div>
-              <div className="text-lg font-semibold">{plan.amount}</div>
-              <div className="text-xl font-bold">{plan.price}</div>
+              <div className="text-lg font-semibold">{plan.amount_string}</div>
+              <div className="text-xl font-bold">{plan.price}฿</div>
               <div className="text-sm text-gray-600">{plan.desc}</div>
               <button onClick={() => onSelectPlan(plan)} className={`hover:cursor-pointer mt-4 w-full py-2 text-white rounded-md font-semibold hover:bg-pink-600 ${plan.selected ? 'bg-pink-600' : 'bg-black'}`}>Select</button>
             </div>

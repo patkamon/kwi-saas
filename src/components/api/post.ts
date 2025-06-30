@@ -172,14 +172,17 @@ export async function createChracterChapter(chapter_id: string, character_ids: s
   return data
 }
 
-export async function generateNovel(title: string, genre: string, characters: string, prompt: string, chapter_id: string) {
+export async function generateNovel(title: string, genre: string, characters: string, prompt: string, novel_id: string, chapter_id: string) {
+  const {data: {user}} = await supabase.auth.getUser();
   const { data, error } = await supabase.functions.invoke("quick-task", {
     body: {
+      user_id: user.id,
+      novel_id,
       title,
       genre,
       characters,
       chapter_id,  // <- your chapter row ID
-      prompt: "ตอนต่อไป :" + prompt, // <- your prompt
+      prompt: prompt || '', // <- your prompt
     }
   });
 
@@ -191,10 +194,12 @@ export async function generateNovel(title: string, genre: string, characters: st
 }
 
 export async function generateImage(prompt: string, model?: string) {
+  const {data: {user}} = await supabase.auth.getUser();
   const { data, error } = await supabase.functions.invoke("gen_img", {
     body: {
       prompt: prompt, // <- your prompt
-      model: model ? model :'dark-sushi-mix-v2-25'
+      model: model ? model :'dark-sushi-mix-v2-25',
+      user_id: user.id
     }
   });
 

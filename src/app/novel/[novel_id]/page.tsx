@@ -16,8 +16,8 @@ export default async function NovelPage({ params } : { params: { novel_id: strin
       <main className="px-6 py-10 max-w-5xl mx-auto">
         <section className="px-6 pb-8">
           <div className="grid gap-4">
-            <div key={novel.novel_id} className="p-8 shadow rounded-xl space-y-1 bg-linear-to-r/srgb from-indigo-200 to-pink-200 flex gap-6">
-              <img src={novel.image?.image_path || "/lovecraft_brew.jpeg"} className='rounded-xl w-32' />
+            <div key={novel.novel_id} className="p-6 shadow rounded-xl space-y-1 bg-linear-to-r/srgb from-indigo-200 to-pink-200 flex gap-6">
+              <img src={novel.image?.image_path || "/lovecraft_brew.jpeg"} className='rounded-xl w-36 h-48 aspect-[3/4] object-cover' />
               <div className='flex flex-col'>
                 <div className="font-semibold text-3xl">{novel.title}</div>
                 <div className="text-xs text-gray-500">อัปเดท: {novel.updated_at}</div>

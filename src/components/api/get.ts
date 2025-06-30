@@ -148,7 +148,7 @@ export async function getProfileById(userId: string) {
     const { data, error } = await supabase
     .from('profiles')
     .select(`*,
-      image:images (
+      image:images!profiles_image_id_fkey (
         image_path
       )`)
     .eq('user_id', userId)

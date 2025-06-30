@@ -7,7 +7,12 @@ export default function NovelCard(novel: NovelInterface) {
   return (
     <div className="bg-white rounded-2xl shadow p-4 space-y-2 carousel-item mx-2">
       <Link href={`/novel/${novel.novel_id}`} className="block">
-        <div className="flex justify-between items-center">
+    <div className='grid grid-cols-4 gap-4'>
+      <div className='col-span-1'>
+      <img className='w-24 h-32 rounded-xl object-cover' src={novel.image?.image_path || "/lovecraft_brew.jpeg"}></img>
+      </div>
+      <div className='col-span-3'>
+      <div className="flex justify-between items-center ">
           <div className="font-semibold text-blue-800">{novel.author ? novel.author.name : "NONAME"}</div>
           <div className="text-xs text-pink-500">{timeAgo(novel.updated_at)}</div>
         </div>
@@ -20,6 +25,8 @@ export default function NovelCard(novel: NovelInterface) {
               {novel.genre}
             </span>
         </div>
+      </div>
+    </div>
       </Link>
     </div>
   )

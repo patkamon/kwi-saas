@@ -1,6 +1,6 @@
 'use client';
 
-import React from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import {
     Home,
@@ -11,11 +11,21 @@ import {
 import LoginButton from "./auth/loginLogoutButton";
 
 export default function Navbar() {
+
+    const [userId, setUserId] = useState<string | null>(null);
+    
+    // get user_id from session
+    useEffect(() => {
+        const storedUserId = sessionStorage.getItem('user_id');
+        setUserId(storedUserId);
+    }, []);
+
     return (
         <nav className="px-6 pb-4 pt-8 flex items-center justify-between font-bold text-blue-700">
             <div className="flex items-center space-x-8">
                 <Link href='/' className="flex items-center space-x-2">
-                    <BookOpen className="w-6 h-6 text-pink-600" />
+                    {/* <BookOpen className="w-6 h-6 text-pink-600" /> */}
+                    <img src='./favicon2.svg' alt="Logo" className="w-12 h-12" />
                     <span className="text-2xl font-bold text-pink-600">LoveCraft</span>
                 </Link>
                 <div className="flex items-center space-x-6 text-sm text-gray-700">
@@ -23,7 +33,7 @@ export default function Navbar() {
                         <Home className="w-4 h-4" />
                         หน้าแรก
                     </Link>
-                    <Link href='/profile/1' className="flex items-center gap-1 hover:text-black text-blue-700">
+                    <Link href={`/profile/${userId}`} className="flex items-center gap-1 hover:text-black text-blue-700">
                         <BookOpen className="w-4 h-4" />
                         นิยายของคุณ
                     </Link>

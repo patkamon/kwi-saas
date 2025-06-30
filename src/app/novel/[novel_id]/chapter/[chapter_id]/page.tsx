@@ -2,21 +2,16 @@
 import { ChapterInterface } from '@/interface/chapter';
 import { NovelInterface } from '@/interface/novel';
 import { Menu } from 'lucide-react';
-import DOMPurify from "isomorphic-dompurify";
 import Link from 'next/link';
 import { getChapterById, getNovelById } from '@/components/api/get';
 
-export default async function ChapterPage({ params } : { params: Promise<{ novel_id: string , chapter_id: string }> }) {
+export default async function ChapterPage({ params }: { params: Promise<{ novel_id: string, chapter_id: string }> }) {
   const { novel_id, chapter_id } = await (params);
   const novel = await getNovelById(novel_id) as NovelInterface;
   const chapter = await getChapterById(chapter_id) as ChapterInterface
 
-  const clean = DOMPurify.sanitize(chapter.content || '', {
-    ALLOWED_TAGS: ['b', 'i', 'em', 'strong', 'a', 'p', 'br', 'ul', 'ol', 'li', 'h1', 'h2', 'h3'],
-    ALLOWED_ATTR: ['href', 'target'],
-    // Removed invalid FORBID_CONTENTS option
-  }
-  );
+  console.log(chapter.content)
+
   return (
     <div>
       <main className="px-6 py-10 max-w-5xl mx-auto">
@@ -26,7 +21,10 @@ export default async function ChapterPage({ params } : { params: Promise<{ novel
         </section>
 
         <section className="px-6 py-6 bg-pink-50">
-          <div dangerouslySetInnerHTML={{ __html: clean }} />
+          {/* <div dangerouslySetInnerHTML={{ __html: clean }} /> */}
+          <div style={{ whiteSpace: 'pre-line' }}>
+            {chapter.content}
+          </div>
         </section>
 
         <section className="px-6 py-5 bg-pink-200 rounded-b-md">

@@ -104,19 +104,12 @@ export default function CreateChapterForm() {
          
             const selectNovel = ownNovels.find(novel => novel.novel_id === formData.novel_id);
             
-            console.log(
-                selectNovel?.novel_id,
-                selectNovel?.genre,
-                "กาย กับ แก้ว",
-                result.chapter_id,
-                formData.description
-            )
-
             const content = await generateNovel(
                 selectNovel?.title,
                 selectNovel?.genre,
                 "ไทเลอร์ ชายกล้ามโต หัวโล้น",
-                formData.description,
+                " ชื่อตอน " + formData.title + ", " +formData.description,
+                formData.novel_id,
                 result.chapter_id
             )
         

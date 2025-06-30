@@ -17,7 +17,7 @@ export default function FamousAuthors({authors} : {authors: AuthorInterface[]}) 
               <div className='bg-pink-300 w-26 h-26 rounded-full border-white border-4 hover:border-blue-900' />
             }
             <p className='flex justify-center'>
-              {item.name || 'ไม่ระบุชื่อ'}
+              {item.name.slice(0,10) || 'ไม่ระบุชื่อ'}
             </p>
           </Link>
         </div>)
