@@ -24,6 +24,7 @@ import { generateImage } from "../api/post";
 import UploadImagelWindow from "../window/uploadImageWindow";
 import { getPublicImageUrls } from "../api/get";
 import { ImageInterface } from "@/interface/image";
+import ReduceCreditDialog from "./reduceCreditDialog";
 
 
 
@@ -148,13 +149,9 @@ export default function ImageDialog({ setFormData, selected_img }:
                                         <h5 className="text-rose-400 text-xs">ใช้ภาษาอังกฤษ</h5>
                                     </div>
                                     <InputTextarea placeholder="Prompt 🪄✨ Be creative" className="px-2 py-1 border bg-blue-50 border-gray-500 rounded-md" value={value} onChange={(e) => setValue(e.target.value)} rows={5} cols={30} />
-                                    <button
-                                        type="submit"
-                                        className="px-4 py-2 my-2 bg-blue-500 text-white  rounded-md hover:bg-pink-400 hover:cursor-pointer"
-                                        onClick={() => { callGenerateImage() }}
-                                    >
-                                        generate
-                                    </button>
+                                    
+                                    <ReduceCreditDialog cost={1} handleFunction={callGenerateImage} />
+                                    
                                 </div>
                             </TabsContent>
                             <TabsContent value="collection">

@@ -7,6 +7,8 @@ import { Trash2 } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { getCharacterByNovelId, getNovelByAuthorId } from "../api/get";
 import { createChapter, createChracterChapter, generateNovel } from "../api/post";
+import ReduceCreditDialog from "../dialog/reduceCreditDialog";
+
 
 export default function CreateChapterForm() {
     const [characters, setCharacters] = useState<CharacterInterface[]>(
@@ -78,8 +80,7 @@ export default function CreateChapterForm() {
     };
 
     const router = useRouter();
-    const handleCreateChapter = async (e: React.MouseEvent<HTMLButtonElement>) => {
-        e.preventDefault();
+    const handleCreateChapter = async () => {
         // Logic to create the chapter
         console.log("Chapter created!");
 
@@ -229,11 +230,7 @@ export default function CreateChapterForm() {
             </form>
 
             <div className="flex justify-end">
-                <button
-                    type="submit"
-                    onClick={handleCreateChapter}
-                    className="px-4 py-2 mt-4 bg-black text-white rounded-md hover:bg-gray-900 hover:cursor-pointer"
-                >สร้าง</button>
+                <ReduceCreditDialog cost={20} handleFunction={handleCreateChapter}></ReduceCreditDialog>
             </div>
         </div>
     )
