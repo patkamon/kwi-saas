@@ -31,10 +31,11 @@ import ReduceCreditDialog from "./reduceCreditDialog";
 // const ASPECT_RATIO = 1;
 // const MIN_DIMENSION = 150;
 
-export default function ImageDialog({ setFormData, selected_img }:
+export default function ImageDialog({ setFormData, selected_img, resetSignal = 0 }:
     {
         setFormData: React.Dispatch<React.SetStateAction<Record<string, unknown>>>,
         selected_img?: string | undefined,
+        resetSignal?: number
     }) {
     const [value, setValue] = useState('');
 
@@ -43,6 +44,9 @@ export default function ImageDialog({ setFormData, selected_img }:
     const [imageUploadCollection, setImageUploadCollection] = useState([] as ImageInterface[]);
     const [imageGeneratedCollection, setImageGeneratedCollection] = useState([] as ImageInterface[]);
 
+    useEffect(() => {
+        setImgSrc(selected_img || "");
+      }, [resetSignal]);
 
     useEffect(() => {
         async function getImage(type: string, setFunc: React.Dispatch<React.SetStateAction<ImageInterface[]>>) {

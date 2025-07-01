@@ -38,13 +38,14 @@ export default function CreateNovelForm({ formData, setFormData, steps, complete
             setActiveStep(newActiveStep);
 
             // TODO: MIGHT CHANGE THIS
-            if (!formData.image && formData.image_id) {
-                // skip uploading image if image_id is already set
+            console.log(formData)
+            if (!formData.image) {
+                // skip uploading image if image_id is already set or not provided
                 createNovel(
                     formData.title,
                     formData.description,
                     formData.genre,
-                    formData.image_id // Use the image_id from the upload result,
+                    formData.image_id || undefined // Use the image_id from formData if available
                 ).then((res) => {
                     if (res) {
                         console.log("Novel created successfully:", res);

@@ -6,13 +6,13 @@ import { useState } from "react";
 export default function CreateMainCharacterPureForm({ addCharacter }: { addCharacter: (e: any) => void }) {
 
     const [img, setImg] = useState<{ image?: string, image_id?:string } | undefined>({});
+    const [resetCounter, setResetCounter] = useState(0);
 
     function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
         e.preventDefault();
         const form = e.target;
         const name = ((form as HTMLFormElement).elements.namedItem("name") as HTMLInputElement | null)?.value;
         const details = ((form as HTMLFormElement).elements.namedItem("details") as HTMLInputElement | null)?.value;
-
 
         addCharacter({
             name,
@@ -21,13 +21,15 @@ export default function CreateMainCharacterPureForm({ addCharacter }: { addChara
             image_id: img?.image_id
         });
         (form as HTMLFormElement).reset();
+        setImg({}); // Reset the image state after submission
+        setResetCounter(prev => prev + 1); // Increment reset counter to trigger re-render
     }
 
     return (
         <form onSubmit={(e)=>handleSubmit(e)} className="space-y-6 border-2 border-blue-400 rounded-lg flex border-dashed mb-4">
             <div   className="flex flex-col justify-around items-center mx-4">
                 {/* Cover Image Upload */}
-                <ImageDialog setFormData={setImg}/>
+                <ImageDialog setFormData={setImg} resetSignal={resetCounter}/>
                 <button type="submit" className="px-2 rounded-md border border-pink-400 bg-pink-200 min-w-16 hover:border-2 flex justify-center">เพิ่ม</button>
             </div>
 

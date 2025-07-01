@@ -1,5 +1,5 @@
 'use client';
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import ButtonStpper from "../stepper/buttonStepper";
 import { CharacterInterface } from "@/interface/character";
 import CreateMainCharacterPureForm from "./pureForm/createMainCharacterPureForm";
@@ -21,6 +21,7 @@ export default function CreateMainCharacterForm({ steps, completed, activeStep, 
     const [ownNovels, setOwnNovels] = useState<NovelInterface[]>([]);
 
     const router = useRouter();
+    
 
     useEffect(() => {
         async function fetchNovels() {
@@ -180,7 +181,7 @@ export default function CreateMainCharacterForm({ steps, completed, activeStep, 
 
 
             {/* Form */}
-            <CreateMainCharacterPureForm addCharacter={addCharacter} />
+            <CreateMainCharacterPureForm  addCharacter={addCharacter} />
 
             {/* Character List */}
             <ListCreatedCharacter characters={characters} />
