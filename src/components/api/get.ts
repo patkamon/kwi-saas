@@ -308,3 +308,14 @@ export async function getPublicImageUrls(type: string) {
 
   return publicUrls
 }
+
+export async function getUserId(){
+  const { data: { user }, error } = await supabase.auth.getUser()
+
+  if (error) {
+    console.error('Error fetching user ID:', error)
+    return null
+  }
+
+  return user?.id || null
+}

@@ -29,9 +29,9 @@ export default function ReduceCreditDialog({ cost, handleFunction }: {
             </AlertDialogDescription>
             </AlertDialogHeader>
             <AlertDialogFooter>
-            <AlertDialogCancel>Cancel</AlertDialogCancel>
+            <AlertDialogCancel>ยกเลิก</AlertDialogCancel>
             <AlertDialogAction className="bg-pink-300 text-white rounded-md hover:bg-pink-500 hover:cursor-pointer"
-             onClick={handleFunction} >Continue</AlertDialogAction>
+             onClick={handleFunction} >ดำเนินการต่อ</AlertDialogAction>
             </AlertDialogFooter>
         </AlertDialogContent>
     </AlertDialog>

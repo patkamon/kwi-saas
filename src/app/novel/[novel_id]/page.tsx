@@ -1,9 +1,7 @@
-// 'use client'
 import { getChaptersByNovelId, getNovelById } from '@/components/api/get';
+import ListChapter from '@/components/list/listChapter';
 import { ChapterInterface } from '@/interface/chapter';
 import { NovelInterface } from '@/interface/novel';
-import { timeAgo } from '@/lib/utils';
-import Link from 'next/link';
 
 
 export default async function NovelPage({ params } : { params: { novel_id: string } }) {
@@ -51,36 +49,7 @@ export default async function NovelPage({ params } : { params: { novel_id: strin
 
         {/* Featured Chapters */}
         <section className="px-6 pb-8">
-          <div className="grid gap-1">
-            <p className='font-bold text-3xl my-2'>สารบัญ ({chapters.length})</p>
-            {chapters.map((chapter, index) => (
-              <Link key={chapter.chapter_id} href={`/novel/${novel_id}/chapter/${chapter.chapter_id}`} className="bg-white shadow-md p-4 rounded-xl space-y-1">
-                <div className='flex items-center gap-4'>
-                  <span
-                    className="bg-blue-100 text-blue-600 px-2 py-1 rounded-full"
-                  >
-                    ตอนที่ {index + 1}
-                  </span>
-                  <div className="text-xs text-gray-500">อัปเดท: {timeAgo(chapter.updated_at)}</div>
-                </div>
-                <div className='flex justify-between'>
-                  <div className="font-semibold">{chapter.title}</div>
-                  <h1 className=''>{">"}</h1>
-                </div>
-                <div className="flex items-center space-x-4 text-sm text-gray-700 mt-2">
-                  <div className="flex items-center space-x-1">
-                    <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" /><circle cx="12" cy="12" r="3" /></svg>
-                    <span>{chapter.views || 0}</span>
-                  </div>
-                  {/* <div className="flex items-center space-x-1">
-                    <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4" viewBox="0 0 24 22" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M20.8 4.6c-1.4-1.4-3.6-1.4-5 0l-.8.8-.8-.8c-1.4-1.4-3.6-1.4-5 0s-1.4 3.6 0 5l5.8 5.8 5.8-5.8c1.4-1.4 1.4-3.6 0-5z" /></svg>
-                    <span>{chapter.likes || 0}</span>
-                  </div> */}
-                </div>
-              </Link>
-            )
-            )}
-          </div>
+          <ListChapter novel={novel} chapters={chapters} />
         </section>
 
 

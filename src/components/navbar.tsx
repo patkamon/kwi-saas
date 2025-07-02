@@ -25,7 +25,7 @@ export default function Navbar() {
             <div className="flex items-center space-x-8">
                 <Link href='/' className="flex items-center space-x-2">
                     {/* <BookOpen className="w-6 h-6 text-pink-600" /> */}
-                    <img src='./favicon2.svg' alt="Logo" className="w-12 h-12" />
+                    {/* <img src='./favicon2.svg' alt="Logo" className="w-12 h-12" /> */}
                     <span className="text-2xl font-bold text-pink-600">LoveCraft</span>
                 </Link>
                 <div className="flex items-center space-x-6 text-sm text-gray-700">

@@ -209,4 +209,3 @@ export async function generateImage(prompt: string, model?: string) {
   }
   return data;
 }
-
