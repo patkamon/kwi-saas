@@ -25,7 +25,7 @@ import UploadImagelWindow from "../window/uploadImageWindow";
 import { getPublicImageUrls } from "../api/get";
 import { ImageInterface } from "@/interface/image";
 import ReduceCreditDialog from "./reduceCreditDialog";
-
+import { toast } from 'react-toastify';
 
 
 // const ASPECT_RATIO = 1;
@@ -87,17 +87,31 @@ export default function ImageDialog({ setFormData, selected_img, resetSignal = 0
     };
 
     function callGenerateImage() {
-        generateImage(value).then((res) => {
-            if (res) {
-                setImgSrc(`data:image/png;base64,${res.image}`);
-                setFormData((prev) => ({ ...prev, image_id: res.image_id, image:res.image }))
-            } else {
-                console.error("Error generating image:", res.error);
+        const wrappedPromise = new Promise((resolve, reject) => {
+            generateImage(value)
+                .then((res) => {
+                    if (res) {
+                        setImgSrc(`data:image/png;base64,${res.image}`);
+                        setFormData((prev) => ({
+                            ...prev,
+                            image_id: res.image_id,
+                            image: res.image
+                        }));
+                        resolve(res);
+                    } else {
+                        reject(new Error("No response from generateImage"));
+                    }
+                })
+                .catch(reject);
+        });
+    
+        toast.promise(
+            wrappedPromise,
+            {
+                pending: 'Generating image...',
+                success: 'Image generated successfully 🎉',
+                error: 'Failed to generate image 😢'
             }
-        }
-        ).catch((error) => {
-            console.error("Error generating image:", error);
-        }
         );
     }
 

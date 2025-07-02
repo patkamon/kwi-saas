@@ -8,7 +8,7 @@ import { useRouter } from "next/navigation";
 import { getCharacterByNovelId, getNovelByAuthorId } from "../api/get";
 import { createChapter, createChracterChapter, generateNovel } from "../api/post";
 import ReduceCreditDialog from "../dialog/reduceCreditDialog";
-
+import { toast } from 'react-toastify';
 
 export default function CreateChapterForm() {
     const [characters, setCharacters] = useState<CharacterInterface[]>(
@@ -81,54 +81,63 @@ export default function CreateChapterForm() {
 
     const router = useRouter();
     const handleCreateChapter = async () => {
-        // Logic to create the chapter
-        console.log("Chapter created!");
-
-        const {success, result} = await createChapter(
-            formData.title,
-            formData.novel_id,
-            formData.content,
-            formData.image,
-        );
-
+        const promise = (async () => {
+            console.log("Chapter created!");
     
-        if (!success) {
-            console.error("Failed to create chapter:", result);
-            return;
-        }else{
+            const { success, result } = await createChapter(
+                formData.title,
+                formData.novel_id,
+                formData.content,
+                formData.image,
+            );
+    
+            if (!success) throw new Error("Failed to create chapter");
+    
             await createChracterChapter(
                 result.chapter_id,
                 selectedCharacter
-            )
-         
+            );
+    
             const selectNovel = ownNovels.find(novel => novel.novel_id === formData.novel_id);
             const fullSelectedCharacter = characters.filter(
                 character => selectedCharacter.includes(character.character_id)
-                ).map(
-                    (c)=>`${c.name} (${c.description})`
-                ).join(", ");
+            ).map(
+                (c) => `${c.name} (${c.description})`
+            ).join(", ");
+    
             console.log("Selected Characters:", fullSelectedCharacter);
-            
+    
             const content = await generateNovel(
                 selectNovel?.title,
                 selectNovel?.genre,
                 fullSelectedCharacter,
-                " ชื่อตอน " + formData.title + ", " +formData.description,
+                " ชื่อตอน " + formData.title + ", " + formData.description,
                 formData.novel_id,
                 result.chapter_id
-            )
-        
-            if (!content) {
-                console.error("Failed to create chapter character association");
-                return;
-            }
-            console.log("Chapter created successfully:", content);
-         
-
-            router.push(`/novel/${formData.novel_id}/chapter/${result.chapter_id}/edit`);
+            );
+    
+            setFormData((prev) => ({ ...prev, content }));
+    
+            return result.chapter_id; // used for redirect after
+        })();
+    
+        try {
+            const chapter_id = await toast.promise(
+                promise,
+                {
+                    pending: 'กำลังสร้างตอนใหม่...',
+                    success: 'สร้างเนื้อหาสำเร็จ 🎉',
+                    error: 'เกิดข้อผิดพลาดในการสร้างตอน 😢'
+                }
+            );
+    
+            router.push(`/novel/${formData.novel_id}/chapter/${chapter_id}/edit`);
+        } catch (err) {
+            console.error(err);
+            // You can add an additional toast here if needed
         }
-
     };
+    
 
     return (
         <div className="w-full max-w-2xl bg-white shadow rounded-b-xl rounded-tl-xl p-8">
