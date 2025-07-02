@@ -1,5 +1,6 @@
 'use client'
 import { useRouter } from "next/navigation";
+import { toast } from "react-toastify";
 
 export default function ButtonStpper({ activeStep, steps, handleBack, handleNext }: {
     activeStep: number;
@@ -13,6 +14,7 @@ export default function ButtonStpper({ activeStep, steps, handleBack, handleNext
         // Logic to create the novel
         console.log("Novel created!");
         // route to homepage nextjs
+        toast.success("สร้างนิยายสำเร็จ");
         router.push('/');
     };
 

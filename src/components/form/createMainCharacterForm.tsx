@@ -1,5 +1,5 @@
 'use client';
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import ButtonStpper from "../stepper/buttonStepper";
 import { CharacterInterface } from "@/interface/character";
 import CreateMainCharacterPureForm from "./pureForm/createMainCharacterPureForm";
@@ -8,6 +8,7 @@ import { createCharacter, uploadImageAndInsertPath } from "../api/post";
 import { NovelInterface } from "@/interface/novel";
 import { getNovelByAuthorId } from "../api/get";
 import { useRouter } from "next/navigation";
+import { toast } from "react-toastify";
 
 export default function CreateMainCharacterForm({ steps, completed, activeStep, setActiveStep }:
     { steps?: string[], completed?: Record<number, boolean>, activeStep?: number, setActiveStep?: (step: number) => void }) {
@@ -105,6 +106,7 @@ export default function CreateMainCharacterForm({ steps, completed, activeStep, 
                     ).then((createdCharacter) => {
                         if (createdCharacter) {
                             console.log("Character created successfully:", createdCharacter);
+                            toast.success("สร้างตัวละครสำเร็จ");
                             router.push(`/`);
                         } else {
                             console.error("Failed to create character.");
@@ -123,6 +125,7 @@ export default function CreateMainCharacterForm({ steps, completed, activeStep, 
                             ).then((createdCharacter) => {
                                 if (createdCharacter) {
                                     console.log("Character created successfully:", createdCharacter);
+                                    toast.success("สร้างตัวละครสำเร็จ");
                                     router.push(`/`);
                                 } else {
                                     console.error("Failed to create character.");
@@ -143,6 +146,7 @@ export default function CreateMainCharacterForm({ steps, completed, activeStep, 
                 ).then((createdCharacter) => {
                     if (createdCharacter) {
                         console.log("Character created successfully:", createdCharacter);
+                        toast.success("สร้างตัวละครสำเร็จ");
                         router.push(`/`);
                     } else {
                         console.error("Failed to create character.");

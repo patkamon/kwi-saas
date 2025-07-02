@@ -8,6 +8,7 @@ import { Save } from "lucide-react";
 import { CharacterInterface } from "@/interface/character";
 import { updateChapter } from "../api/put";
 import { useRouter } from "next/navigation";
+import { toast } from "react-toastify";
 
 export default function EditNovel({ chapter, characters }: { chapter: ChapterInterface, characters?: CharacterInterface[] }) {
     const [text, setText] = useState(chapter.content || '' as string);
@@ -30,6 +31,7 @@ export default function EditNovel({ chapter, characters }: { chapter: ChapterInt
         }).catch((error) => {
             console.error("Error updating chapter:", error);
         });
+        toast.success("บันทึกสำเร็จ")
         router.push("/")
         window.scrollTo({ top: 0, behavior: 'smooth' }); // Scroll to top after saving
     }
