@@ -1,0 +1,6 @@
+[
+    { "name": "โรแมนติก", "value": 1, "db_value": "romance" },
+    { "name": "Boys / Girls Love", "value": 2, "db_value": "bl_gl" },
+    { "name": "แฟนตาซี", "value": 3, "db_value": "fantasy" },
+    { "name": "สยองขวัญ", "value": 4, "db_value": "horror" }
+  ]

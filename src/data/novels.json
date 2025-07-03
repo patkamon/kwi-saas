@@ -1,0 +1,57 @@
+[
+    {
+      "id": "1",
+      "name": "Rank 1",
+      "title": "The Love Chronicles",
+      "desc": "A heartwarming tale of love and friendship.",
+      "time": "2 hours ago",
+      "tags": ["romance", "friendship"],
+      "img": "/lovecraft_brew.jpeg"
+    },
+    {
+      "id": "2",
+      "name": "Rank 2",
+      "title": "Mystic Adventures",
+      "desc": "An epic fantasy journey through mystical lands.",
+      "time": "5 hours ago",
+      "tags": ["fantasy", "adventure"],
+      "img": "/lovecraft_brew.jpeg"
+    },
+    {
+      "id": "3",
+      "name": "Rank 3",
+      "title": "Dark Secrets",
+      "desc": "A chilling horror story that will keep you on the edge.",
+      "time": "1 day ago",
+      "tags": ["horror", "thriller"],
+      "img": "/lovecraft_brew.jpeg"
+    },
+    {
+      "id": "4",
+      "name": "Rank 4",
+      "title": "Love Beyond Borders",
+      "desc": "A touching romance that transcends boundaries.",
+      "time": "3 days ago",
+      "tags": ["romance", "drama"],
+      "img": "/lovecraft_brew.jpeg"
+    },
+    {
+      "id": "5",
+      "name": "Rank 5",
+      "title": "The Enchanted Forest",
+      "desc": "A magical adventure in a world of fantasy.",
+      "time": "1 week ago",
+      "tags": ["fantasy", "magic"],
+      "img": "/lovecraft_brew.jpeg"
+    },
+    {
+      "id": "6",
+      "name": "Rank 6",
+      "title": "Whispers in the Dark",
+      "desc": "A suspenseful horror story that will haunt you.",
+      "time": "2 weeks ago",
+      "tags": ["horror", "suspense"],
+      "img": "/lovecraft_brew.jpeg"
+    }
+  ]
+  

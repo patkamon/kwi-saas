@@ -1,0 +1,75 @@
+[
+    {
+      "id": "1",
+      "name": "Character 1",
+      "details": "Description of character 1",
+      "img": "https://images.pexels.com/photos/1701202/pexels-photo-1701202.jpeg"
+    },
+    {
+      "id": "2",
+      "name": "Character 2",
+      "details": "Description of character 2",
+      "img": "https://images.pexels.com/photos/1701203/pexels-photo-1701203.jpeg"
+    },
+    {
+      "id": "3",
+      "name": "Character 3",
+      "details": "A skilled swordsman from the mountains.",
+      "img": "https://images.pexels.com/photos/1701204/pexels-photo-1701204.jpeg"
+    },
+    {
+      "id": "4",
+      "name": "Character 4",
+      "details": "A quiet mage with a mysterious past.",
+      "img": "https://images.pexels.com/photos/1701205/pexels-photo-1701205.jpeg"
+    },
+    {
+      "id": "5",
+      "name": "Character 5",
+      "details": "Energetic ninja who never backs down.",
+      "img": "https://images.pexels.com/photos/1701206/pexels-photo-1701206.jpeg"
+    },
+    {
+      "id": "6",
+      "name": "Character 6",
+      "details": "Cheerful alchemist with wild inventions.",
+      "img": "https://images.pexels.com/photos/1701207/pexels-photo-1701207.jpeg"
+    },
+    {
+      "id": "7",
+      "name": "Character 7",
+      "details": "Strategic warrior from the northern kingdom.",
+      "img": "https://images.pexels.com/photos/1701208/pexels-photo-1701208.jpeg"
+    },
+    {
+      "id": "8",
+      "name": "Character 8",
+      "details": "A rogue assassin with a heart of gold.",
+      "img": "https://images.pexels.com/photos/1701209/pexels-photo-1701209.jpeg"
+    },
+    {
+      "id": "9",
+      "name": "Character 9",
+      "details": "Young hero chosen by fate.",
+      "img": "https://images.pexels.com/photos/1701210/pexels-photo-1701210.jpeg"
+    },
+    {
+      "id": "10",
+      "name": "Character 10",
+      "details": "Veteran soldier with a tragic backstory.",
+      "img": "https://images.pexels.com/photos/1701211/pexels-photo-1701211.jpeg"
+    },
+    {
+      "id": "11",
+      "name": "Character 11",
+      "details": "Mystical creature in human form.",
+      "img": "https://images.pexels.com/photos/1701212/pexels-photo-1701212.jpeg"
+    },
+    {
+      "id": "12",
+      "name": "Character 12",
+      "details": "Scientist obsessed with parallel worlds.",
+      "img": "https://images.pexels.com/photos/1701213/pexels-photo-1701213.jpeg"
+    }
+  ]
+  

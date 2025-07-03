@@ -1,0 +1,39 @@
+[
+  {
+    "id": "0",
+    "packageName": "Get Ready!!",
+    "amount": 20,
+    "amount_string": "20 Credits",
+    "price": 20,
+    "desc": "Get ready to be a writer",
+    "selected": false
+  },
+    {
+      "id": "1",
+      "packageName": "Elementary Student",
+      "amount_string": "99(+1) Credits",
+      "amount": 100,
+      "price": 99,
+      "desc": "Perfect for casual writer",
+      "selected": false
+    },
+    {
+      "id": "2",
+      "packageName": "High school Student",
+      "amount_string": "399(+21) Credits",
+      "amount": 420,
+      "price": 399,
+      "desc": "Most popular choice",
+      "selected": false
+    },
+    {
+      "id": "3",
+      "packageName": "College Student",
+      "amount": 1000,
+      "amount_string": "899(+101) Credits",
+      "price": 899,
+      "desc": "Best value for money",
+      "selected": false
+    }
+  ]
+   

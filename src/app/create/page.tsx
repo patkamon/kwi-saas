@@ -1,93 +1,77 @@
-import React from "react";
-import {
-  UploadCloud,
-} from "lucide-react";
+'use client';
+import Box from '@mui/material/Box';
+import { useState } from 'react';
 
-export default function CreateFictionPage() {
+import CreateNovelStepper from '@/components/stepper/createNovelStepper';
+import CreateNovelForm from '@/components/form/createNovelForm';
+import CreateMainCharacterForm from '@/components/form/createMainCharacterForm';
+import CreateChapterForm from '@/components/form/createChapterForm';
+
+export default function CreateNovelPage() {
+  const [activeStep, setActiveStep] = useState(0);
+  const [windowState, setWindowState] = useState("novel"); // can be 'novel', 'chapter', or 'character'
+  const [completed] = useState<{
+    [k: number]: boolean;
+  }>({});
+
+  const [formData, setFormData] = useState({
+    title: '',
+    description: '',
+    genre: 'fantasy',
+    image_id: undefined,
+    image: undefined,
+  });
+
+  const steps = [
+    'Create Novel',
+    // 'Create Main Characters',
+    // 'Configuration',
+    // 'Preview',
+  ];
+
+  const getClass = (origin: string) => {
+    if (origin == windowState) {
+      return 'border-l-2 border-gray-100 bg-white';
+    }
+    return 'bg-gray-200 text-gray-400';
+  }
+
   return (
-      <div>
-      {/* Main content */}
-      <main className="flex-1 flex justify-center py-12 px-4">
-        <div className="w-full max-w-2xl bg-white shadow rounded-xl p-8">
-          <h1 className="text-2xl font-bold mb-2">Create New Fiction</h1>
-          <p className="text-sm text-gray-600 mb-8">
-            Start crafting your story with our AI-powered writing assistant
-          </p>
-
-          {/* Form */}
-          <form className="space-y-6">
-            {/* Title */}
-            <div>
-              <label className="block text-sm font-medium mb-1" htmlFor="title">
-                Title
-              </label>
-              <input
-                type="text"
-                id="title"
-                placeholder="Enter your fiction title"
-                className="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring focus:border-blue-400"
-              />
-            </div>
-
-            {/* Genre */}
-            <div>
-              <label className="block text-sm font-medium mb-1" htmlFor="genre">
-                Genre
-              </label>
-              <select
-                id="genre"
-                className="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring focus:border-blue-400"
-              >
-                <option>Fantasy</option>
-                <option>Sci-Fi</option>
-                <option>Romance</option>
-                <option>Horror</option>
-              </select>
-            </div>
-
-            {/* Description */}
-            <div>
-              <label className="block text-sm font-medium mb-1" htmlFor="description">
-                Description
-              </label>
-              <textarea
-                id="description"
-                rows={4}
-                placeholder="Brief description of your story"
-                className="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring focus:border-blue-400"
-              ></textarea>
-            </div>
-
-            {/* Cover Image Upload */}
-            <div>
-              <label className="block text-sm font-medium mb-1">Cover Image</label>
-              <div className="border-2 border-dashed border-gray-300 rounded-md flex items-center justify-center py-10 text-sm text-gray-500 bg-gray-50">
-                <div className="text-center flex flex-col items-center space-y-2">
-                  <UploadCloud className="w-6 h-6" />
-                  <p>Drop your cover image here or browse</p>
-                </div>
-              </div>
-            </div>
-
-            {/* Buttons */}
-            <div className="flex justify-end space-x-4">
-              <button
-                type="button"
-                className="px-4 py-2 border rounded-md text-gray-700 hover:bg-gray-100"
-              >
-                Cancel
-              </button>
-              <button
-                type="submit"
-                className="px-4 py-2 bg-black text-white rounded-md hover:bg-gray-900"
-              >
-                Create Fiction
-              </button>
-            </div>
-          </form>
+    <div className='mt-8 px-6 pb-8'>
+      <Box sx={{ width: '100%' }}>
+        {windowState == "novel" && <CreateNovelStepper steps={steps} activeStep={activeStep} />}
+        <div className="flex-1 flex justify-center pb-4 pt-8 px-4">
+          {
+            windowState == "novel" && 
+            // (
+              // activeStep == 0 ? // first step
+              <CreateNovelForm formData={formData} setFormData={setFormData} steps={steps} completed={completed} activeStep={activeStep} setActiveStep={setActiveStep} />
+              // : activeStep == 1 ? // second step
+              //   <CreateMainCharacterForm steps={steps} completed={completed} activeStep={activeStep} setActiveStep={setActiveStep} />
+              //   : activeStep == 2 ?// third step
+              //     <ConfigurationForm steps={steps} completed={completed} activeStep={activeStep} setActiveStep={setActiveStep} />
+              //     :  // fourth step
+              //     <PreviewForm steps={steps} completed={completed} activeStep={activeStep} setActiveStep={setActiveStep} />)
+          }
+          {
+            windowState == "chapter" && <CreateChapterForm />
+          }
+          {
+            windowState == "character" && <CreateMainCharacterForm steps={steps} completed={completed} activeStep={activeStep} setActiveStep={setActiveStep} />
+          }
+          <div className="h-fit relative flex flex-col">
+            <button onClick={() => { setWindowState("novel") }} className={`h-32 w-8 whitespace-nowrap rounded-tr-md ${getClass("novel")} flex justify-center items-center hover:cursor-pointer hover:bg-pink-200`}>
+              <p className="md:rotate-90">นิยาย</p>
+            </button>
+            <button onClick={() => { setWindowState("chapter") }} className={`h-32 w-8 whitespace-nowrap ${getClass("chapter")} flex justify-center items-center hover:cursor-pointer hover:bg-pink-200`}>
+              <p className="md:rotate-90">ตอน</p>
+            </button>
+            <button onClick={() => { setWindowState("character") }} className={`h-32  w-8 rounded-br-md whitespace-nowrap ${getClass("character")} flex justify-center items-center hover:cursor-pointer hover:bg-pink-200`}>
+              <p className="md:rotate-90">ตัวละคร</p>
+            </button>
+          </div>
         </div>
-      </main>
-
-      </div>
+      </Box>
+    </div>
   );
 }
