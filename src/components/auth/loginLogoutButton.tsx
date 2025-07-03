@@ -23,13 +23,6 @@ export default function LoginButton() {
         data: { subscription },
       } = supabase.auth.onAuthStateChange((_event, session) => {
         setUser(session?.user ?? null);
-        console.log('Auth state changed:', _event, session);
-        // storing user.id in session storage
-        if (session?.user) {
-          sessionStorage.setItem('user_id', session.user.id);
-        } else {
-          sessionStorage.removeItem('user_id');
-        }
         // Optionally reload the page:
         router.refresh(); // <-- if you want to reload current route data
       });
@@ -46,7 +39,6 @@ export default function LoginButton() {
     <button
       className="text-sm text-red-600 hover:underline"
       onClick={async () => {
-        sessionStorage.removeItem("user_id");
         signout();
         setUser(null);
       }}

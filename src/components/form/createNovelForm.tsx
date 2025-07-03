@@ -39,7 +39,7 @@ export default function CreateNovelForm({ formData, setFormData, steps, complete
 
             // TODO: MIGHT CHANGE THIS
             console.log(formData)
-            if (!formData.image) {
+            if (!formData.image || typeof formData.image === 'string') {
                 // skip uploading image if image_id is already set or not provided
                 createNovel(
                     formData.title,
@@ -56,7 +56,7 @@ export default function CreateNovelForm({ formData, setFormData, steps, complete
                     console.error("Error creating novel:", error);
                 });
             }
-            else{
+            else {
                 uploadImageAndInsertPath(formData.image, "upload").then((res) => {
                     if (res.success) {
                         console.log("Image uploaded successfully:", res.image_id);

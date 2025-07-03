@@ -1,15 +1,35 @@
+'use client';
 import { NovelInterface } from '@/interface/novel';
 import { timeAgo } from '@/lib/utils';
 import Link from 'next/link';
+import { getImgByPath } from '../api/get';
+import { useEffect, useState } from 'react';
+
 
 
 export default function NovelCard(novel: NovelInterface) {
+
+  const [img, setImg] = useState<string | undefined>(undefined);
+
+  useEffect(() => {
+    const fetchImage = async () => {
+      if (novel.image?.image_path) {
+        const imagePath = await getImgByPath(novel.image.image_path);
+        setImg(imagePath);
+      } else {
+        setImg('/default-novel-image.png'); // Set a default image if no image path is provided
+      }
+    }
+    fetchImage();
+  }
+  , [novel]);
+
   return (
     <div className="bg-white rounded-2xl shadow p-4 space-y-2 carousel-item mx-2">
       <Link href={`/novel/${novel.novel_id}`} className="block">
     <div className='grid grid-cols-4 gap-4'>
       <div className='col-span-1'>
-      <img className='w-24 h-32 rounded-xl object-cover' src={novel.image?.image_path || "/lovecraft_brew.jpeg"}></img>
+      <img className='w-24 h-32 rounded-xl object-cover' src={img}></img>
       </div>
       <div className='col-span-3'>
       <div className="flex justify-between items-center ">

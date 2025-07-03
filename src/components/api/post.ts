@@ -10,8 +10,7 @@ export async function createNovel(
   genre: string,
   image_id: string,
 ) {
-  // get user from session storage
-  const user_id = sessionStorage.getItem('user_id')
+  const { data: { user } } = await supabase.auth.getUser();
 
   const { data, error } = await supabase
     .from('novels')
@@ -21,7 +20,7 @@ export async function createNovel(
         description,
         genre,
         image_id,
-        user_id
+        user_id: user?.id, // Use the user ID from the session
       }
     ])
     .select('*')
@@ -42,9 +41,14 @@ type UploadResult = {
   
 export async function uploadImageAndInsertPath(file: File, type: string): Promise<UploadResult> {
     const { data: { user } } = await supabase.auth.getUser();
-    console.log("User ID:", user?.id);
 
-    const fileExt = file.name.split('.').pop();
+    console.log("Uploading image:", file, type);
+    let fileExt: string;
+    if (type == 'gen'){
+      fileExt = 'png'
+    }else{
+      fileExt = file.name.split('.').pop() || 'png'; // Get the file extension, default to 'png' if not found
+    }
     const filePath = `${type}/${Date.now()}.${fileExt}`;  // ✅ correct
   
     // 1. Upload to Supabase Storage

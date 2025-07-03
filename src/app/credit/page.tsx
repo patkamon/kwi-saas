@@ -3,6 +3,7 @@ import { useState } from 'react';
 import { Plan } from '@/interface/plan';
 import plansData from '@/data/plans.json' assert { type: 'json' };
 import { loadStripe } from '@stripe/stripe-js';
+import { getUserId } from '@/components/api/get';
 
 const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLIC_KEY);
 
@@ -22,12 +23,13 @@ export default function BuyCreditsPage() {
   }
 
   async function createCheckoutSession(selectedPlan: Plan) {
-     console.log(selectedPlan)
+     const userId = await getUserId()
+
       const res = await fetch('/api/stripe', {
         method: 'POST',
         body: JSON.stringify({
           ...selectedPlan,
-          user_id: sessionStorage.getItem('user_id')
+          user_id: userId
         }),
       });
       console.log(selectedPlan)

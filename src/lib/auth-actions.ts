@@ -73,8 +73,10 @@ export async function signInWithGoogle() {
         access_type: "offline",
         prompt: "consent",
       },
+      redirectTo: `${process.env.NEXT_PUBLIC_SITE_URL}/auth/callback`
     },
   });
+
 
   if (error) {
     console.log(error);
@@ -83,3 +85,4 @@ export async function signInWithGoogle() {
 
   redirect(data.url);
 }
+

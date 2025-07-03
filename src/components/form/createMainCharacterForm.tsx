@@ -6,7 +6,7 @@ import CreateMainCharacterPureForm from "./pureForm/createMainCharacterPureForm"
 import ListCreatedCharacter from "./pureForm/listCreatedCharacter";
 import { createCharacter, uploadImageAndInsertPath } from "../api/post";
 import { NovelInterface } from "@/interface/novel";
-import { getNovelByAuthorId } from "../api/get";
+import { getNovelByAuthorId, getUserId } from "../api/get";
 import { useRouter } from "next/navigation";
 import { toast } from "react-toastify";
 
@@ -16,25 +16,22 @@ export default function CreateMainCharacterForm({ steps, completed, activeStep, 
     const [characters, setCharacters] = useState<CharacterInterface[]>(
         [] as CharacterInterface[]
     );
-    // get user_id from session
-    const userId = sessionStorage.getItem('user_id');
     const [novelId, setNovelId] = useState('' as string); // Store the novel ID if needed
     const [ownNovels, setOwnNovels] = useState<NovelInterface[]>([]);
 
     const router = useRouter();
-    
 
     useEffect(() => {
         async function fetchNovels() {
+            const userId = await getUserId();
             const novels = await getNovelByAuthorId(userId);
             setOwnNovels(novels);
             if (novels && novels.length > 0) {
                 setNovelId(novels[0].novel_id);
             }
         }
-
         fetchNovels();
-    }, [userId]);
+    }, []);
 
 
     const handleNext = () => {
@@ -141,7 +138,7 @@ export default function CreateMainCharacterForm({ steps, completed, activeStep, 
                 createCharacter(
                     character.name,
                     character.description,
-                    imgPath,
+                    null,
                     novelId
                 ).then((createdCharacter) => {
                     if (createdCharacter) {

@@ -10,41 +10,15 @@ import {
 import { TabsList, TabsTrigger, Tabs } from "@/components/shadcn/tabs"
 import { CharacterInterface } from "@/interface/character";
 import { Check } from "lucide-react";
-import { getImgByPath } from "../api/get";
-import { useEffect, useState } from "react";
 
-export default function CharacterDialog({ characters, handleCharacterSelect, isCharacterSelected }: {
+
+export default function CharacterDialog({ characters, imageMap, handleCharacterSelect, isCharacterSelected }: {
     characters: CharacterInterface[];
+    imageMap: Record<string, string>;
     handleCharacterSelect: (characterId: string) => void;
     isCharacterSelected: (characterId: string) => boolean;
 }) {
-
     const fallbackImg = "/lovecraft_brew.jpeg";
-    const [imageMap, setImageMap] = useState({});
-
-    useEffect(() => {
-        const loadImages = async () => {
-            const newImageMap = {};
-
-            await Promise.all(
-                characters.map(async (character) => {
-                    const path = character.image?.image_path;
-                    if (path) {
-                        const publicUrl = await getImgByPath(path);
-                        newImageMap[character.character_id] = publicUrl || fallbackImg;
-                    } else {
-                        newImageMap[character.character_id] = fallbackImg;
-                    }
-                })
-            );
-
-            setImageMap(newImageMap);
-        };
-
-        loadImages();
-    }, [characters]);
-
-
 
     return (
         <div>

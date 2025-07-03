@@ -1,5 +1,5 @@
 import FeatureChapter from '@/components/carousel/featureChapter';
-import { Coins, User } from 'lucide-react';
+import { Coins} from 'lucide-react';
 import { ChapterInterface } from '@/interface/chapter';
 import NovelCard from '@/components/card/novelCard';
 import { NovelInterface } from '@/interface/novel';
@@ -7,7 +7,7 @@ import { AuthorInterface } from '@/interface/author';
 import { getChapterByAuthorId, getNovelByAuthorId, getProfileById } from '@/components/api/get';
 
 export default async function UserDashboardPage({params}: { params: { id: string } }) {
-  const { id} = params;
+  const { id } = params;
 
   const featureChapters = await getChapterByAuthorId(id) as ChapterInterface[];
   const novels = await getNovelByAuthorId(id) as NovelInterface[];

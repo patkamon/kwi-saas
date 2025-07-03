@@ -31,3 +31,4 @@ export async function GET(request: NextRequest) {
   redirectTo.pathname = '/error'
   return NextResponse.redirect(redirectTo)
 }
+

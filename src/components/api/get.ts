@@ -319,3 +319,21 @@ export async function getUserId(){
 
   return user?.id || null
 }
+
+export async function getCurrentUser(){
+  const { data: { user }, error } = await supabase.auth.getUser()
+  if (error) {
+    return null
+  }
+  if (!user) {
+    return null
+  }
+  if (!user.id) {
+    return null;
+  }
+  const profile = await getProfileById(user.id)
+  if (!profile) {
+    return null
+  }
+  return profile
+}

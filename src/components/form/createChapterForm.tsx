@@ -5,7 +5,7 @@ import { NovelInterface } from '@/interface/novel';
 import { CharacterInterface } from "@/interface/character";
 import { Trash2 } from "lucide-react";
 import { useRouter } from "next/navigation";
-import { getCharacterByNovelId, getNovelByAuthorId } from "../api/get";
+import { getCharacterByNovelId, getImgByPath, getNovelByAuthorId, getUserId } from "../api/get";
 import { createChapter, createChracterChapter, generateNovel } from "../api/post";
 import ReduceCreditDialog from "../dialog/reduceCreditDialog";
 import { toast } from 'react-toastify';
@@ -16,12 +16,7 @@ export default function CreateChapterForm() {
     );
     const [selectedCharacter, setSelectedCharacter] = useState<string[]>([]);
 
-    // get user_id from session
-    const userId = sessionStorage.getItem('user_id');
     const [ownNovels, setOwnNovels] = useState<NovelInterface[]>([]);
-    if (!userId) {
-        throw new Error("User ID not found in session storage");
-    }
     const [formData, setFormData] = useState({
         title: '',
         novel_id: '',
@@ -29,9 +24,36 @@ export default function CreateChapterForm() {
         image: undefined,
         description: ''
     });
+    const [imageMap, setImageMap] = useState({});
+
+    const fallbackImg = "/lovecraft_brew.jpeg";
+
+    useEffect(() => {
+        const loadImages = async () => {
+            const newImageMap = {};
+
+            await Promise.all(
+                characters.map(async (character) => {
+                    const path = character.image?.image_path;
+                    if (path) {
+                        const publicUrl = await getImgByPath(path);
+                        newImageMap[character.character_id] = publicUrl || fallbackImg;
+                    } else {
+                        newImageMap[character.character_id] = fallbackImg;
+                    }
+                })
+            );
+
+            setImageMap(newImageMap);
+        };
+
+        loadImages();
+    }, [characters]);
+
 
     useEffect(() => {
         async function fetchNovels() {
+            const userId = await getUserId();
             const novels = await getNovelByAuthorId(userId);
             setOwnNovels(novels);
             if (novels && novels.length > 0) {
@@ -41,9 +63,8 @@ export default function CreateChapterForm() {
                 });
             }
         }
-
         fetchNovels();
-    }, [userId]);
+    }, []);
 
     useEffect(() => {
         async function fetchCharacter() {
@@ -58,7 +79,7 @@ export default function CreateChapterForm() {
                 setCharacters([]);
                 return;
             }
-            setCharacters(fetchCharacter as CharacterInterface[]);
+            setCharacters(fetchCharacter);
         }
 
         fetchCharacter();
@@ -198,7 +219,7 @@ export default function CreateChapterForm() {
                             <button onClick={() => handleCharacterSelect(selectedCharacter.character_id)} key={selectedCharacter.character_id} className="flex flex-col justify-center items-center mb-2">
                                 <div key={selectedCharacter.character_id} className={`rounded-full hover:bg-gray-500 hover:border-pink-400 relative w-24 h-24 border-2 border-blue-400 group`}>
                                     <img
-                                        src={selectedCharacter.image?.image_path || "/lovecraft_brew.jpeg"}
+                                        src={imageMap[selectedCharacter.character_id] || fallbackImg}
                                         alt={selectedCharacter.name}
                                         className={`mix-blend-multiply w-full h-full object-cover  rounded-full mr-2`}
                                     />
@@ -211,6 +232,7 @@ export default function CreateChapterForm() {
                         }
                         <CharacterDialog
                             characters={characters}
+                            imageMap={imageMap}
                             handleCharacterSelect={handleCharacterSelect}
                             isCharacterSelected={isCharacterSelected}
                         />
