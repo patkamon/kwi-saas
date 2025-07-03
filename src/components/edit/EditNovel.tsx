@@ -3,20 +3,42 @@
 import { ChapterInterface } from "@/interface/chapter";
 import { getLocalDate } from "@/lib/utils";
 import { Dot } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Save } from "lucide-react";
 import { CharacterInterface } from "@/interface/character";
 import { updateChapter } from "../api/put";
 import { useRouter } from "next/navigation";
 import { toast } from "react-toastify";
+import { getImgByPath } from "../api/get";
 
 export default function EditNovel({ chapter, characters }: { chapter: ChapterInterface, characters?: CharacterInterface[] }) {
     const [text, setText] = useState(chapter.content || '' as string);
     const [title, setTitle] = useState(chapter.title || '' as string);
-    
+    const [imageMap, setImageMap] = useState<Record<string, string>>({});
+
     const router = useRouter();
 
-    function callUpdateChapter(){
+    useEffect(() => {
+        const fetchImages = async () => {
+            const images: Record<string, string> = {};
+            if (characters) {
+                for (const character of characters) {
+                    if (character.image) {
+                        const img = await getImgByPath(character.image.image_path);
+                        images[character.character_id] = img || '/lovecraft_brew.jpeg'; // Fallback image
+                    } else {
+                        images[character.character_id] = '/lovecraft_brew.jpeg'; // Fallback image
+                    }
+                }
+            }
+            setImageMap(images);
+        }
+        fetchImages();
+    }
+        , [characters]);
+
+
+    function callUpdateChapter() {
         updateChapter(
             chapter.chapter_id,
             chapter.title,
@@ -35,7 +57,7 @@ export default function EditNovel({ chapter, characters }: { chapter: ChapterInt
         router.push("/")
         window.scrollTo({ top: 0, behavior: 'smooth' }); // Scroll to top after saving
     }
-    
+
     return (
         <section className="py-10 grid grid-cols-4 mx-auto">
             <section className="px-6 py-5 col-span-3">
@@ -53,16 +75,16 @@ export default function EditNovel({ chapter, characters }: { chapter: ChapterInt
 
                 {/* edit toolbar */}
                 {/* <div className='rounded-xl border-1 mt-6'> */}
-                    <div className="my-editor-wrapper mt-4">
-                        <textarea className="bg-blue-50 w-full border-1 rounded-xl p-2"
-                            value={text} 
-                            onChange={(e) => setText(e.target.value || '')} 
-                            style={{ height: 'fit', minHeight: "400px", maxHeight: "800px", overflow: "scroll" }} />
-                    </div>
+                <div className="my-editor-wrapper mt-4">
+                    <textarea className="bg-blue-50 w-full border-1 rounded-xl p-2"
+                        value={text}
+                        onChange={(e) => setText(e.target.value || '')}
+                        style={{ height: 'fit', minHeight: "400px", maxHeight: "800px", overflow: "scroll" }} />
+                </div>
                 {/* </div> */}
             </section>
             <section className="col-span-1 flex flex-col gap-4 w-full">
-                <button onClick={()=>{callUpdateChapter()}}  className="bg-blue-400 w-full mt-6 flex items-center hover:cursor-pointer hover:bg-blue-500 justify-center text-xl py-2 rounded-3xl border-blue-400 border-2 text-white">
+                <button onClick={() => { callUpdateChapter() }} className="bg-blue-400 w-full mt-6 flex items-center hover:cursor-pointer hover:bg-blue-500 justify-center text-xl py-2 rounded-3xl border-blue-400 border-2 text-white">
                     <Save className="mr-2" />
                     บันทึก
                 </button>
@@ -73,7 +95,7 @@ export default function EditNovel({ chapter, characters }: { chapter: ChapterInt
                         {
                             characters?.map((character, index) => (
                                 <div key={index} className="border-2 border-pink-3\200 bg-teal-50 rounded-full p-2 grid grid-cols-5 gap-2 my-2 items-center">
-                                    <img src={character.image?.image_path || "/lovecraft_brew.jpeg"} alt={character.name} className="border-2 border-blue-300 w-16 h-16 col-span-2 rounded-full object-cover" />
+                                    <img src={imageMap[character.character_id] || "/lovecraft_brew.jpeg"} alt={character.name} className="border-2 border-blue-300 w-16 h-16 col-span-2 rounded-full object-cover" />
                                     <div className="col-span-3 h-16">
                                         <h2 className="text-lg font-semibold h-6">{character.name}</h2>
                                         <p className="text-xs font-light text-gray-800 h-10 overflow-hidden text-ellipsis">{character.description}</p>

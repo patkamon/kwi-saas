@@ -14,12 +14,12 @@ export default async function EditPage({ params }: { params: Promise<{ novel_id:
   }
   // fetch chapter and character data on server
   const chapterData: ChapterInterface = await getChapterById(chapter_id);
-  const characters: CharacterInterface[] = (await getCharacterByChapterId(chapter_id)) as unknown as CharacterInterface[];
+  const characters = (await getCharacterByChapterId(chapter_id)) as unknown[];
 
   return (
     <div>
       {/* pass the data as props to client component */}
-      <EditNovel chapter={chapterData} characters={characters} />
+      <EditNovel chapter={chapterData} characters={characters.map((c) => (c as { character: CharacterInterface }).character)} />
     </div>
   );
 }
