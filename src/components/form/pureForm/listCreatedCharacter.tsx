@@ -1,17 +1,24 @@
 import ImageDialog from "@/components/dialog/imageDialog";
 import { CharacterInterface } from "@/interface/character";
 
-export default function ListCreatedCharacter({ characters }: { characters: CharacterInterface[] }) {
+export default function ListCreatedCharacter({ characters, removeCharacter }: { 
+    characters: CharacterInterface[],
+    removeCharacter: (index: number) => void
+}) {
     return (<div className="border-t-2 border-b-2 rounded-md border-blue-200">
         {characters.map((character, index) => (
-            <div className="border-x-2 flex hover:bg-pink-100 border-blue-200 first:rounded-t-md last:rounded-b-md" key={character.id}>
+            <div className="border-x-2 flex hover:bg-pink-100 border-blue-200 first:rounded-t-md last:rounded-b-md" key={character.character_id}>
                 <div className="flex flex-col justify-around items-center mx-4">
                     {/* Cover Image Upload */}
-                    <ImageDialog selected_img={
+                    <ImageDialog disable={true} selected_img={
                         character.image ? character.image?.image_id ?`data:image/png;base64,${character.image.image_path}` // Use base64 if available
                             : URL.createObjectURL(character.image?.image_path)
                             : undefined} />
-                    <button className="px-2 rounded-md border border-pink-400 bg-pink-200 hover:border-2 min-w-16 flex justify-center">ลบ</button>
+                    <button 
+                        onClick={() => removeCharacter(index)}
+                        className="px-2 rounded-md border border-pink-400 bg-pink-200 hover:border-2 min-w-16 flex justify-center">
+                            ลบ
+                    </button>
                 </div>
 
                 <div className="flex flex-col w-full mx-4 my-4 gap-2">

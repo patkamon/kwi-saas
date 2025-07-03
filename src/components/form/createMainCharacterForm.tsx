@@ -75,7 +75,7 @@ export default function CreateMainCharacterForm({ steps, completed, activeStep, 
         }
         else{
             const newCharacter = {
-                id: characters.length + 1,
+                id: Math.random().toString(36).substring(2, 15), // Generate a random ID
                 name,
                 description: description,
                 image: img ? {
@@ -86,6 +86,11 @@ export default function CreateMainCharacterForm({ steps, completed, activeStep, 
             setCharacters([...characters, newCharacter]);
         }
 
+    }
+
+    const removeCharacter = (index) => {
+        console.log("Removing character at index:", index);
+        setCharacters(characters.filter((_, i) => i !== index));
     }
 
     function handleCreateCharacter(){
@@ -185,7 +190,7 @@ export default function CreateMainCharacterForm({ steps, completed, activeStep, 
             <CreateMainCharacterPureForm  addCharacter={addCharacter} />
 
             {/* Character List */}
-            <ListCreatedCharacter characters={characters} />
+            <ListCreatedCharacter characters={characters} removeCharacter={removeCharacter} />
 
 
             { (steps && activeStep) ?

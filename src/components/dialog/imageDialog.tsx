@@ -31,22 +31,23 @@ import { toast } from 'react-toastify';
 // const ASPECT_RATIO = 1;
 // const MIN_DIMENSION = 150;
 
-export default function ImageDialog({ setFormData, selected_img, resetSignal = 0 }:
+export default function ImageDialog({ setFormData, selected_img, resetSignal = 0, disable = false }:
     {
         setFormData: React.Dispatch<React.SetStateAction<Record<string, unknown>>>,
         selected_img?: string | undefined,
         resetSignal?: number
+        disable?: boolean
     }) {
     const [value, setValue] = useState('');
 
     const [imgSrc, setImgSrc] = useState('');
-    const [imagePublicCollection, setImagePublicCollection]= useState([] as ImageInterface[]) ;
+    const [imagePublicCollection, setImagePublicCollection] = useState([] as ImageInterface[]);
     const [imageUploadCollection, setImageUploadCollection] = useState([] as ImageInterface[]);
     const [imageGeneratedCollection, setImageGeneratedCollection] = useState([] as ImageInterface[]);
 
     useEffect(() => {
         setImgSrc(selected_img || "");
-      }, [resetSignal]);
+    }, [resetSignal]);
 
     useEffect(() => {
         async function getImage(type: string, setFunc: React.Dispatch<React.SetStateAction<ImageInterface[]>>) {
@@ -57,7 +58,7 @@ export default function ImageDialog({ setFormData, selected_img, resetSignal = 0
         getImage('upload', setImageUploadCollection)
         getImage('gen', setImageGeneratedCollection)
 
-    },[])
+    }, [])
 
 
     const onSelectFile = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -104,7 +105,7 @@ export default function ImageDialog({ setFormData, selected_img, resetSignal = 0
                 })
                 .catch(reject);
         });
-    
+
         toast.promise(
             wrappedPromise,
             {
@@ -119,8 +120,8 @@ export default function ImageDialog({ setFormData, selected_img, resetSignal = 0
     return (
         <div>
             <label className="block text-sm font-medium mb-1">เลือกรูปภาพ</label>
-            <Dialog>
-                <DialogTrigger asChild>
+            {!disable ? <Dialog>
+                <DialogTrigger>
                     {imgSrc ? <Image
                         src={imgSrc}
                         alt={`Photo by ${imgSrc}`}
@@ -136,17 +137,17 @@ export default function ImageDialog({ setFormData, selected_img, resetSignal = 0
                         className="max-w-32 max-h-40 min-w-32 min-h-40 aspect-[3/4] h-fit w-fit object-cover mx-4 my-2 border-2 border-dashed border-pink-400 p-1"
                         width={256}
                         height={256}
-                   
-                   />}
+
+                    />}
                 </DialogTrigger>
                 <DialogContent className='flex justify-center'>
                     <DialogHeader>
                         <Tabs defaultValue="upload">
                             <DialogTitle>
-                                <TabsList className="grid grid-cols-3">
+                                <TabsList className="grid grid-cols-2">
                                     <TabsTrigger value="upload">อัปโหลด</TabsTrigger>
                                     <TabsTrigger value="ai">AI เจนภาพ</TabsTrigger>
-                                    <TabsTrigger value="collection">คลัง</TabsTrigger>
+                                    {/* <TabsTrigger value="collection">คลัง</TabsTrigger> */}
                                 </TabsList>
                             </DialogTitle>
                             <TabsContent value="upload">
@@ -167,12 +168,10 @@ export default function ImageDialog({ setFormData, selected_img, resetSignal = 0
                                         <h5 className="text-rose-400 text-xs">ใช้ภาษาอังกฤษ</h5>
                                     </div>
                                     <InputTextarea placeholder="Prompt 🪄✨ Be creative" className="px-2 py-1 border bg-blue-50 border-gray-500 rounded-md" value={value} onChange={(e) => setValue(e.target.value)} rows={5} cols={30} />
-                                    
                                     <ReduceCreditDialog cost={1} handleFunction={callGenerateImage} />
-                                    
                                 </div>
                             </TabsContent>
-                            <TabsContent value="collection">
+                            {/* <TabsContent value="collection">
                                 <Label className="text-blue-900" htmlFor="picture">เลือกรูปภาพ: </Label>
                                 <Image
                                     src={imgSrc || selected_img || "/lovecraft_brew.jpeg"}
@@ -245,16 +244,14 @@ export default function ImageDialog({ setFormData, selected_img, resetSignal = 0
                                             <AccordionContent>
                                                 <div className='grid grid-cols-4 gap-2'>
                                                     {imagePublicCollection.map((image, idx) => (
-                                                        <figure key={image.image_id+ "public"} className="shrink-0 truncate flex flex-col justify-center items-center p-1 hover:bg-white rounded-md hover:border-2 hover:border-pink-400" >
-                                                            {/* <div className="overflow-hidden rounded-md"> */}
-                                                                <Image
-                                                                    src={image.image_path || "/lovecraft_brew.jpeg"}
-                                                                    alt={`Photo by ${image.created_by}`}
-                                                                    className="aspect-[3/4] h-full w-full object-cover"
-                                                                    width={256}
-                                                                    height={256}
-                                                                />
-                                                            {/* </div> */}
+                                                        <figure key={image.image_id + "public"} className="shrink-0 truncate flex flex-col justify-center items-center p-1 hover:bg-white rounded-md hover:border-2 hover:border-pink-400" >
+                                                            <Image
+                                                                src={image.image_path || "/lovecraft_brew.jpeg"}
+                                                                alt={`Photo by ${image.created_by}`}
+                                                                className="aspect-[3/4] h-full w-full object-cover"
+                                                                width={256}
+                                                                height={256}
+                                                            />
                                                             <figcaption className="pt-2 text-xs text-muted-foreground">
                                                                 <span className="font-semibold text-foreground">
                                                                     {image.created_by}
@@ -267,7 +264,7 @@ export default function ImageDialog({ setFormData, selected_img, resetSignal = 0
                                         </AccordionItem>
                                     </Accordion>
                                 </ScrollArea>
-                            </TabsContent>
+                            </TabsContent> */}
                             <DialogFooter className="flex justify-end mt-2">
                                 <DialogClose asChild>
                                     <button
@@ -282,6 +279,24 @@ export default function ImageDialog({ setFormData, selected_img, resetSignal = 0
                     </DialogHeader>
                 </DialogContent>
             </Dialog>
+                :
+                imgSrc ? <Image
+                    src={imgSrc}
+                    alt={`Photo by ${imgSrc}`}
+                    className="max-w-32 max-h-40 min-w-32 min-h-40 aspect-[3/4] h-fit w-fit object-cover mx-4 my-2 border-2 border-dashed border-pink-400 p-1"
+                    width={256}
+                    height={256}
+                /> : <Image alt='Selected Image'
+                    src={
+                        selected_img ?
+                            selected_img :
+                            "/lovecraft_brew.jpeg"
+                    }
+                    className="max-w-32 max-h-40 min-w-32 min-h-40 aspect-[3/4] h-fit w-fit object-cover mx-4 my-2 border-2 border-dashed border-pink-400 p-1"
+                    width={256}
+                    height={256}
+
+                />}
         </div>
     )
 }

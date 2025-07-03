@@ -40,7 +40,7 @@ export default function UploadImagelWindow({ imageCollection, imgSrc, onSelectFi
             />
         }
         <InputFile ref={fileInputRef} onChange={onSelectFile} text='Upload File:' />
-        <Label className="text-blue-900" htmlFor="picture">อัปโหลดล่าสุด: </Label>
+        {/* <Label className="text-blue-900" htmlFor="picture">อัปโหลดล่าสุด: </Label>
         <ScrollArea className="max-h-[400px] max-w-[400px] rounded-md border p-4">
             <div className='grid grid-cols-4 gap-2'>
                 {imageCollection.map((image, idx) => (
@@ -62,7 +62,7 @@ export default function UploadImagelWindow({ imageCollection, imgSrc, onSelectFi
                     </figure>
                 ))}
             </div>
-        </ScrollArea>
+        </ScrollArea> */}
     </React.Fragment>
     )
 }
