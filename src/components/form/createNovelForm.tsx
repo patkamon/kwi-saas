@@ -38,8 +38,6 @@ export default function CreateNovelForm({ formData, setFormData, steps, complete
                     : activeStep + 1;
             setActiveStep(newActiveStep);
 
-            // TODO: MIGHT CHANGE THIS
-            console.log(formData)
             if (!formData.image || typeof formData.image === 'string') {
                 // skip uploading image if image_id is already set or not provided
                 createNovel(
@@ -49,7 +47,7 @@ export default function CreateNovelForm({ formData, setFormData, steps, complete
                     formData.image_id ?? "" // Use the image_id from formData if available, fallback to an empty string
                 ).then((res) => {
                     if (res) {
-                        console.log("Novel created successfully:", res);
+                        console.log("Novel created successfully:");
                     } else {
                         console.error("Failed to create novel.");
                     }
@@ -60,7 +58,7 @@ export default function CreateNovelForm({ formData, setFormData, steps, complete
             else {
                 uploadImageAndInsertPath(formData.image, "upload").then((res) => {
                     if (res.success) {
-                        console.log("Image uploaded successfully:", res.image_id);
+                        console.log("Image uploaded successfully:");
                     } else {
                         console.error("Image upload failed:", res.error);
                     }
@@ -72,7 +70,7 @@ export default function CreateNovelForm({ formData, setFormData, steps, complete
                         formData.image_id ?? res.image_id ?? "" // Ensure a fallback to an empty string,
                     ).then((res) => {
                         if (res) {
-                            console.log("Novel created successfully:", res);
+                            console.log("Novel created successfully:");
                         } else {
                             console.error("Failed to create novel.");
                         }

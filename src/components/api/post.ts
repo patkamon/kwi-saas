@@ -42,7 +42,6 @@ type UploadResult = {
 export async function uploadImageAndInsertPath(file: File, type: string): Promise<UploadResult> {
     const { data: { user } } = await supabase.auth.getUser();
 
-    console.log("Uploading image:", file, type);
     let fileExt: string;
     if (type == 'gen'){
       fileExt = 'png'

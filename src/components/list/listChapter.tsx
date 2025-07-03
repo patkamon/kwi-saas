@@ -17,7 +17,6 @@ export default function ListChapter({ novel, chapters }:
         const fetchUserId = async () => {
             const id = await getUserId();
             setUserId(id);
-            console.log("Fetched userId:", id);
         }
         fetchUserId();
     }

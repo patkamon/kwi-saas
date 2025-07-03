@@ -18,7 +18,6 @@ export default function NovelCard(novel: NovelInterface) {
       }
     }
     fetchImage();
-    console.log('NovelCard useEffect', novel.title, img);
   }
   , [novel]);
 

@@ -46,7 +46,7 @@ export default function EditNovel({ chapter, characters }: { chapter: ChapterInt
             chapter.image ? chapter.image.image_id : null
         ).then((data) => {
             if (data) {
-                console.log("Chapter updated successfully:", data);
+                console.log("Chapter updated successfully:");
             } else {
                 console.error("Failed to update chapter");
             }

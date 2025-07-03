@@ -104,8 +104,6 @@ export default function CreateChapterForm() {
     const router = useRouter();
     const handleCreateChapter = async () => {
         const promise = (async () => {
-            console.log("Chapter created!");
-    
             const { success, result } = await createChapter(
                 formData.title,
                 formData.novel_id,
@@ -126,8 +124,6 @@ export default function CreateChapterForm() {
             ).map(
                 (c) => `${c.name} (${c.description})`
             ).join(", ");
-    
-            console.log("Selected Characters:", fullSelectedCharacter);
     
             const content = await generateNovel(
                 selectNovel!.title,

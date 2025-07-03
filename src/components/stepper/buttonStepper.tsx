@@ -11,8 +11,6 @@ export default function ButtonStpper({ activeStep, steps, handleBack, handleNext
     const router = useRouter();
     const handleCreateNovel = (e: React.MouseEvent<HTMLButtonElement>) => {
         e.preventDefault();
-        // Logic to create the novel
-        console.log("Novel created!");
         // route to homepage nextjs
         toast.success("สร้างนิยายสำเร็จ");
         router.push('/');

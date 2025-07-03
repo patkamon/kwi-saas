@@ -2,7 +2,6 @@
 import Box from '@mui/material/Box';
 import { useState } from 'react';
 
-import CreateNovelStepper from '@/components/stepper/createNovelStepper';
 import CreateNovelForm from '@/components/form/createNovelForm';
 import CreateMainCharacterForm from '@/components/form/createMainCharacterForm';
 import CreateChapterForm from '@/components/form/createChapterForm';
@@ -47,7 +46,6 @@ export default function CreateNovelPage() {
   return (
     <div className='mt-8 px-6 pb-8'>
       <Box sx={{ width: '100%' }}>
-        {windowState == "novel" && <CreateNovelStepper steps={steps} activeStep={activeStep} />}
         <div className="flex-1 flex justify-center pb-4 pt-8 px-4">
           {
             windowState == "novel" && 

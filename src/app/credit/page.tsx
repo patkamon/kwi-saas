@@ -32,7 +32,6 @@ export default function BuyCreditsPage() {
           user_id: userId
         }),
       });
-      console.log(selectedPlan)
 
       const data = await res.json();
       if (data.error) {

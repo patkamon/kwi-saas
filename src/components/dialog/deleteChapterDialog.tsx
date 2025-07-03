@@ -22,7 +22,6 @@ export default function DeleteChapterDialog({chapterId}: {
         deleteChapter(chapterId)
             .then((data) => {
                 if (data) {
-                    console.log("Chapter deleted successfully:", data);
                     window.location.reload(); // Reload the page to reflect changes
                 } else {
                     console.error("Failed to delete chapter.");

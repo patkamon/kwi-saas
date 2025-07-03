@@ -270,8 +270,8 @@ export async function getCharacterByChapterId(chapterId: string) {
 
 export async function getImgByPath(imagePath: string) {
   if (!imagePath) {
-    console.error('Image path is empty');
-    return null;
+    // console.log('Image path is empty');
+    return "/lovecraft_brew.jpeg";
   }
 
   //TODO: change to signed

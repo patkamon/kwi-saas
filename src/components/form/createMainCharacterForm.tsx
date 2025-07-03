@@ -69,7 +69,6 @@ export default function CreateMainCharacterForm({ steps, completed, activeStep, 
         img?: string | undefined
         image_id?: string | undefined
     }) => {
-        console.log("Adding character:", name, description, img, image_id);
         if (characters.length >= 3) {
             alert("คุณสามารถเพิ่มตัวละครได้สูงสุด 3 ตัว\nสามารถเพิ่มได้อีก หลังสร้างนิยาย");
             return;
@@ -98,7 +97,6 @@ export default function CreateMainCharacterForm({ steps, completed, activeStep, 
     }
 
     const removeCharacter = (index: number) => {
-        console.log("Removing character at index:", index);
         setCharacters(characters.filter((_, i) => i !== index));
     }
 
@@ -116,7 +114,6 @@ export default function CreateMainCharacterForm({ steps, completed, activeStep, 
                         novelId
                     ).then((createdCharacter) => {
                         if (createdCharacter) {
-                            console.log("Character created successfully:", createdCharacter);
                             toast.success("สร้างตัวละครสำเร็จ");
                             router.push(`/`);
                         } else {
@@ -135,7 +132,6 @@ export default function CreateMainCharacterForm({ steps, completed, activeStep, 
                                 novelId
                             ).then((createdCharacter) => {
                                 if (createdCharacter) {
-                                    console.log("Character created successfully:", createdCharacter);
                                     toast.success("สร้างตัวละครสำเร็จ");
                                     router.push(`/`);
                                 } else {
@@ -156,7 +152,6 @@ export default function CreateMainCharacterForm({ steps, completed, activeStep, 
                     novelId
                 ).then((createdCharacter) => {
                     if (createdCharacter) {
-                        console.log("Character created successfully:", createdCharacter);
                         toast.success("สร้างตัวละครสำเร็จ");
                         router.push(`/`);
                     } else {
