@@ -4,20 +4,17 @@ import { timeAgo } from '@/lib/utils';
 import Link from 'next/link';
 import { getImgByPath } from '../api/get';
 import { useEffect, useState } from 'react';
-
-
+import Image from 'next/image';
 
 export default function NovelCard(novel: NovelInterface) {
 
-  const [img, setImg] = useState<string | undefined>(undefined);
+  const [img, setImg] = useState<string>('/lovecraft_brew.jpg');
 
   useEffect(() => {
     const fetchImage = async () => {
       if (novel.image?.image_path) {
         const imagePath = await getImgByPath(novel.image.image_path);
-        setImg(imagePath);
-      } else {
-        setImg('/default-novel-image.png'); // Set a default image if no image path is provided
+        setImg(imagePath!);
       }
     }
     fetchImage();
@@ -29,10 +26,10 @@ export default function NovelCard(novel: NovelInterface) {
       <Link href={`/novel/${novel.novel_id}`} className="block">
     <div className='grid grid-cols-4 gap-4'>
       <div className='col-span-1'>
-      <img className='w-24 h-32 rounded-xl object-cover' src={img}></img>
+      <Image alt={'cover'} className='w-24 h-32 rounded-xl object-cover' width={100} height={100} src={img}></Image>
       </div>
       <div className='col-span-3'>
-      <div className="flex justify-between items-center ">
+      <div className="flex justify-between items-center">
           <div className="font-semibold text-blue-800">{novel.author ? novel.author.name : "NONAME"}</div>
           <div className="text-xs text-pink-500">{timeAgo(novel.updated_at)}</div>
         </div>
