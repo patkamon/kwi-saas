@@ -2,15 +2,21 @@
 import { useRouter } from "next/navigation";
 import { toast } from "react-toastify";
 
-export default function ButtonStpper({ activeStep, steps, handleBack, handleNext }: {
+export default function ButtonStpper({ activeStep, steps, handleBack, handleNext, onCreateNovel }: {
     activeStep: number;
     steps: string[];
     handleBack: () => void;
     handleNext: () => void;
+    onCreateNovel?: () => void;
 }) {
     const router = useRouter();
     const handleCreateNovel = (e: React.MouseEvent<HTMLButtonElement>) => {
         e.preventDefault();
+        if (onCreateNovel === undefined) {
+            console.error("onCreateNovel function is not provided");
+            return;
+        }
+        onCreateNovel(); // Call the function to create the novel
         // route to homepage nextjs
         toast.success("สร้างนิยายสำเร็จ");
         router.push('/');

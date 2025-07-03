@@ -27,7 +27,6 @@ export default function CreateNovelForm({ formData, setFormData, steps, complete
         const isLastStep = () => {
             return activeStep === totalSteps() - 1;
         };
-
         const form = formRef.current;
         if (form?.checkValidity()) {
             const newActiveStep =
@@ -37,14 +36,19 @@ export default function CreateNovelForm({ formData, setFormData, steps, complete
                     steps.findIndex((step, i) => !(i in completed))
                     : activeStep + 1;
             setActiveStep(newActiveStep);
+        }
+    };
 
+    async function createNovelAndUploadImage(){
+        const form = formRef.current;
+        if (form?.checkValidity()){
             if (!formData.image || typeof formData.image === 'string') {
                 // skip uploading image if image_id is already set or not provided
                 createNovel(
                     formData.title,
                     formData.description,
                     formData.genre,
-                    formData.image_id ?? "" // Use the image_id from formData if available, fallback to an empty string
+                    formData.image_id || undefined // Use the image_id from formData if available, fallback to an empty string
                 ).then((res) => {
                     if (res) {
                         console.log("Novel created successfully:");
@@ -82,7 +86,7 @@ export default function CreateNovelForm({ formData, setFormData, steps, complete
         } else {
             form?.reportValidity();
         }
-    };
+    }
 
     const handleBack = () => {
         setActiveStep(Math.max(activeStep - 1, 0));
@@ -97,7 +101,7 @@ export default function CreateNovelForm({ formData, setFormData, steps, complete
             </p>
             {/* Form */}
             <CreateNovelPureForm setFormData={setFormData} formRef={formRef} />
-            <ButtonStpper steps={steps} activeStep={activeStep} handleNext={handleNext} handleBack={handleBack} />
+            <ButtonStpper steps={steps} onCreateNovel={createNovelAndUploadImage} activeStep={activeStep} handleNext={handleNext} handleBack={handleBack} />
         </div>
     )
 }

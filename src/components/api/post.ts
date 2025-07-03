@@ -8,7 +8,7 @@ export async function createNovel(
   title: string,
   description: string,
   genre: string,
-  image_id: string,
+  image_id?: string,
 ) {
   const { data: { user } } = await supabase.auth.getUser();
 
