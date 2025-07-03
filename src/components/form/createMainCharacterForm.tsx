@@ -24,8 +24,8 @@ export default function CreateMainCharacterForm({ steps, completed, activeStep, 
     useEffect(() => {
         async function fetchNovels() {
             const userId = await getUserId();
-            const novels = await getNovelByAuthorId(userId);
-            setOwnNovels(novels);
+            const novels = await getNovelByAuthorId(userId!);
+            setOwnNovels(novels!);
             if (novels && novels.length > 0) {
                 setNovelId(novels[0].novel_id);
             }
@@ -62,9 +62,9 @@ export default function CreateMainCharacterForm({ steps, completed, activeStep, 
         setActiveStep(Math.max(activeStep - 1, 0));
     };
 
-    const addCharacter = ({name, description , img, image_id} : { 
-        name: string, 
-        description: string, 
+    const addCharacter = ({ name, description, img, image_id }: {
+        name: string,
+        description: string,
         img?: string | undefined
         image_id?: string | undefined
     }) => {
@@ -73,9 +73,9 @@ export default function CreateMainCharacterForm({ steps, completed, activeStep, 
             alert("คุณสามารถเพิ่มตัวละครได้สูงสุด 3 ตัว\nสามารถเพิ่มได้อีก หลังสร้างนิยาย");
             return;
         }
-        else{
+        else {
             const newCharacter = {
-                id: Math.random().toString(36).substring(2, 15), // Generate a random ID
+                character_id: Math.random().toString(36).substring(2, 15), // Generate a random ID
                 name,
                 description: description,
                 image: img ? {
@@ -88,15 +88,15 @@ export default function CreateMainCharacterForm({ steps, completed, activeStep, 
 
     }
 
-    const removeCharacter = (index) => {
+    const removeCharacter = (index: number) => {
         console.log("Removing character at index:", index);
         setCharacters(characters.filter((_, i) => i !== index));
     }
 
-    function handleCreateCharacter(){
+    function handleCreateCharacter() {
         characters.forEach((character) => {
             let img_id = null
-            if (character.image){
+            if (character.image) {
                 // already upload image (gen)
                 if (character.image.image_id) {
                     // skip upload if image_id is already present
@@ -115,7 +115,7 @@ export default function CreateMainCharacterForm({ steps, completed, activeStep, 
                         }
                     })
                 }
-                else{ // upload image
+                else { // upload image
                     uploadImageAndInsertPath(character.image.image_path, "upload").then((results) => {
                         if (results) {
                             img_id = results.image_id;
@@ -139,7 +139,7 @@ export default function CreateMainCharacterForm({ steps, completed, activeStep, 
                         console.error("Error uploading image:", error);
                     });
                 }
-            }else{ // no image
+            } else { // no image
                 createCharacter(
                     character.name,
                     character.description,
@@ -157,7 +157,7 @@ export default function CreateMainCharacterForm({ steps, completed, activeStep, 
             }
         })
 
-           
+
     }
 
     return (
@@ -168,47 +168,47 @@ export default function CreateMainCharacterForm({ steps, completed, activeStep, 
             </p>
 
             <div className="flex justify-end items-center gap-4 mb-4">
-                    <label className="block text-xl font-medium mb-1" htmlFor="novel">
-                        นิยาย:
-                    </label>
-                    <select
-                        id="novel"
-                        className="w-[30%] border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring focus:border-blue-400"
-                        onChange={(e) => {
-                            setNovelId(e.target.value);
-                        }}
-                    >
-                        {ownNovels.map((novel) => (
-                            <option key={novel.novel_id} value={novel.novel_id}>{novel.title}</option>
-                        ))
-                        }
-                    </select>
-                </div>
+                <label className="block text-xl font-medium mb-1" htmlFor="novel">
+                    นิยาย:
+                </label>
+                <select
+                    id="novel"
+                    className="w-[30%] border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring focus:border-blue-400"
+                    onChange={(e) => {
+                        setNovelId(e.target.value);
+                    }}
+                >
+                    {ownNovels.map((novel) => (
+                        <option key={novel.novel_id} value={novel.novel_id}>{novel.title}</option>
+                    ))
+                    }
+                </select>
+            </div>
 
 
             {/* Form */}
-            <CreateMainCharacterPureForm  addCharacter={addCharacter} />
+            <CreateMainCharacterPureForm addCharacter={addCharacter} />
 
             {/* Character List */}
             <ListCreatedCharacter characters={characters} removeCharacter={removeCharacter} />
 
 
-            { (steps && activeStep) ?
-            (
-                <ButtonStpper steps={steps} activeStep={activeStep} handleNext={handleNext} handleBack={handleBack} />
-            ) :
-            (
-            <div className="flex justify-end">
-                <button
-                    type="submit"
-                    onClick={handleCreateCharacter}
-                    className="px-4 py-2 mt-4 bg-black text-white rounded-md hover:bg-gray-900 hover:cursor-pointer"
-                >สร้าง</button>
-            </div>
-            )
+            {(steps && activeStep) ?
+                (
+                    <ButtonStpper steps={steps} activeStep={activeStep} handleNext={handleNext} handleBack={handleBack} />
+                ) :
+                (
+                    characters.length > 0 && <div className="flex justify-end">
+                        <button
+                            type="submit"
+                            onClick={handleCreateCharacter}
+                            className="px-4 py-2 mt-4 bg-black text-white rounded-md hover:bg-gray-900 hover:cursor-pointer"
+                        >สร้าง</button>
+                    </div>
+                )
             }
 
-          
+
         </div>
     )
 }

@@ -4,8 +4,8 @@ import CreateNovelPureForm from "./pureForm/createNovelPureForm";
 import { createNovel, uploadImageAndInsertPath } from "../api/post";
 
 export default function CreateNovelForm({ formData, setFormData, steps, completed, activeStep, setActiveStep }:
-    { formData: Record<string, any>, // Adjust type as needed
-      setFormData: Dispatch<React.SetStateAction<Record<string, any>>>,
+    { formData: Record<string, unknown>, // Adjust type as needed
+      setFormData: Dispatch<React.SetStateAction<Record<string, unknown>>>,
       steps: string[],
       completed: Record<number, boolean>,
       activeStep: number, 
