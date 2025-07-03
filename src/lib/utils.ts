@@ -6,7 +6,7 @@ export function timeAgo(dateString: string) {
     const rtf = new Intl.RelativeTimeFormat('en', { numeric: 'auto' })
     const now = new Date()
     const date = new Date(dateString)
-    const diff = (now - date) / 1000 // in seconds
+    const diff = (now.getTime() - date.getTime()) / 1000 // in seconds
   
     const intervals = {
       year: 31536000,
@@ -21,7 +21,7 @@ export function timeAgo(dateString: string) {
     for (const [unit, secondsInUnit] of Object.entries(intervals)) {
       const delta = Math.floor(diff / secondsInUnit)
       if (delta >= 1) {
-        return rtf.format(-delta, unit)
+        return rtf.format(-delta, unit as Intl.RelativeTimeFormatUnit)
       }
     }
   

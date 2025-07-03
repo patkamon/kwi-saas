@@ -6,9 +6,12 @@ import { NovelInterface } from '@/interface/novel';
 import { AuthorInterface } from '@/interface/author';
 import { getChapterByAuthorId, getNovelByAuthorId, getProfileById } from '@/components/api/get';
 
-export default async function UserDashboardPage({params}: { params: { id: string } }) {
-  const { id } = params;
+type Params = Promise<{ slug: string[] }>;
 
+
+export default async function UserDashboardPage({ params }: { params: Params }) {
+  const { slug } = await params;
+  const id = slug[0];
   const featureChapters = await getChapterByAuthorId(id) as ChapterInterface[];
   const novels = await getNovelByAuthorId(id) as NovelInterface[];
   const profile = await getProfileById(id) as AuthorInterface;

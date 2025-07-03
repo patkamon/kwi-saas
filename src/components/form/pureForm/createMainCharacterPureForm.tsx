@@ -1,11 +1,18 @@
 'use client';
 
+import { MyFormState } from "@/app/create/page";
 import ImageDialog from "@/components/dialog/imageDialog";
 import { useState } from "react";
 
-export default function CreateMainCharacterPureForm({ addCharacter }: { addCharacter: (e: any) => void }) {
-
-    const [img, setImg] = useState<{ image?: string, image_id?:string } | undefined>({});
+export default function CreateMainCharacterPureForm({ addCharacter }: { addCharacter: ({ name, description, img, image_id }: { name: string; description: string; img?: string; image_id?: string }) => void }) {
+    
+    const [img, setImg] = useState<MyFormState>({ 
+        image: undefined, 
+        image_id: undefined, 
+        title: "", 
+        description: "", 
+        genre: "" 
+    });
     const [resetCounter, setResetCounter] = useState(0);
 
     function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
@@ -15,13 +22,19 @@ export default function CreateMainCharacterPureForm({ addCharacter }: { addChara
         const details = ((form as HTMLFormElement).elements.namedItem("details") as HTMLInputElement | null)?.value;
 
         addCharacter({
-            name,
-            description: details,
+            name: name || "",
+            description: details || "",
             img: img?.image,
             image_id: img?.image_id
         });
         (form as HTMLFormElement).reset();
-        setImg({}); // Reset the image state after submission
+        setImg({ 
+            image: undefined, 
+            image_id: undefined, 
+            title: "", 
+            description: "", 
+            genre: "" 
+        }); // Reset the image state after submission
         setResetCounter(prev => prev + 1); // Increment reset counter to trigger re-render
     }
 

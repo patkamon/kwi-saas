@@ -2,9 +2,9 @@
 
 import Stripe from 'stripe';
 
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
+const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!);
 
-export async function POST(request) {
+export async function POST(request: Request) {
   try {
     const body = await request.json();
     console.log(body)
@@ -40,7 +40,7 @@ export async function POST(request) {
     return Response.json({ id: session.id });
   } catch (err) {
     console.error(err);
-    return new Response(JSON.stringify({ error: err.message }), {
+    return new Response(JSON.stringify({ error: (err as Error)?.message }), {
       status: 500,
     });
   }

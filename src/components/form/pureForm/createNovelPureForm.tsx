@@ -2,16 +2,16 @@ import ImageDialog from "@/components/dialog/imageDialog";
 import { Dispatch, RefObject } from "react";
 import { GenreOption } from '@/interface/genre';
 import genreList from '@/data/genres.json' assert { type: 'json' };
+import { MyFormState } from "@/app/create/page";
 
 
-export default function CreateNovelPureForm({ formData, setFormData, formRef }: { 
-    formData: Record<string, any>, // Adjust type as needed
-    setFormData: Dispatch<React.SetStateAction<Record<string, any>>>,
+export default function CreateNovelPureForm({ setFormData, formRef }: { 
+    setFormData: Dispatch<React.SetStateAction<MyFormState>>,
     formRef?: RefObject<HTMLFormElement | null> }) {
 
     const items = genreList as GenreOption[];
 
-    function setBack(key, value){
+    function setBack(key: string, value: string){
         if (key === "genre"){
             const selectedGenre = items.find((item) => item.name === value);
             if (selectedGenre) {
@@ -26,7 +26,10 @@ export default function CreateNovelPureForm({ formData, setFormData, formRef }: 
 
 
     return (
-        <form onChange={(e)=> {setBack(e.target.id, e.target.value)}} className="space-y-6" ref={formRef}>
+        <form onChange={(e)=> { 
+            const target = e.target as HTMLInputElement | HTMLSelectElement;
+            setBack(target.id, target.value);
+        }} className="space-y-6" ref={formRef}>
             {/* Title */}
             <div>
                 <label className="block text-sm font-medium mb-1" htmlFor="title">

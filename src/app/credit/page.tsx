@@ -5,10 +5,10 @@ import plansData from '@/data/plans.json' assert { type: 'json' };
 import { loadStripe } from '@stripe/stripe-js';
 import { getUserId } from '@/components/api/get';
 
-const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLIC_KEY);
+const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLIC_KEY!);
 
 export default function BuyCreditsPage() {
-  const [plans, setPlans] = useState(plansData as Plan[]);
+  const [plans, setPlans] = useState(plansData as unknown as Plan[]);
 
   function onSelectPlan(selectedPlan: Plan) {
     const updatedPlans = plans.map(plan =>
@@ -41,7 +41,7 @@ export default function BuyCreditsPage() {
       }
       
       const stripe = await stripePromise;
-      stripe.redirectToCheckout({ sessionId: data.id });
+      stripe!.redirectToCheckout({ sessionId: data.id });
   
   };
 

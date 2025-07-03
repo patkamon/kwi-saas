@@ -15,15 +15,14 @@ import { InputTextarea } from 'primereact/inputtextarea';
 import { Label } from "@/components/shadcn/label"
 import { generateImage } from "../api/post";
 import UploadImagelWindow from "../window/uploadImageWindow";
-import { getPublicImageUrls } from "../api/get";
-import { ImageInterface } from "@/interface/image";
 import ReduceCreditDialog from "./reduceCreditDialog";
 import { toast } from 'react-toastify';
+import { MyFormState } from "@/app/create/page";
 
 
 export default function ImageDialog({ setFormData, selected_img, resetSignal = 0, disable = false }:
     {
-        setFormData?: React.Dispatch<React.SetStateAction<Record<string, unknown>>>,
+        setFormData?: React.Dispatch<React.SetStateAction<MyFormState>>,
         selected_img?: string | undefined,
         resetSignal?: number
         disable?: boolean
@@ -32,23 +31,23 @@ export default function ImageDialog({ setFormData, selected_img, resetSignal = 0
 
     const [imgSrc, setImgSrc] = useState('');
     // const [imagePublicCollection, setImagePublicCollection] = useState([] as ImageInterface[]);
-    const [imageUploadCollection, setImageUploadCollection] = useState([] as ImageInterface[]);
+    // const [imageUploadCollection, setImageUploadCollection] = useState([] as ImageInterface[]);
     // const [imageGeneratedCollection, setImageGeneratedCollection] = useState([] as ImageInterface[]);
 
     useEffect(() => {
         setImgSrc(selected_img || "");
     }, [resetSignal]);
 
-    useEffect(() => {
-        async function getImage(type: string, setFunc: React.Dispatch<React.SetStateAction<ImageInterface[]>>) {
-            const data = await getPublicImageUrls(type)
-            setFunc(data);
-        }
-        // getImage('public', setImagePublicCollection)
-        getImage('upload', setImageUploadCollection)
-        // getImage('gen', setImageGeneratedCollection)
+    // useEffect(() => {
+    //     async function getImage(type: string, setFunc: React.Dispatch<React.SetStateAction<ImageInterface[]>>) {
+    //         const data = await getPublicImageUrls(type)
+    //         setFunc(data);
+    //     }
+    //     // getImage('public', setImagePublicCollection)
+    //     // getImage('upload', setImageUploadCollection)
+    //     // getImage('gen', setImageGeneratedCollection)
 
-    }, [])
+    // }, [])
 
 
     const onSelectFile = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -70,7 +69,7 @@ export default function ImageDialog({ setFormData, selected_img, resetSignal = 0
 
                 setImgSrc(imageUrl); // show preview
                 if (setFormData) {
-                    setFormData((prev) => ({ ...prev, image: file })); // store file for upload
+                    setFormData((prev) => ({ ...prev, image: imageUrl })); // store file's data URL for upload
                 }
             };
             img.src = imageUrl;
@@ -145,7 +144,7 @@ export default function ImageDialog({ setFormData, selected_img, resetSignal = 0
                                 </TabsList>
                             </DialogTitle>
                             <TabsContent value="upload">
-                                <UploadImagelWindow imageCollection={imageUploadCollection} imgSrc={imgSrc || selected_img || "/lovecraft_brew.jpeg"} onSelectFile={onSelectFile} />
+                                <UploadImagelWindow imgSrc={imgSrc || selected_img || "/lovecraft_brew.jpeg"} onSelectFile={onSelectFile} />
                             </TabsContent>
                             <TabsContent value="ai">
                                 <div className="flex flex-col w-[24rem]">
