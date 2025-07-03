@@ -6,22 +6,23 @@ import { NovelInterface } from '@/interface/novel';
 import { AuthorInterface } from '@/interface/author';
 import { getChapterByAuthorId, getNovelByAuthorId, getProfileById } from '@/components/api/get';
 
-type Params = Promise<{ slug: string[] }>;
 
+export default async function UserDashboardPage({ params }:  { params: Promise<{ id: string }> }) {
+  const { id } = await params;
 
-export default async function UserDashboardPage({ params }: { params: Params }) {
-  const { slug } = await params;
-  const id = slug[0];
-  const featureChapters = await getChapterByAuthorId(id) as ChapterInterface[];
-  const novels = await getNovelByAuthorId(id) as NovelInterface[];
+  if (!id) {
+    return <div>Profile ID is required</div>;
+  }
+  // Fetch profile information
   const profile = await getProfileById(id) as AuthorInterface;
+  const novels = await getNovelByAuthorId(id) as NovelInterface[];
+  const featureChapters = await getChapterByAuthorId(id) as ChapterInterface[];
 
   return (
     <div>
 
       <main className="px-6 py-10 max-w-5xl mx-auto">
-        {/* User Info */}
-        <div className="flex items-center space-x-4 mb-10">
+        {profile &&<div className="flex items-center space-x-4 mb-10">
           <img src={profile.image?.image_path || "/lovecraft_brew.jpeg"} className=' rounded-full w-36 h-36 p-2 bg-pink-300' />
           <div>
             <h2 className="text-xl font-bold text-blue-900">{profile.name}</h2>
@@ -31,7 +32,7 @@ export default async function UserDashboardPage({ params }: { params: Params }) 
               <span>{profile.credit} Credits</span>
             </div>
           </div>
-        </div>
+        </div>}
       </main>
 
 

@@ -3,11 +3,12 @@ import ListChapter from '@/components/list/listChapter';
 import { ChapterInterface } from '@/interface/chapter';
 import { NovelInterface } from '@/interface/novel';
 
-type Params = Promise<{ slug: string[] }>;
 
-export default async function NovelPage({ params }: { params: Params }){
-  const { slug } = await params;
-  const novel_id = slug[0];
+export default async function NovelPage({ params }: { params: Promise<{ novel_id: string }> }){
+  const {novel_id} = await params
+  if (!novel_id) {
+    return <div>Novel ID is required</div>;
+  }
   const novel = await getNovelById(novel_id) as NovelInterface;
   const chapters = await getChaptersByNovelId(novel_id) as ChapterInterface[];
 

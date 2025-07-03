@@ -5,12 +5,13 @@ import { getChapterById, getCharacterByChapterId } from '@/components/api/get';
 import { ChapterInterface } from '@/interface/chapter';
 import { CharacterInterface } from '@/interface/character';
 
-type Params = Promise<{ slug: string[] }>;
 
-export default async function EditPage({ params }: { params: Params }) {
-
-const { slug } = await params;
-const [, chapter_id] = slug;
+export default async function EditPage({ params }: { params: Promise<{ novel_id: string, chapter_id: string }> }) {
+  
+  const { novel_id, chapter_id } = await params;
+  if (!novel_id || !chapter_id) {
+    return <div>Novel ID and Chapter ID are required</div>;
+  }
   // fetch chapter and character data on server
   const chapterData: ChapterInterface = await getChapterById(chapter_id);
   const characters: CharacterInterface[] = (await getCharacterByChapterId(chapter_id)) as unknown as CharacterInterface[];

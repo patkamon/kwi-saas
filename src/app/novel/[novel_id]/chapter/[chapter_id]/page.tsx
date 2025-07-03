@@ -4,13 +4,13 @@ import { Menu } from 'lucide-react';
 import Link from 'next/link';
 import { getChapterById } from '@/components/api/get';
 
-type Params = Promise<{ slug: string[] }>;
 
 
-export default async function ChapterPage({ params }: { params: Params }) {
-  const {slug} = await params;
-  const novel_id = slug[0]; // Assuming novel_id is the first segment in the slug array
-  const chapter_id = slug[1]; // Assuming chapter_id is the second segment in the slug array
+export default async function ChapterPage({ params }: { params: Promise<{novel_id: string, chapter_id: string }> }) {
+  const {novel_id, chapter_id} = await params;
+  if (!novel_id || !chapter_id) {
+    return <div>Novel ID and Chapter ID are required</div>;
+  }
   const chapter = await getChapterById(chapter_id) as ChapterInterface
 
   return (
