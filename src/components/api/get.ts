@@ -298,6 +298,11 @@ export async function getPublicImageUrls(type: string) {
     return []
   }
 
+  if (!supabase_url) {
+    console.error('Supabase URL is not defined');
+    return []
+  }
+
   const publicUrls = data.map(img => {
     return {
     ...img,
