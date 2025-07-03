@@ -268,7 +268,7 @@ export async function getCharacterByChapterId(chapterId: string) {
   return data
 }
 
-export async function getImgByPath(imagePath: string) {
+export async function getImgByPath(imagePath: string | null) {
   if (!imagePath) {
     // console.log('Image path is empty');
     return "/lovecraft_brew.jpeg";

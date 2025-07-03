@@ -12,7 +12,7 @@ export default async function NovelPage({ params }: { params: Promise<{ novel_id
   const novel = await getNovelById(novel_id) as NovelInterface;
   const chapters = await getChaptersByNovelId(novel_id) as ChapterInterface[];
 
-  const img = await getImgByPath(novel.image?.image_path);
+  const img = await getImgByPath(novel.image?.image_path || null);
 
   return (
     <div>
