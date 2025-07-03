@@ -8,7 +8,7 @@ import Image from 'next/image';
 
 export default function NovelCard(novel: NovelInterface) {
 
-  const [img, setImg] = useState<string>('/lovecraft_brew.jpg');
+  const [img, setImg] = useState<string>('/lovecraft_brew.jpeg');
 
   useEffect(() => {
     const fetchImage = async () => {
@@ -18,6 +18,7 @@ export default function NovelCard(novel: NovelInterface) {
       }
     }
     fetchImage();
+    console.log('NovelCard useEffect', novel.title, img);
   }
   , [novel]);
 
