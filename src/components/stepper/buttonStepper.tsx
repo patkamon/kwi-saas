@@ -34,7 +34,7 @@ export default function ButtonStpper({ activeStep, steps, handleBack, handleNext
                     type="submit"
                     onClick={handleCreateNovel}
                     className="px-4 py-2 bg-black text-white rounded-md hover:bg-gray-900 hover:cursor-pointer"
-                    >Create</button>
+                    >สร้าง</button>
                     :
                     <button
                     onClick={handleNext}

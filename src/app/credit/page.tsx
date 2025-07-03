@@ -49,7 +49,7 @@ export default function BuyCreditsPage() {
     <div >
       {/* Buy Credits Section */}
       <div className="px-6 py-10 max-w-4xl mx-auto">
-        <h2 className="text-2xl font-bold mb-6 text-blue-900">Buy Credits</h2>
+        <h2 className="text-2xl font-bold mb-6 text-blue-900">ซื้อ Credits</h2>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-10">
           {plans.map((plan, idx) => (
             <div
@@ -66,7 +66,7 @@ export default function BuyCreditsPage() {
         </div>
 
         {/* Credit History */}
-        <section className="mb-10">
+        {/* <section className="mb-10">
           <h3 className="text-2xl font-bold mb-4 text-blue-900">Credit History</h3>
           <div className="space-y-3 bg-gray-50 rounded-xl p-4">
             <div className="flex justify-between text-sm border-b pb-2">
@@ -91,11 +91,8 @@ export default function BuyCreditsPage() {
               <div className="text-green-600 font-semibold">+350 Credits</div>
             </div>
           </div>
-        </section>
+        </section> */}
       </div>
-
-
-
     </div>
   );
 }

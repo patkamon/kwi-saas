@@ -116,13 +116,13 @@ export default function CreateMainCharacterForm({ steps, completed, activeStep, 
                     })
                 }
                 else { // upload image
-                    uploadImageAndInsertPath(character.image.image_path, "upload").then((results) => {
+                    uploadImageAndInsertPath(character.image.image_path as unknown as File, "upload").then((results) => {
                         if (results) {
                             img_id = results.image_id;
                             createCharacter(
                                 character.name,
                                 character.description,
-                                img_id,
+                                img_id!,
                                 novelId
                             ).then((createdCharacter) => {
                                 if (createdCharacter) {
