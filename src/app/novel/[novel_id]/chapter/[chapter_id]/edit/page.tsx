@@ -1,22 +1,24 @@
-import { ChapterInterface } from "@/interface/chapter";
-import { getChapterById, getCharacterByChapterId } from "@/components/api/get";
-import EditNovel from "@/components/edit/EditNovel";
-import { CharacterInterface } from "@/interface/character";
+// app/novel/[novel_id]/chapter/[chapter_id]/page.tsx
 
+import EditNovel from '@/components/edit/EditNovel';
+import { getChapterById, getCharacterByChapterId } from '@/components/api/get';
+import { ChapterInterface } from '@/interface/chapter';
+import { CharacterInterface } from '@/interface/character';
 
-export default async function EditPage({params}: { params: { novel_id: string, chapter_id: string } }) {
-    // const [characters, setCharacters] = useState(characterList.slice(3, 8) as CharacterInterface[]);
-    const chapterData = await getChapterById(params.chapter_id)
-    const characters = await getCharacterByChapterId(params.chapter_id);
+type Params = Promise<{ slug: string[] }>;
 
-    console.log("Characters for chapter:", characters?.map((c)=>c.character) );
+export default async function EditPage({ params }: { params: Params }) {
 
-    return (
-        <div>
-                <EditNovel 
-                    chapter={chapterData as ChapterInterface}
-                    characters={characters?.map((c)=>c.character) as CharacterInterface[]}
-                    />
-        </div>
-    );
+const { slug } = await params;
+const [, chapter_id] = slug;
+  // fetch chapter and character data on server
+  const chapterData: ChapterInterface = await getChapterById(chapter_id);
+  const characters: CharacterInterface[] = (await getCharacterByChapterId(chapter_id)) as unknown as CharacterInterface[];
+
+  return (
+    <div>
+      {/* pass the data as props to client component */}
+      <EditNovel chapter={chapterData} characters={characters} />
+    </div>
+  );
 }

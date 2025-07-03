@@ -4,15 +4,20 @@ import { Menu } from 'lucide-react';
 import Link from 'next/link';
 import { getChapterById } from '@/components/api/get';
 
-export default async function ChapterPage({ params }: { params: Promise<{ novel_id: string, chapter_id: string }> }) {
-  const { chapter_id } = await (params);
+type Params = Promise<{ slug: string[] }>;
+
+
+export default async function ChapterPage({ params }: { params: Params }) {
+  const {slug} = await params;
+  const novel_id = slug[0]; // Assuming novel_id is the first segment in the slug array
+  const chapter_id = slug[1]; // Assuming chapter_id is the second segment in the slug array
   const chapter = await getChapterById(chapter_id) as ChapterInterface
 
   return (
     <div>
       <main className="px-6 py-10 max-w-5xl mx-auto">
         <section className="px-6 py-5 bg-blue-200  rounded-t-md flex items-center">
-          <Link href={`/novel/${params.novel_id}`}><Menu className='mr-4 hover:cursor-pointer' /></Link>
+          <Link href={`/novel/${novel_id}`}><Menu className='mr-4 hover:cursor-pointer' /></Link>
           <h1 className='text-xl'>{chapter.title}</h1>
         </section>
 

@@ -180,7 +180,7 @@ export async function generateNovel(title: string, genre: string, characters: st
   const {data: {user}} = await supabase.auth.getUser();
   const { data, error } = await supabase.functions.invoke("quick-task", {
     body: {
-      user_id: user.id,
+      user_id: user?.id || null,
       novel_id,
       title,
       genre,
@@ -203,7 +203,7 @@ export async function generateImage(prompt: string, model?: string) {
     body: {
       prompt: prompt, // <- your prompt
       model: model ? model :'dark-sushi-mix-v2-25',
-      user_id: user.id
+      user_id: user?.id || null
     }
   });
 

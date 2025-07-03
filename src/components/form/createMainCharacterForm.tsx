@@ -9,6 +9,7 @@ import { NovelInterface } from "@/interface/novel";
 import { getNovelByAuthorId, getUserId } from "../api/get";
 import { useRouter } from "next/navigation";
 import { toast } from "react-toastify";
+import { ImageInterface } from "@/interface/image";
 
 export default function CreateMainCharacterForm({ steps, completed, activeStep, setActiveStep }:
     { steps?: string[], completed?: Record<number, boolean>, activeStep?: number, setActiveStep?: (step: number) => void }) {
@@ -74,14 +75,22 @@ export default function CreateMainCharacterForm({ steps, completed, activeStep, 
             return;
         }
         else {
-            const newCharacter = {
+            const newCharacter: CharacterInterface = {
                 character_id: Math.random().toString(36).substring(2, 15), // Generate a random ID
                 name,
                 description: description,
-                image: img ? {
+                novel_id: novelId,
+                image_id: image_id || undefined,
+                created_at: new Date().toISOString(),
+                updated_at: new Date().toISOString(),
+                image: {
                     image_path: img,
                     image_id: image_id,
-                } : undefined,
+                    created_at: new Date().toISOString(),
+                    updated_at: new Date().toISOString(),
+                    created_by: "system", // Replace with appropriate value if available
+                    type: "character_image", // Replace with appropriate value if available
+                } as ImageInterface
             };
             setCharacters([...characters, newCharacter]);
         }

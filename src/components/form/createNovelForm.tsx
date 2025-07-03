@@ -2,10 +2,11 @@ import { Dispatch, useRef } from "react";
 import ButtonStpper from "../stepper/buttonStepper";
 import CreateNovelPureForm from "./pureForm/createNovelPureForm";
 import { createNovel, uploadImageAndInsertPath } from "../api/post";
+import { MyFormState } from "@/app/create/page";
 
 export default function CreateNovelForm({ formData, setFormData, steps, completed, activeStep, setActiveStep }:
-    { formData: Record<string, unknown>, // Adjust type as needed
-      setFormData: Dispatch<React.SetStateAction<Record<string, unknown>>>,
+    { formData: MyFormState, // Adjust type as needed
+      setFormData: Dispatch<React.SetStateAction<MyFormState>>,
       steps: string[],
       completed: Record<number, boolean>,
       activeStep: number, 
@@ -45,7 +46,7 @@ export default function CreateNovelForm({ formData, setFormData, steps, complete
                     formData.title,
                     formData.description,
                     formData.genre,
-                    formData.image_id || undefined // Use the image_id from formData if available
+                    formData.image_id ?? "" // Use the image_id from formData if available, fallback to an empty string
                 ).then((res) => {
                     if (res) {
                         console.log("Novel created successfully:", res);
@@ -68,7 +69,7 @@ export default function CreateNovelForm({ formData, setFormData, steps, complete
                         formData.title,
                         formData.description,
                         formData.genre,
-                        formData.image_id || res.image_id // Use the image_id from the upload result,
+                        formData.image_id ?? res.image_id ?? "" // Ensure a fallback to an empty string,
                     ).then((res) => {
                         if (res) {
                             console.log("Novel created successfully:", res);
@@ -97,7 +98,7 @@ export default function CreateNovelForm({ formData, setFormData, steps, complete
                 กรอกข้อมูลนิยายของคุณ เช่น ชื่อเรื่อง ประเภท และคำอธิบาย เพื่อเริ่มต้นการสร้างนิยายใหม่
             </p>
             {/* Form */}
-            <CreateNovelPureForm formData={formData} setFormData={setFormData} formRef={formRef} />
+            <CreateNovelPureForm setFormData={setFormData} formRef={formRef} />
             <ButtonStpper steps={steps} activeStep={activeStep} handleNext={handleNext} handleBack={handleBack} />
         </div>
     )

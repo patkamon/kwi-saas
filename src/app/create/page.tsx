@@ -7,6 +7,14 @@ import CreateNovelForm from '@/components/form/createNovelForm';
 import CreateMainCharacterForm from '@/components/form/createMainCharacterForm';
 import CreateChapterForm from '@/components/form/createChapterForm';
 
+export interface MyFormState {
+  title: string;
+  description: string;
+  genre: string;
+  image_id?: string;  // or null, or string | undefined, but be consistent
+  image?: string;
+}
+
 export default function CreateNovelPage() {
   const [activeStep, setActiveStep] = useState(0);
   const [windowState, setWindowState] = useState("novel"); // can be 'novel', 'chapter', or 'character'
@@ -14,13 +22,13 @@ export default function CreateNovelPage() {
     [k: number]: boolean;
   }>({});
 
-  const [formData, setFormData] = useState({
+  const [formData, setFormData] = useState<MyFormState>({
     title: '',
     description: '',
     genre: 'fantasy',
     image_id: undefined,
     image: undefined,
-  });
+  })
 
   const steps = [
     'Create Novel',

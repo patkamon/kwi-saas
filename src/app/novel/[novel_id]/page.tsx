@@ -3,9 +3,11 @@ import ListChapter from '@/components/list/listChapter';
 import { ChapterInterface } from '@/interface/chapter';
 import { NovelInterface } from '@/interface/novel';
 
+type Params = Promise<{ slug: string[] }>;
 
-export default async function NovelPage({ params } : { params: { novel_id: string } }) {
-  const {novel_id} = params;
+export default async function NovelPage({ params }: { params: Params }){
+  const { slug } = await params;
+  const novel_id = slug[0];
   const novel = await getNovelById(novel_id) as NovelInterface;
   const chapters = await getChaptersByNovelId(novel_id) as ChapterInterface[];
 
@@ -17,7 +19,7 @@ export default async function NovelPage({ params } : { params: { novel_id: strin
         <section className="px-6 pb-8">
           <div className="grid gap-4">
             <div key={novel.novel_id} className="p-6 shadow rounded-xl space-y-1 bg-linear-to-r/srgb from-indigo-200 to-pink-200 flex gap-6">
-              <img src={img} className='rounded-xl w-36 h-48 aspect-[3/4] object-cover' />
+              <img src={img || ''} className='rounded-xl w-36 h-48 aspect-[3/4] object-cover' />
               <div className='flex flex-col'>
                 <div className="font-semibold text-3xl">{novel.title}</div>
                 <div className="text-xs text-gray-500">อัปเดท: {novel.updated_at}</div>

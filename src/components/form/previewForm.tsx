@@ -11,8 +11,8 @@ import ConfigurationPureForm from "./pureForm/configurationPureForm";
 export default function PreviewForm({ steps, completed, activeStep, setActiveStep }:
     { steps: string[], completed: Record<number, boolean>, activeStep: number, setActiveStep: (step: number) => void }) {
 
-    const [characters, setCharacters] = useState<CharacterInterface[]>(
-        characterList as CharacterInterface[]
+    const [characters] = useState<CharacterInterface[]>(
+        characterList as unknown as CharacterInterface[]
     );
 
     const handleNext = () => {
@@ -54,7 +54,9 @@ export default function PreviewForm({ steps, completed, activeStep, setActiveSte
                     <p className="text-sm text-gray-600 mb-8">
                         กรอกข้อมูลนิยายของคุณ เช่น ชื่อเรื่อง ประเภท และคำอธิบาย เพื่อเริ่มต้นการสร้างนิยายใหม่
                     </p>
-                    <CreateNovelPureForm />
+                    <CreateNovelPureForm setFormData={function (): void {
+                        throw new Error("Function not implemented.");
+                    } } />
                 </section>
 
                 <Separator className="my-4" />
@@ -65,7 +67,9 @@ export default function PreviewForm({ steps, completed, activeStep, setActiveSte
                         สร้างตัวละครหลักสำหรับนิยายของคุณ มากสุด 3 (สามารถเพิ่มได้อีกหลังจากสร้างนิยายแล้ว)
                     </p>
 
-                    <ListCreatedCharacter characters={characters} />
+                    <ListCreatedCharacter characters={characters} removeCharacter={function (): void {
+                        throw new Error("Function not implemented.");
+                    } } />
                 </section>
 
                 <Separator className="my-4" />
