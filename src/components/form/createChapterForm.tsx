@@ -9,6 +9,7 @@ import { getCharacterByNovelId, getImgByPath, getNovelByAuthorId, getUserId } fr
 import { createChapter, createChracterChapter, generateNovel } from "../api/post";
 import ReduceCreditDialog from "../dialog/reduceCreditDialog";
 import { toast } from 'react-toastify';
+import Image from "next/image";
 
 export default function CreateChapterForm() {
     const [characters, setCharacters] = useState<CharacterInterface[]>(
@@ -24,13 +25,13 @@ export default function CreateChapterForm() {
         image: undefined,
         description: ''
     });
-    const [imageMap, setImageMap] = useState({});
+    const [imageMap, setImageMap] = useState<Record<string, string>>({});
 
     const fallbackImg = "/lovecraft_brew.jpeg";
 
     useEffect(() => {
         const loadImages = async () => {
-            const newImageMap = {};
+            const newImageMap: Record<string, string> = {};
 
             await Promise.all(
                 characters.map(async (character) => {
@@ -54,7 +55,7 @@ export default function CreateChapterForm() {
     useEffect(() => {
         async function fetchNovels() {
             const userId = await getUserId();
-            const novels = await getNovelByAuthorId(userId);
+            const novels = await getNovelByAuthorId(userId as unknown as string) as NovelInterface[];
             setOwnNovels(novels);
             if (novels && novels.length > 0) {
                 setFormData({
@@ -115,7 +116,7 @@ export default function CreateChapterForm() {
             if (!success) throw new Error("Failed to create chapter");
     
             await createChracterChapter(
-                result.chapter_id,
+                result!.chapter_id,
                 selectedCharacter
             );
     
@@ -129,17 +130,17 @@ export default function CreateChapterForm() {
             console.log("Selected Characters:", fullSelectedCharacter);
     
             const content = await generateNovel(
-                selectNovel?.title,
-                selectNovel?.genre,
+                selectNovel!.title,
+                selectNovel!.genre,
                 fullSelectedCharacter,
                 " ชื่อตอน " + formData.title + ", " + formData.description,
                 formData.novel_id,
-                result.chapter_id
+                result!.chapter_id
             );
     
             setFormData((prev) => ({ ...prev, content }));
     
-            return result.chapter_id; // used for redirect after
+            return result!.chapter_id; // used for redirect after
         })();
     
         try {
@@ -215,11 +216,13 @@ export default function CreateChapterForm() {
                         ตัวละครที่ปรากฏในตอนนี้  (ไม่จำเป็นต้องระบุ)
                     </label>
                     <div className="mt-2 grid grid-cols-6 gap-2">
-                        {characters.filter(character => selectedCharacter.includes(character.character_id)).map((selectedCharacter, index) => (
+                        {characters.filter(character => selectedCharacter.includes(character.character_id)).map((selectedCharacter) => (
                             <button onClick={() => handleCharacterSelect(selectedCharacter.character_id)} key={selectedCharacter.character_id} className="flex flex-col justify-center items-center mb-2">
                                 <div key={selectedCharacter.character_id} className={`rounded-full hover:bg-gray-500 hover:border-pink-400 relative w-24 h-24 border-2 border-blue-400 group`}>
-                                    <img
+                                    <Image
                                         src={imageMap[selectedCharacter.character_id] || fallbackImg}
+                                        width={96}
+                                        height={96}
                                         alt={selectedCharacter.name}
                                         className={`mix-blend-multiply w-full h-full object-cover  rounded-full mr-2`}
                                     />

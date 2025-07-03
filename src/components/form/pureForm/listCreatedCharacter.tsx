@@ -12,7 +12,7 @@ export default function ListCreatedCharacter({ characters, removeCharacter }: {
                     {/* Cover Image Upload */}
                     <ImageDialog disable={true} selected_img={
                         character.image ? character.image?.image_id ?`data:image/png;base64,${character.image.image_path}` // Use base64 if available
-                            : URL.createObjectURL(character.image?.image_path)
+                            : URL.createObjectURL(character.image?.image_path as unknown as Blob | MediaSource)
                             : undefined} />
                     <button 
                         onClick={() => removeCharacter(index)}

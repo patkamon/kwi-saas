@@ -12,14 +12,7 @@ import Image from 'next/image';
 import React, { useEffect, useState } from "react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/shadcn/tabs"
 import { InputTextarea } from 'primereact/inputtextarea';
-import { ScrollArea } from "@/components/shadcn/scroll-area"
 import { Label } from "@/components/shadcn/label"
-import {
-    Accordion,
-    AccordionContent,
-    AccordionItem,
-    AccordionTrigger,
-} from "@/components/shadcn/accordion"
 import { generateImage } from "../api/post";
 import UploadImagelWindow from "../window/uploadImageWindow";
 import { getPublicImageUrls } from "../api/get";
@@ -28,12 +21,9 @@ import ReduceCreditDialog from "./reduceCreditDialog";
 import { toast } from 'react-toastify';
 
 
-// const ASPECT_RATIO = 1;
-// const MIN_DIMENSION = 150;
-
 export default function ImageDialog({ setFormData, selected_img, resetSignal = 0, disable = false }:
     {
-        setFormData: React.Dispatch<React.SetStateAction<Record<string, unknown>>>,
+        setFormData?: React.Dispatch<React.SetStateAction<Record<string, unknown>>>,
         selected_img?: string | undefined,
         resetSignal?: number
         disable?: boolean
@@ -41,9 +31,9 @@ export default function ImageDialog({ setFormData, selected_img, resetSignal = 0
     const [value, setValue] = useState('');
 
     const [imgSrc, setImgSrc] = useState('');
-    const [imagePublicCollection, setImagePublicCollection] = useState([] as ImageInterface[]);
+    // const [imagePublicCollection, setImagePublicCollection] = useState([] as ImageInterface[]);
     const [imageUploadCollection, setImageUploadCollection] = useState([] as ImageInterface[]);
-    const [imageGeneratedCollection, setImageGeneratedCollection] = useState([] as ImageInterface[]);
+    // const [imageGeneratedCollection, setImageGeneratedCollection] = useState([] as ImageInterface[]);
 
     useEffect(() => {
         setImgSrc(selected_img || "");
@@ -54,9 +44,9 @@ export default function ImageDialog({ setFormData, selected_img, resetSignal = 0
             const data = await getPublicImageUrls(type)
             setFunc(data);
         }
-        getImage('public', setImagePublicCollection)
+        // getImage('public', setImagePublicCollection)
         getImage('upload', setImageUploadCollection)
-        getImage('gen', setImageGeneratedCollection)
+        // getImage('gen', setImageGeneratedCollection)
 
     }, [])
 
@@ -79,7 +69,9 @@ export default function ImageDialog({ setFormData, selected_img, resetSignal = 0
                 }
 
                 setImgSrc(imageUrl); // show preview
-                setFormData((prev) => ({ ...prev, image: file })); // store file for upload
+                if (setFormData) {
+                    setFormData((prev) => ({ ...prev, image: file })); // store file for upload
+                }
             };
             img.src = imageUrl;
         };
@@ -93,11 +85,13 @@ export default function ImageDialog({ setFormData, selected_img, resetSignal = 0
                 .then((res) => {
                     if (res) {
                         setImgSrc(`data:image/png;base64,${res.image}`);
-                        setFormData((prev) => ({
-                            ...prev,
-                            image_id: res.image_id,
-                            image: res.image
-                        }));
+                        if (setFormData){
+                            setFormData((prev) => ({
+                                ...prev,
+                                image_id: res.image_id,
+                                image: res.image
+                            }));
+                        }
                         resolve(res);
                     } else {
                         reject(new Error("No response from generateImage"));

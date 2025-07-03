@@ -3,12 +3,9 @@ import { InputFile } from '@/components/shadcn/inputFile';
 import { Label } from "@/components/shadcn/label"
 import Image from 'next/image';
 import React, { useRef } from 'react';
-import { ScrollArea } from "@/components/shadcn/scroll-area"
-import { ImageInterface } from '@/interface/image';
 
-
-export default function UploadImagelWindow({ imageCollection, imgSrc, onSelectFile }: { imageCollection: ImageInterface[], imgSrc?: string | null | undefined, onSelectFile: (e: React.ChangeEvent<HTMLInputElement>) => void }) {
-    const fileInputRef = useRef(null);
+export default function UploadImageWindow({ imgSrc, onSelectFile }: { imgSrc?: string | null | undefined, onSelectFile: (e: React.ChangeEvent<HTMLInputElement>) => void }) {
+    const fileInputRef = useRef<HTMLInputElement>(null);
 
     const handleImageClick = () => {
         // Trigger the hidden file input click
